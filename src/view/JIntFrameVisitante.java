@@ -5,17 +5,29 @@
  */
 package view;
 
+import control.VisitanteCTR;
+import java.awt.GridLayout;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.domain.Visitante;
+
 /**
  *
  * @author anderson
  */
 public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
+    private VisitanteCTR visitanteCTR;
+    
     /**
      * Creates new form jIntFrameVisitante
      */
     public JIntFrameVisitante() {
+
         initComponents();
+        visitanteCTR = new VisitanteCTR();
+        exibir();
+        
     }
 
     /**
@@ -26,61 +38,228 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        jComboBoxPesq = new javax.swing.JComboBox<>();
-        jTextFieldPesquisa = new javax.swing.JTextField();
-        jButtonPesquisa = new javax.swing.JButton();
+        jLabelPesq = new javax.swing.JLabel();
+        jTextFieldPesq = new javax.swing.JTextField();
+        jButtonPesq = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableVisitante = new javax.swing.JTable();
+        jButtonNovo = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonFechar = new javax.swing.JButton();
+        jLabelCod = new javax.swing.JLabel();
+        jLabelNome = new javax.swing.JLabel();
+        jLabelCPF = new javax.swing.JLabel();
+        jLabelRG = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jTextField2 = new javax.swing.JTextField();
 
         setClosable(true);
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jComboBoxPesq.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabelPesq.setText("PESQ:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
+        getContentPane().add(jLabelPesq, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 100;
+        getContentPane().add(jTextFieldPesq, gridBagConstraints);
 
-        jTextFieldPesquisa.setText("jTextField1");
+        jButtonPesq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Procurar.gif"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(jButtonPesq, gridBagConstraints);
 
-        jButtonPesquisa.setText("jButton1");
+        jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableVisitante);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jComboBoxPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonPesquisa)
-                .addGap(0, 19, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jComboBoxPesq)
-                .addComponent(jButtonPesquisa)
-                .addComponent(jTextFieldPesquisa))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.ipadx = 450;
+        gridBagConstraints.ipady = 200;
+        getContentPane().add(jScrollPane1, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 369, Short.MAX_VALUE))
-        );
+        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novo.gif"))); // NOI18N
+        jButtonNovo.setText("NOVO");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.ipady = 30;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jButtonNovo, gridBagConstraints);
+
+        jButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salvar.gif"))); // NOI18N
+        jButtonSalvar.setText("SALVAR");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.ipady = 30;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jButtonSalvar, gridBagConstraints);
+
+        jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/deletar.gif"))); // NOI18N
+        jButtonExcluir.setText("EXCLUIR");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.ipady = 30;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jButtonExcluir, gridBagConstraints);
+
+        jButtonFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.gif"))); // NOI18N
+        jButtonFechar.setText("FECHAR");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.ipady = 30;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        getContentPane().add(jButtonFechar, gridBagConstraints);
+
+        jLabelCod.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelCod.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabelCod.setText("CODIGO:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        getContentPane().add(jLabelCod, gridBagConstraints);
+
+        jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelNome.setText("NOME:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        getContentPane().add(jLabelNome, gridBagConstraints);
+
+        jLabelCPF.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelCPF.setText("CPF:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        getContentPane().add(jLabelCPF, gridBagConstraints);
+
+        jLabelRG.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelRG.setText("RG:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        getContentPane().add(jLabelRG, gridBagConstraints);
+
+        jLabel5.setText("jLabel5");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        getContentPane().add(jLabel5, gridBagConstraints);
+
+        jTextField1.setText("jTextField1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jTextField1, gridBagConstraints);
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jFormattedTextField1, gridBagConstraints);
+
+        jTextField2.setText("jTextField2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jTextField2, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonPesquisa;
-    private javax.swing.JComboBox<String> jComboBoxPesq;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldPesquisa;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonFechar;
+    private javax.swing.JButton jButtonNovo;
+    private javax.swing.JButton jButtonPesq;
+    private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelCPF;
+    private javax.swing.JLabel jLabelCod;
+    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabelPesq;
+    private javax.swing.JLabel jLabelRG;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableVisitante;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextFieldPesq;
     // End of variables declaration//GEN-END:variables
+
+    public void exibir(){
+        
+        jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(150); 
+        jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(200);
+
+        DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
+
+        visitanteCTR.getVisitantesTabela().forEach((v) -> {
+            modelTable.addRow(new Object[] {
+                v.getId(),
+                v.getCpf(),
+                v.getRg(),
+                v.getNome()});
+        });
+
+    }
+
+
 }
