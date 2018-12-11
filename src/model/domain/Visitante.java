@@ -5,12 +5,17 @@
  */
 package model.domain;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.MaskFormatter;
+
 /**
  *
  * @author anderson
  */
 public class Visitante {
-    
+
     private int id;
     private String cpf;
     private String rg;
@@ -25,6 +30,17 @@ public class Visitante {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFormatadoCpf() {
+        try {
+            MaskFormatter formatter = new MaskFormatter("###.###.###-##");
+            formatter.setValueContainsLiteralCharacters(false);
+            cpf = formatter.valueToString(cpf);
+        } catch (ParseException ex) {
+            Logger.getLogger(Visitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cpf;
     }
 
     public String getCpf() {
@@ -50,5 +66,5 @@ public class Visitante {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
 }

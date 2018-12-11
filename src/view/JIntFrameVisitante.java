@@ -7,8 +7,22 @@ package view;
 
 import control.VisitanteCTR;
 import java.awt.GridLayout;
+import java.text.ParseException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.MaskFormatter;
 import model.domain.Visitante;
 
 /**
@@ -18,6 +32,7 @@ import model.domain.Visitante;
 public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     private VisitanteCTR visitanteCTR;
+    private Boolean status; //true = inserir; false = salvar;
     
     /**
      * Creates new form jIntFrameVisitante
@@ -25,9 +40,14 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     public JIntFrameVisitante() {
 
         initComponents();
+        status = false;
         visitanteCTR = new VisitanteCTR();
-        exibir();
-        
+        exibirInicialTela();
+        DocumentFilter filter = new UppercaseDocumentFilter();
+        ((AbstractDocument) jTextFieldPesq.getDocument()).setDocumentFilter(filter);
+        ((AbstractDocument) jTextFieldRG.getDocument()).setDocumentFilter(filter);
+        ((AbstractDocument) jTextFieldNome.getDocument()).setDocumentFilter(filter);
+
     }
 
     /**
@@ -42,7 +62,6 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
         jLabelPesq = new javax.swing.JLabel();
         jTextFieldPesq = new javax.swing.JTextField();
-        jButtonPesq = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVisitante = new javax.swing.JTable();
         jButtonNovo = new javax.swing.JButton();
@@ -53,58 +72,77 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jLabelNome = new javax.swing.JLabel();
         jLabelCPF = new javax.swing.JLabel();
         jLabelRG = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jLabelCodigo = new javax.swing.JLabel();
+        jTextFieldRG = new javax.swing.JTextField();
+        jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
+        jTextFieldNome = new javax.swing.JTextField();
 
         setClosable(true);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(600, 550));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabelPesq.setText("PESQ:");
+        jLabelPesq.setText("PESQUISA:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
         getContentPane().add(jLabelPesq, gridBagConstraints);
+
+        jTextFieldPesq.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldPesqKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPesqKeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridwidth = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 100;
         getContentPane().add(jTextFieldPesq, gridBagConstraints);
 
-        jButtonPesq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Procurar.gif"))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 0;
-        getContentPane().add(jButtonPesq, gridBagConstraints);
-
         jTableVisitante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "CPF", "RG", "NOME"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVisitanteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableVisitante);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.ipadx = 450;
+        gridBagConstraints.ipadx = 460;
         gridBagConstraints.ipady = 200;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novo.gif"))); // NOI18N
         jButtonNovo.setText("NOVO");
+        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -116,6 +154,11 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
         jButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salvar.gif"))); // NOI18N
         jButtonSalvar.setText("SALVAR");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -155,7 +198,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         getContentPane().add(jLabelCod, gridBagConstraints);
 
         jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -165,7 +208,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         getContentPane().add(jLabelNome, gridBagConstraints);
 
         jLabelCPF.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -175,7 +218,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         getContentPane().add(jLabelCPF, gridBagConstraints);
 
         jLabelRG.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -185,81 +228,194 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
         getContentPane().add(jLabelRG, gridBagConstraints);
-
-        jLabel5.setText("jLabel5");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
-        getContentPane().add(jLabel5, gridBagConstraints);
+        getContentPane().add(jLabelCodigo, gridBagConstraints);
 
-        jTextField1.setText("jTextField1");
+        jTextFieldRG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jTextField1, gridBagConstraints);
+        getContentPane().add(jTextFieldRG, gridBagConstraints);
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        try {
+            jFormattedTextFieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldCPF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jFormattedTextField1, gridBagConstraints);
+        getContentPane().add(jFormattedTextFieldCPF, gridBagConstraints);
 
-        jTextField2.setText("jTextField2");
+        jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jTextField2, gridBagConstraints);
+        getContentPane().add(jTextFieldNome, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVisitanteMouseClicked
+        // TODO add your handling code here:
+
+        preencheCampo(visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0)));
+
+    }//GEN-LAST:event_jTableVisitanteMouseClicked
+
+    private void jTextFieldPesqKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesqKeyPressed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jTextFieldPesqKeyPressed
+
+    private void jTextFieldPesqKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesqKeyReleased
+
+// TODO add your handling code here:
+        exibirPesquisa(jTextFieldPesq.getText().toUpperCase());
+
+    }//GEN-LAST:event_jTextFieldPesqKeyReleased
+
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        // TODO add your handling code here:
+
+        novoReg();
+
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        // TODO add your handling code here:
+
+        if(
+                (jFormattedTextFieldCPF.getValue() == null)
+                || 
+                (jTextFieldRG.getText().trim().length() == 0)
+                || 
+                (jTextFieldNome.getText().trim().length() == 0)
+                ){
+            
+            JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! HÁ CAMPOS NULOS! POR FAVOR, PREENCHA TODOS OS CAMPOS.");
+        }
+        else{
+            if(status){
+                Visitante visitante = new Visitante();
+                visitante.setId(Integer.parseInt(jLabelCodigo.getText()));
+                visitante.setCpf(jFormattedTextFieldCPF.getText().replaceAll("\\.", "").replaceAll("-", ""));
+                visitante.setRg(jTextFieldRG.getText());
+                visitante.setNome(jTextFieldNome.getText());
+                visitanteCTR.inserirReg(visitante);
+            }
+            else{
+                
+            }
+        }
+        
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonFechar;
     private javax.swing.JButton jButtonNovo;
-    private javax.swing.JButton jButtonPesq;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCod;
+    private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelPesq;
     private javax.swing.JLabel jLabelRG;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableVisitante;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPesq;
+    private javax.swing.JTextField jTextFieldRG;
     // End of variables declaration//GEN-END:variables
 
-    public void exibir(){
-        
+    public void exibirInicialTela() {
+
         jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(150); 
+        jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(120);
         jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(200);
 
         DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
+        modelTable.setNumRows(0);
 
         visitanteCTR.getVisitantesTabela().forEach((v) -> {
-            modelTable.addRow(new Object[] {
+            modelTable.addRow(new Object[]{
                 v.getId(),
-                v.getCpf(),
+                v.getFormatadoCpf(),
                 v.getRg(),
                 v.getNome()});
         });
 
+        jTableVisitante.addRowSelectionInterval(0, 0);
+        preencheCampo(visitanteCTR.getVisitantesTabela().get(0));
+
     }
 
+    public void preencheCampo(Visitante v) {
+        jLabelCodigo.setText(String.valueOf(v.getId()));
+        jFormattedTextFieldCPF.setText(v.getCpf());
+        jTextFieldRG.setText(v.getRg());
+        jTextFieldNome.setText(v.getNome());
+    }
 
+    public void exibirPesquisa(String valor) {
+
+        TableRowSorter<DefaultTableModel> tr;
+        tr = new TableRowSorter<DefaultTableModel>((DefaultTableModel) jTableVisitante.getModel());
+        jTableVisitante.setRowSorter(tr);
+
+        tr.setRowFilter(RowFilter.regexFilter(valor));
+
+    }
+
+    public void novoReg() {
+
+        status = true;
+        jButtonNovo.setEnabled(false);
+
+        DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
+        modelTable.insertRow(0, new Object[]{
+            visitanteCTR.ultimoReg().getId() + 1,
+            "",
+            "",
+            ""});
+        jTableVisitante.clearSelection();
+        jTableVisitante.addRowSelectionInterval(0, 0);
+
+        jLabelCodigo.setText(String.valueOf(visitanteCTR.ultimoReg().getId() + 1));
+        jFormattedTextFieldCPF.setText("");
+        jTextFieldRG.setText("");
+        jTextFieldNome.setText("");
+
+    }
+
+}
+
+class UppercaseDocumentFilter extends DocumentFilter {
+    public void insertString(DocumentFilter.FilterBypass fb, int offset,
+            String text, AttributeSet attr) throws BadLocationException {
+
+        fb.insertString(offset, text.toUpperCase(), attr);
+    }
+
+    public void replace(DocumentFilter.FilterBypass fb, int offset, int length,
+            String text, AttributeSet attrs) throws BadLocationException {
+
+        fb.replace(offset, length, text.toUpperCase(), attrs);
+    }
 }

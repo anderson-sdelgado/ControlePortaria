@@ -15,20 +15,27 @@ import model.domain.Visitante;
  */
 public class VisitanteCTR {
 
-    private List<Visitante> visitantesTabela;
     private VisitanteDAO visitanteDAO;
 
     public VisitanteCTR() {
-        
         visitanteDAO = new VisitanteDAO();
-        visitantesTabela = visitanteDAO.visitantesTabela();
-        
     }
 
     public List<Visitante> getVisitantesTabela() {
-        return visitantesTabela;
+        return visitanteDAO.getVisitantesTabela();
     }
     
+    public Visitante getPesqVisitante(Integer valor) {
+        return visitanteDAO.pesqVisitante(valor);
+    }
     
+    public Visitante ultimoReg(){
+        return visitanteDAO.ultimoReg();
+    }
+    
+    public Boolean inserirReg(Visitante v){
+        visitanteDAO.inserirReg(v);
+        return true;
+    }
     
 }
