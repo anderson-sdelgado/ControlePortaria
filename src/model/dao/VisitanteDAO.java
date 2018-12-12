@@ -102,9 +102,12 @@ public class VisitanteDAO {
                     + " , '" + v.getNome() + "' "
                     + " , SYSDATE)";
 
-            System.out.println(sql);
             r = stmt.executeUpdate(sql);
 
+            if(r != 0){
+                visitantesTabela.add(0, v);
+            }
+            
             if (stmt != null) {
                 stmt.close();
             }

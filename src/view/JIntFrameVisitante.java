@@ -33,7 +33,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     private VisitanteCTR visitanteCTR;
     private Boolean status; //true = inserir; false = salvar;
-    
+
     /**
      * Creates new form jIntFrameVisitante
      */
@@ -283,7 +283,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private void jTextFieldPesqKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesqKeyReleased
 
 // TODO add your handling code here:
-        exibirPesquisa(jTextFieldPesq.getText().toUpperCase());
+        exibirPesquisa(jTextFieldPesq.getText());
 
     }//GEN-LAST:event_jTextFieldPesqKeyReleased
 
@@ -297,30 +297,29 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
 
-        if(
-                (jFormattedTextFieldCPF.getValue() == null)
-                || 
-                (jTextFieldRG.getText().trim().length() == 0)
-                || 
-                (jTextFieldNome.getText().trim().length() == 0)
-                ){
-            
+        if ((jFormattedTextFieldCPF.getValue() == null)
+                || (jTextFieldRG.getText().trim().length() == 0)
+                || (jTextFieldNome.getText().trim().length() == 0)) {
             JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! HÁ CAMPOS NULOS! POR FAVOR, PREENCHA TODOS OS CAMPOS.");
-        }
-        else{
-            if(status){
+        } else {
+            if (status) {
                 Visitante visitante = new Visitante();
                 visitante.setId(Integer.parseInt(jLabelCodigo.getText()));
                 visitante.setCpf(jFormattedTextFieldCPF.getText().replaceAll("\\.", "").replaceAll("-", ""));
                 visitante.setRg(jTextFieldRG.getText());
                 visitante.setNome(jTextFieldNome.getText());
-                visitanteCTR.inserirReg(visitante);
-            }
-            else{
-                
+                if (visitanteCTR.inserirReg(visitante)) {
+                    DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
+                    modelTable.setValueAt(jFormattedTextFieldCPF.getText(), 0, 1);
+                    modelTable.setValueAt(jTextFieldRG.getText(), 0, 2);
+                    modelTable.setValueAt(jTextFieldNome.getText(), 0, 3);
+                    JOptionPane.showMessageDialog(null, "O REGISTRO SALVO COM SUCESSO!");
+                }
+            } else {
+
             }
         }
-        
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
 
@@ -368,9 +367,10 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     public void preencheCampo(Visitante v) {
         jLabelCodigo.setText(String.valueOf(v.getId()));
-        jFormattedTextFieldCPF.setText(v.getCpf());
-        jTextFieldRG.setText(v.getRg());
-        jTextFieldNome.setText(v.getNome());
+        jFormattedTextFieldCPF.setText(v.getCpf() != null ? v.getCpf() : "");
+        jTextFieldRG.setText(v.getRg() != null ? v.getRg() : "");
+        jTextFieldNome.setText(v.getNome() != null ? v.getNome() : "");
+        
     }
 
     public void exibirPesquisa(String valor) {
@@ -378,7 +378,6 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         TableRowSorter<DefaultTableModel> tr;
         tr = new TableRowSorter<DefaultTableModel>((DefaultTableModel) jTableVisitante.getModel());
         jTableVisitante.setRowSorter(tr);
-
         tr.setRowFilter(RowFilter.regexFilter(valor));
 
     }
@@ -407,15 +406,14 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 }
 
 class UppercaseDocumentFilter extends DocumentFilter {
+
     public void insertString(DocumentFilter.FilterBypass fb, int offset,
             String text, AttributeSet attr) throws BadLocationException {
-
         fb.insertString(offset, text.toUpperCase(), attr);
     }
 
     public void replace(DocumentFilter.FilterBypass fb, int offset, int length,
             String text, AttributeSet attrs) throws BadLocationException {
-
         fb.replace(offset, length, text.toUpperCase(), attrs);
     }
 }
