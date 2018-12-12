@@ -297,26 +297,31 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
 
-        if ((jFormattedTextFieldCPF.getValue() == null)
-                || (jTextFieldRG.getText().trim().length() == 0)
-                || (jTextFieldNome.getText().trim().length() == 0)) {
-            JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! HÁ CAMPOS NULOS! POR FAVOR, PREENCHA TODOS OS CAMPOS.");
+        if ((jTextFieldNome.getText().trim().length() == 0)) {
+            JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! POR FAVOR, PREENCHA O CAMPO NOME DO VISITANTE.");
         } else {
+            Visitante visitante = new Visitante();
+            visitante.setId(Integer.parseInt(jLabelCodigo.getText()));
+            visitante.setCpf(jFormattedTextFieldCPF.getText().replaceAll("\\.", "").replaceAll("-", ""));
+            visitante.setRg(jTextFieldRG.getText());
+            visitante.setNome(jTextFieldNome.getText());
             if (status) {
-                Visitante visitante = new Visitante();
-                visitante.setId(Integer.parseInt(jLabelCodigo.getText()));
-                visitante.setCpf(jFormattedTextFieldCPF.getText().replaceAll("\\.", "").replaceAll("-", ""));
-                visitante.setRg(jTextFieldRG.getText());
-                visitante.setNome(jTextFieldNome.getText());
                 if (visitanteCTR.inserirReg(visitante)) {
-                    DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
-                    modelTable.setValueAt(jFormattedTextFieldCPF.getText(), 0, 1);
-                    modelTable.setValueAt(jTextFieldRG.getText(), 0, 2);
-                    modelTable.setValueAt(jTextFieldNome.getText(), 0, 3);
+                    atualizarTabela(0);
+                    status = false;
+                    jButtonNovo.setEnabled(true);
                     JOptionPane.showMessageDialog(null, "O REGISTRO SALVO COM SUCESSO!");
+                } else {
+                    status = true;
+                    JOptionPane.showMessageDialog(null, "FALHA NA INSERÇÃO DO DADOS! POR FAVOR, TENTE NOVAMENTE.");
                 }
             } else {
-
+                if (visitanteCTR.atualizarReg(visitante)) {
+                    atualizarTabela(jTableVisitante.getSelectedRow());
+                    JOptionPane.showMessageDialog(null, "O REGISTRO FOI ATUALIZADO COM SUCESSO!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "FALHA NA ATUALIZAÇÃO DOS DADOS! POR FAVOR, TENTE NOVAMENTE.");
+                }
             }
         }
 
@@ -367,10 +372,10 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     public void preencheCampo(Visitante v) {
         jLabelCodigo.setText(String.valueOf(v.getId()));
-        jFormattedTextFieldCPF.setText(v.getCpf() != null ? v.getCpf() : "");
-        jTextFieldRG.setText(v.getRg() != null ? v.getRg() : "");
-        jTextFieldNome.setText(v.getNome() != null ? v.getNome() : "");
-        
+        jFormattedTextFieldCPF.setText(v.getCpf().equals("NULL") ? "" : v.getCpf());
+        jTextFieldRG.setText(v.getRg() == null ? "" : v.getRg());
+        jTextFieldNome.setText(v.getNome() == null ? "" : v.getNome());
+
     }
 
     public void exibirPesquisa(String valor) {
@@ -401,6 +406,13 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTextFieldRG.setText("");
         jTextFieldNome.setText("");
 
+    }
+
+    public void atualizarTabela(int pos) {
+        DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
+        modelTable.setValueAt(jFormattedTextFieldCPF.getText(), pos, 1);
+        modelTable.setValueAt(jTextFieldRG.getText(), pos, 2);
+        modelTable.setValueAt(jTextFieldNome.getText(), pos, 3);
     }
 
 }

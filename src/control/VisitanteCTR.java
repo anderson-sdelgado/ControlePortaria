@@ -37,4 +37,8 @@ public class VisitanteCTR {
         return visitanteDAO.inserirReg(v) != 0;
     }
     
+    public Boolean atualizarReg(Visitante v){
+        return visitanteDAO.atualizarReg(v) != 0;
+    }
+    
 }

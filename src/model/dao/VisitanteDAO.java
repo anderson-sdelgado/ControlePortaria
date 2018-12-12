@@ -102,16 +102,59 @@ public class VisitanteDAO {
                     + " , '" + v.getNome() + "' "
                     + " , SYSDATE)";
 
+            System.out.println(sql);
             r = stmt.executeUpdate(sql);
 
-            if(r != 0){
+            if (r != 0) {
                 visitantesTabela.add(0, v);
             }
-            
+
             if (stmt != null) {
                 stmt.close();
             }
-            
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return r;
+
+    }
+
+    public int atualizarReg(Visitante v) {
+
+        int r = 0;
+
+        try {
+
+            Statement stmt = conn.createStatement();
+            String sql = " UPDATE "
+                    + " PORT_VISITANTE "
+                    + " SET "
+                    + " CPF_VISITANTE = " + v.getCpf()
+                    + " , RG_VISITANTE = '" + v.getRg() + "'"
+                    + " , NOME_VISITANTE = '" + v.getNome() + "'"
+                    + " WHERE "
+                    + " FOTO_VISITANTE = " + v.getId();
+
+            r = stmt.executeUpdate(sql);
+
+            if (r != 0) {
+                Visitante visit = visitantesTabela.stream()
+                        .filter(visitante -> visitante.getId() == v.getId())
+                        .findAny()
+                        .orElse(null);
+
+                visit.setCpf(v.getCpf());
+                visit.setCpf(v.getRg());
+                visit.setNome(v.getNome());
+
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
