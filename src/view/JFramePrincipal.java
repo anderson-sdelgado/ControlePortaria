@@ -16,10 +16,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
      */
     public JFramePrincipal() {
         initComponents();
-        
+
         setTitle("Controle de Portaria");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        
+
     }
 
     /**
@@ -38,9 +38,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jSubMenuVisitado = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
-        pasteMenuItem = new javax.swing.JMenuItem();
-        deleteMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -49,10 +46,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         menuBar.setName(""); // NOI18N
 
-        jMenuCadastro.setMnemonic('f');
         jMenuCadastro.setText("Cadastro");
+        jMenuCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCadastroActionPerformed(evt);
+            }
+        });
 
-        jSubMenuVisitante.setMnemonic('o');
         jSubMenuVisitante.setText("Visitante");
         jSubMenuVisitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,30 +61,25 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         jMenuCadastro.add(jSubMenuVisitante);
 
-        jSubMenuVisitado.setMnemonic('s');
         jSubMenuVisitado.setText("Visitado");
+        jSubMenuVisitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSubMenuVisitadoActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jSubMenuVisitado);
 
         menuBar.add(jMenuCadastro);
 
-        editMenu.setMnemonic('e');
-        editMenu.setText("Edit");
+        editMenu.setText("Movimentação");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
+        cutMenuItem.setText("Entrada de Visitante");
+        cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(cutMenuItem);
-
-        copyMenuItem.setMnemonic('y');
-        copyMenuItem.setText("Copy");
-        editMenu.add(copyMenuItem);
-
-        pasteMenuItem.setMnemonic('p');
-        pasteMenuItem.setText("Paste");
-        editMenu.add(pasteMenuItem);
-
-        deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Delete");
-        editMenu.add(deleteMenuItem);
 
         menuBar.add(editMenu);
 
@@ -119,12 +114,31 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jSubMenuVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuVisitanteActionPerformed
         // TODO add your handling code here:
-        
+
         JIntFrameVisitante jIntFrameVisitante = new JIntFrameVisitante();
         this.desktopPane.add(jIntFrameVisitante);
         jIntFrameVisitante.setVisible(true);
-        
+
     }//GEN-LAST:event_jSubMenuVisitanteActionPerformed
+
+    private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jMenuCadastroActionPerformed
+
+    private void jSubMenuVisitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuVisitadoActionPerformed
+        // TODO add your handling code here:
+        
+        JIntFrameVisitado jIntFrameVisitado = new JIntFrameVisitado();
+        this.desktopPane.add(jIntFrameVisitado);
+        jIntFrameVisitado.setVisible(true);
+
+    }//GEN-LAST:event_jSubMenuVisitadoActionPerformed
+
+    private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,9 +179,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
-    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu helpMenu;
@@ -175,7 +187,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jSubMenuVisitado;
     private javax.swing.JMenuItem jSubMenuVisitante;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem pasteMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

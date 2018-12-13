@@ -20,21 +20,19 @@ import model.domain.Visitante;
  */
 public class VisitanteDAO {
 
-    private Connection conn;
-    private List<Visitante> visitantesTabela;
+    private final List<Visitante> visitanteList;
 
     public VisitanteDAO() {
-        conn = Conn.getInstance().getConnection();
-        visitantesTabela = visitantesTabela();
+        visitanteList = visitanteList();
     }
 
-    public List<Visitante> visitantesTabela() {
+    public List<Visitante> visitanteList() {
 
-        List<Visitante> r = new ArrayList();
+        List<Visitante> list = new ArrayList();
 
         try {
 
-            Statement stmt = conn.createStatement();
+            Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT"
                     + " FOTO_VISITANTE "
                     + " , LPAD (CPF_VISITANTE, 11, 0) "
@@ -52,31 +50,31 @@ public class VisitanteDAO {
                 visitante.setCpf(rSet.getString(2));
                 visitante.setRg(rSet.getString(3));
                 visitante.setNome(rSet.getString(4));
-                r.add(visitante);
+                list.add(visitante);
             }
 
         } catch (Exception e) {
             System.out.println("Falha = " + e);
         }
 
-        return r;
+        return list;
     }
 
     public Visitante pesqVisitante(Integer valor) {
-        Visitante v = visitantesTabela.stream()
+        Visitante v = visitanteList.stream()
                 .filter(visitante -> visitante.getId() == valor)
                 .findAny()
                 .orElse(null);
         return v;
     }
 
-    public List<Visitante> getVisitantesTabela() {
-        return visitantesTabela;
+    public List<Visitante> getVisitanteList() {
+        return visitanteList;
     }
 
     public Visitante ultimoReg() {
         Comparator<Visitante> comparator = Comparator.comparing(Visitante::getId);
-        return visitantesTabela.stream().max(comparator).get();
+        return visitanteList.stream().max(comparator).get();
     }
 
     public int inserirRegBD(Visitante v) {
@@ -102,7 +100,7 @@ public class VisitanteDAO {
     }
 
     public void inserirRegList(Visitante v) {
-        visitantesTabela.add(0, v);
+        visitanteList.add(0, v);
     }
 
     public int atualizarRegBD(Visitante v) {
@@ -121,14 +119,14 @@ public class VisitanteDAO {
     }
 
     public void atualizarRegList(Visitante v) {
-        Visitante visit = visitantesTabela.stream()
+        Visitante vis = visitanteList.stream()
                 .filter(visitante -> visitante.getId() == v.getId())
                 .findAny()
                 .orElse(null);
 
-        visit.setCpf(v.getCpf());
-        visit.setRg(v.getRg());
-        visit.setNome(v.getNome());
+        vis.setCpf(v.getCpf());
+        vis.setRg(v.getRg());
+        vis.setNome(v.getNome());
     }
 
     public int excluirRegBD(Visitante v) {
@@ -143,7 +141,7 @@ public class VisitanteDAO {
     }
 
     public void excluirRegList(Visitante v) {
-        visitantesTabela.removeIf(visitante -> visitante.getId() == v.getId());
+        visitanteList.removeIf(visitante -> visitante.getId() == v.getId());
     }
 
 }

@@ -7,8 +7,11 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,21 +34,21 @@ public class Conn {
             + "       )"
             + "    )"
             + "  )";
-    
-      public final static String url_qa = "jdbc:oracle:thin:@(DESCRIPTION = (ENABLE = BROKEN)(FAILOVER = ON)(LOAD_BALANCE = YES)" +
-                                                "    (ADDRESS = (PROTOCOL = TCP)(HOST = stafe-scan)(PORT = 1521))" +
-                                                "    (CONNECT_DATA =" +
-                                                "      (SERVER = DEDICATED)" +
-                                                "      (SERVICE_NAME = STAFEQA)" +
-                                                "      (FAILOVER_MODE =" +
-                                                "        (TYPE = SELECT)" +
-                                                "        (METHOD = BASIC)" +
-                                                "        (RETRIES = 180)" +
-                                                "        (DELAY = 5)" +
-                                                "       )" +
-                                                "    )" +
-                                                "  )";
-    
+
+    public final static String url_qa = "jdbc:oracle:thin:@(DESCRIPTION = (ENABLE = BROKEN)(FAILOVER = ON)(LOAD_BALANCE = YES)"
+            + "    (ADDRESS = (PROTOCOL = TCP)(HOST = stafe-scan)(PORT = 1521))"
+            + "    (CONNECT_DATA ="
+            + "      (SERVER = DEDICATED)"
+            + "      (SERVICE_NAME = STAFEQA)"
+            + "      (FAILOVER_MODE ="
+            + "        (TYPE = SELECT)"
+            + "        (METHOD = BASIC)"
+            + "        (RETRIES = 180)"
+            + "        (DELAY = 5)"
+            + "       )"
+            + "    )"
+            + "  )";
+
     public final static String url_dev = "jdbc:oracle:thin:@(DESCRIPTION = (ENABLE = BROKEN)(FAILOVER = ON)(LOAD_BALANCE = YES)"
             + " (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.2.15)(PORT = 1521)) "
             + " (CONNECT_DATA = "
@@ -95,7 +98,7 @@ public class Conn {
                 default:
                     break;
             }
-            
+
             connection = DriverManager.getConnection(url, usuario, senha);
         } catch (ClassNotFoundException e) {
             System.out.println("O driver nao pode ser carregado ["
@@ -121,11 +124,9 @@ public class Conn {
         }
     }
 
-        public int manipBDDefault(String sql) {
+    public int manipBDDefault(String sql) {
         int r = 0;
-
         try {
-
             Statement stmt = getConnection().createStatement();
             r = stmt.executeUpdate(sql);
 
@@ -136,8 +137,7 @@ public class Conn {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return r;
     }
-    
+
 }

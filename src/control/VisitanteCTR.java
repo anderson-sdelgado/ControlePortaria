@@ -15,14 +15,14 @@ import model.domain.Visitante;
  */
 public class VisitanteCTR {
 
-    private VisitanteDAO visitanteDAO;
+    private final VisitanteDAO visitanteDAO;
 
     public VisitanteCTR() {
         visitanteDAO = new VisitanteDAO();
     }
 
-    public List<Visitante> getVisitantesTabela() {
-        return visitanteDAO.getVisitantesTabela();
+    public List<Visitante> getVisitanteList() {
+        return visitanteDAO.getVisitanteList();
     }
 
     public Visitante getPesqVisitante(Integer valor) {
