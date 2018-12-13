@@ -33,6 +33,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     private VisitanteCTR visitanteCTR;
     private Boolean status; //true = inserir; false = salvar;
+    private DefaultTableModel modelTable;
 
     /**
      * Creates new form jIntFrameVisitante
@@ -40,6 +41,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     public JIntFrameVisitante() {
 
         initComponents();
+        modelTable = (DefaultTableModel) jTableVisitante.getModel();
         status = false;
         visitanteCTR = new VisitanteCTR();
         exibirInicialTela();
@@ -170,6 +172,11 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
         jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/deletar.gif"))); // NOI18N
         jButtonExcluir.setText("EXCLUIR");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 2;
@@ -270,7 +277,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private void jTableVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVisitanteMouseClicked
         // TODO add your handling code here:
 
-        preencheCampo(visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), 0)));
+        preencheCampo(visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.convertColumnIndexToView(0))));
 
     }//GEN-LAST:event_jTableVisitanteMouseClicked
 
@@ -313,19 +320,38 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "O REGISTRO SALVO COM SUCESSO!");
                 } else {
                     status = true;
-                    JOptionPane.showMessageDialog(null, "FALHA NA INSERÇÃO DO DADOS! POR FAVOR, TENTE NOVAMENTE.");
+                    JOptionPane.showMessageDialog(null, "FALHA NA INSERÇÃO DO REGISTRO! POR FAVOR, TENTE NOVAMENTE.");
                 }
             } else {
                 if (visitanteCTR.atualizarReg(visitante)) {
-                    atualizarTabela(jTableVisitante.getSelectedRow());
+                    atualizarTabela(jTableVisitante.convertRowIndexToModel(jTableVisitante.getSelectedRow()));
                     JOptionPane.showMessageDialog(null, "O REGISTRO FOI ATUALIZADO COM SUCESSO!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "FALHA NA ATUALIZAÇÃO DOS DADOS! POR FAVOR, TENTE NOVAMENTE.");
+                    JOptionPane.showMessageDialog(null, "FALHA NA ATUALIZAÇÃO DO REGISTRO! POR FAVOR, TENTE NOVAMENTE.");
                 }
             }
+            exibirPesquisa("");
+            jTextFieldPesq.setText("");
         }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+
+        Visitante visitante = new Visitante();
+        visitante.setId(Integer.parseInt(jLabelCodigo.getText()));
+        if (visitanteCTR.excluirReg(visitante)) {
+            removeTabela(jTableVisitante.convertRowIndexToModel(jTableVisitante.getSelectedRow()));
+            JOptionPane.showMessageDialog(null, "O REGISTRO EXLUÍDO COM SUCESSO!");
+        } else {
+            JOptionPane.showMessageDialog(null, "FALHA NA EXCLUSÃO DO REGISTRO! POR FAVOR, TENTE NOVAMENTE.");
+        }
+
+        exibirPesquisa("");
+        jTextFieldPesq.setText("");
+
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -354,7 +380,6 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTableVisitante.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTableVisitante.getColumnModel().getColumn(3).setPreferredWidth(200);
 
-        DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
         modelTable.setNumRows(0);
 
         visitanteCTR.getVisitantesTabela().forEach((v) -> {
@@ -375,15 +400,24 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF.setText(v.getCpf().equals("NULL") ? "" : v.getCpf());
         jTextFieldRG.setText(v.getRg() == null ? "" : v.getRg());
         jTextFieldNome.setText(v.getNome() == null ? "" : v.getNome());
-
     }
 
     public void exibirPesquisa(String valor) {
 
         TableRowSorter<DefaultTableModel> tr;
-        tr = new TableRowSorter<DefaultTableModel>((DefaultTableModel) jTableVisitante.getModel());
+        tr = new TableRowSorter<DefaultTableModel>(modelTable);
         jTableVisitante.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(valor));
+
+        if (tr.getViewRowCount() > 0) {
+            jTableVisitante.addRowSelectionInterval(0, 0);
+            preencheCampo(visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.convertColumnIndexToView(0))));
+        } else {
+            jLabelCodigo.setText("");
+            jFormattedTextFieldCPF.setText("");
+            jTextFieldRG.setText("");
+            jTextFieldNome.setText("");
+        }
 
     }
 
@@ -392,7 +426,6 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         status = true;
         jButtonNovo.setEnabled(false);
 
-        DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
         modelTable.insertRow(0, new Object[]{
             visitanteCTR.ultimoReg().getId() + 1,
             "",
@@ -409,10 +442,10 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     }
 
     public void atualizarTabela(int pos) {
-        DefaultTableModel modelTable = (DefaultTableModel) jTableVisitante.getModel();
         modelTable.setValueAt(jFormattedTextFieldCPF.getText(), pos, 1);
         modelTable.setValueAt(jTextFieldRG.getText(), pos, 2);
         modelTable.setValueAt(jTextFieldNome.getText(), pos, 3);
+
     }
 
     public String formatarCpf(String cpf) {
@@ -425,6 +458,10 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
             Logger.getLogger(Visitante.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cpfForm;
+    }
+
+    public void removeTabela(int i) {
+        modelTable.removeRow(i);
     }
 
 }

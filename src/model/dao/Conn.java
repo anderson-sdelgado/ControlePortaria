@@ -8,6 +8,7 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -120,4 +121,23 @@ public class Conn {
         }
     }
 
+        public int manipBDDefault(String sql) {
+        int r = 0;
+
+        try {
+
+            Statement stmt = getConnection().createStatement();
+            r = stmt.executeUpdate(sql);
+
+            if (stmt != null) {
+                stmt.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return r;
+    }
+    
 }

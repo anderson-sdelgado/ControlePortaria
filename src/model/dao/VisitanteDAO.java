@@ -79,89 +79,71 @@ public class VisitanteDAO {
         return visitantesTabela.stream().max(comparator).get();
     }
 
-    public int inserirReg(Visitante v) {
+    public int inserirRegBD(Visitante v) {
 
-        int r = 0;
+        String sql = "INSERT INTO "
+                + " PORT_VISITANTE "
+                + " ( "
+                + " FOTO_VISITANTE "
+                + " , CPF_VISITANTE "
+                + " , RG_VISITANTE "
+                + " , NOME_VISITANTE "
+                + " , DATA_VISITANTE "
+                + " ) "
+                + " VALUES "
+                + " ( " + v.getId() + " "
+                + " , " + v.getCpf() + " "
+                + " , '" + v.getRg() + "' "
+                + " , '" + v.getNome() + "' "
+                + " , SYSDATE)";
 
-        try {
-
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO "
-                    + " PORT_VISITANTE "
-                    + " ( "
-                    + " FOTO_VISITANTE "
-                    + " , CPF_VISITANTE "
-                    + " , RG_VISITANTE "
-                    + " , NOME_VISITANTE "
-                    + " , DATA_VISITANTE "
-                    + " ) "
-                    + " VALUES "
-                    + " ( " + v.getId() + " "
-                    + " , " + v.getCpf() + " "
-                    + " , '" + v.getRg() + "' "
-                    + " , '" + v.getNome() + "' "
-                    + " , SYSDATE)";
-
-            System.out.println(sql);
-            r = stmt.executeUpdate(sql);
-
-            if (r != 0) {
-                visitantesTabela.add(0, v);
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return r;
+        return Conn.getInstance().manipBDDefault(sql);
 
     }
 
-    public int atualizarReg(Visitante v) {
+    public void inserirRegList(Visitante v) {
+        visitantesTabela.add(0, v);
+    }
 
-        int r = 0;
+    public int atualizarRegBD(Visitante v) {
 
-        try {
+        String sql = " UPDATE "
+                + " PORT_VISITANTE "
+                + " SET "
+                + " CPF_VISITANTE = " + v.getCpf()
+                + " , RG_VISITANTE = '" + v.getRg() + "'"
+                + " , NOME_VISITANTE = '" + v.getNome() + "'"
+                + " WHERE "
+                + " FOTO_VISITANTE = " + v.getId();
 
-            Statement stmt = conn.createStatement();
-            String sql = " UPDATE "
-                    + " PORT_VISITANTE "
-                    + " SET "
-                    + " CPF_VISITANTE = " + v.getCpf()
-                    + " , RG_VISITANTE = '" + v.getRg() + "'"
-                    + " , NOME_VISITANTE = '" + v.getNome() + "'"
-                    + " WHERE "
-                    + " FOTO_VISITANTE = " + v.getId();
+        return Conn.getInstance().manipBDDefault(sql);
 
-            System.out.println(sql);
-            r = stmt.executeUpdate(sql);
+    }
 
-            if (r != 0) {
-                Visitante visit = visitantesTabela.stream()
-                        .filter(visitante -> visitante.getId() == v.getId())
-                        .findAny()
-                        .orElse(null);
+    public void atualizarRegList(Visitante v) {
+        Visitante visit = visitantesTabela.stream()
+                .filter(visitante -> visitante.getId() == v.getId())
+                .findAny()
+                .orElse(null);
 
-                visit.setCpf(v.getCpf());
-                visit.setRg(v.getRg());
-                visit.setNome(v.getNome());
+        visit.setCpf(v.getCpf());
+        visit.setRg(v.getRg());
+        visit.setNome(v.getNome());
+    }
 
-            }
+    public int excluirRegBD(Visitante v) {
 
-            if (stmt != null) {
-                stmt.close();
-            }
+        String sql = " DELETE "
+                + " PORT_VISITANTE "
+                + " WHERE "
+                + " FOTO_VISITANTE = " + v.getId();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        return Conn.getInstance().manipBDDefault(sql);
 
-        return r;
+    }
 
+    public void excluirRegList(Visitante v) {
+        visitantesTabela.removeIf(visitante -> visitante.getId() == v.getId());
     }
 
 }

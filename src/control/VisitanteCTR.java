@@ -24,21 +24,40 @@ public class VisitanteCTR {
     public List<Visitante> getVisitantesTabela() {
         return visitanteDAO.getVisitantesTabela();
     }
-    
+
     public Visitante getPesqVisitante(Integer valor) {
         return visitanteDAO.pesqVisitante(valor);
     }
-    
-    public Visitante ultimoReg(){
+
+    public Visitante ultimoReg() {
         return visitanteDAO.ultimoReg();
     }
-    
-    public Boolean inserirReg(Visitante v){
-        return visitanteDAO.inserirReg(v) != 0;
+
+    public Boolean inserirReg(Visitante v) {
+        if (visitanteDAO.inserirRegBD(v) != 0) {
+            visitanteDAO.inserirRegList(v);
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-    public Boolean atualizarReg(Visitante v){
-        return visitanteDAO.atualizarReg(v) != 0;
+
+    public Boolean atualizarReg(Visitante v) {
+        if (visitanteDAO.atualizarRegBD(v) != 0) {
+            visitanteDAO.atualizarRegList(v);
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
+    public Boolean excluirReg(Visitante v) {
+        if (visitanteDAO.excluirRegBD(v) != 0) {
+            visitanteDAO.excluirRegList(v);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
