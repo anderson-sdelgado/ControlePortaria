@@ -360,7 +360,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         visitanteCTR.getVisitantesTabela().forEach((v) -> {
             modelTable.addRow(new Object[]{
                 v.getId(),
-                v.getFormatadoCpf(),
+                formatarCpf(v.getCpf()),
                 v.getRg(),
                 v.getNome()});
         });
@@ -413,6 +413,18 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         modelTable.setValueAt(jFormattedTextFieldCPF.getText(), pos, 1);
         modelTable.setValueAt(jTextFieldRG.getText(), pos, 2);
         modelTable.setValueAt(jTextFieldNome.getText(), pos, 3);
+    }
+
+    public String formatarCpf(String cpf) {
+        String cpfForm = "";
+        try {
+            MaskFormatter formatter = new MaskFormatter("###.###.###-##");
+            formatter.setValueContainsLiteralCharacters(false);
+            cpfForm = formatter.valueToString(cpf.equals("NULL") ? "" : cpf);
+        } catch (ParseException ex) {
+            Logger.getLogger(Visitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cpfForm;
     }
 
 }

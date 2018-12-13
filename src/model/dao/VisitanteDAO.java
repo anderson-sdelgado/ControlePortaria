@@ -137,6 +137,7 @@ public class VisitanteDAO {
                     + " WHERE "
                     + " FOTO_VISITANTE = " + v.getId();
 
+            System.out.println(sql);
             r = stmt.executeUpdate(sql);
 
             if (r != 0) {
@@ -146,7 +147,7 @@ public class VisitanteDAO {
                         .orElse(null);
 
                 visit.setCpf(v.getCpf());
-                visit.setCpf(v.getRg());
+                visit.setRg(v.getRg());
                 visit.setNome(v.getNome());
 
             }

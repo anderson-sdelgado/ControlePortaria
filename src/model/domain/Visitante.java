@@ -32,20 +32,8 @@ public class Visitante {
         this.id = id;
     }
 
-    public String getFormatadoCpf() {
-        String cpfForm = "";
-        try {
-            MaskFormatter formatter = new MaskFormatter("###.###.###-##");
-            formatter.setValueContainsLiteralCharacters(false);
-            cpfForm = formatter.valueToString(cpf);
-        } catch (ParseException ex) {
-            Logger.getLogger(Visitante.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return cpfForm;
-    }
-
     public String getCpf() {
-        return cpf == null ? "NULL" : cpf;
+        return (cpf == null) ? "NULL" : (cpf.trim().length() == 0) ? "NULL" : cpf;
     }
 
     public void setCpf(String cpf) {
