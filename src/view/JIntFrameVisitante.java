@@ -34,13 +34,16 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private VisitanteCTR visitanteCTR;
     private Boolean status; //true = inserir; false = salvar;
     private DefaultTableModel modelTable;
-
+    private int pontoAcessoTela; //1 - Acesso pelo SubMenu Visitante; 2 - Acesso pela Tela de Cadastro de Visita;
+    private JIntFrameVisita jIntFrameVisita;
+    
     /**
      * Creates new form jIntFrameVisitante
      */
-    public JIntFrameVisitante() {
+    public JIntFrameVisitante(int pontoAcessoTela) {
 
         initComponents();
+        this.pontoAcessoTela = pontoAcessoTela;
         modelTable = (DefaultTableModel) jTableVisitante.getModel();
         status = false;
         visitanteCTR = new VisitanteCTR();
@@ -80,6 +83,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTextFieldNome = new javax.swing.JTextField();
 
         setClosable(true);
+        setTitle("Cadastro de Visitante");
         setPreferredSize(new java.awt.Dimension(600, 550));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -284,6 +288,18 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
         preencheCampo(visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.convertColumnIndexToView(0))));
 
+        if (this.pontoAcessoTela == 2) {
+            if (evt.getClickCount() == 2) {
+                Visitante v = visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.convertColumnIndexToView(0)));
+                jIntFrameVisita.getVisita().setIdVisitante(v.getId());
+                jIntFrameVisita.getjTextFieldRG().setText(v.getRg());
+                jIntFrameVisita.getjFormattedTextFieldCPF().setText(v.getCpf());
+                jIntFrameVisita.getjTextFieldNome().setText(v.getNome());
+                jIntFrameVisita.buscaComplVisitante();
+                dispose();
+            }
+        }
+
     }//GEN-LAST:event_jTableVisitanteMouseClicked
 
     private void jTextFieldPesqKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesqKeyPressed
@@ -361,9 +377,9 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
         // TODO add your handling code here:
-        
+
         dispose();
-        
+
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
 
@@ -478,5 +494,8 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         modelTable.removeRow(i);
     }
 
+    public void setjIntFrameVisita(JIntFrameVisita jIntFrameVisita) {
+        this.jIntFrameVisita = jIntFrameVisita;
+    }
+    
 }
-

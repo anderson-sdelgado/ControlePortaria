@@ -34,14 +34,14 @@ public class VisitanteDAO {
 
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT"
-                    + " FOTO_VISITANTE "
+                    + " CODIGO_VISITANTE "
                     + " , LPAD (CPF_VISITANTE, 11, 0) "
                     + " , RG_VISITANTE "
                     + " , NOME_VISITANTE "
                     + " FROM "
                     + " PORT_VISITANTE "
                     + " ORDER BY "
-                    + " FOTO_VISITANTE "
+                    + " CODIGO_VISITANTE "
                     + " DESC ");
 
             while (rSet.next()) {
@@ -82,7 +82,7 @@ public class VisitanteDAO {
         String sql = "INSERT INTO "
                 + " PORT_VISITANTE "
                 + " ( "
-                + " FOTO_VISITANTE "
+                + " CODIGO_VISITANTE "
                 + " , CPF_VISITANTE "
                 + " , RG_VISITANTE "
                 + " , NOME_VISITANTE "
@@ -112,7 +112,7 @@ public class VisitanteDAO {
                 + " , RG_VISITANTE = '" + v.getRg() + "'"
                 + " , NOME_VISITANTE = '" + v.getNome() + "'"
                 + " WHERE "
-                + " FOTO_VISITANTE = " + v.getId();
+                + " CODIGO_VISITANTE = " + v.getId();
 
         return Conn.getInstance().manipBDDefault(sql);
 
@@ -134,7 +134,7 @@ public class VisitanteDAO {
         String sql = " DELETE "
                 + " PORT_VISITANTE "
                 + " WHERE "
-                + " FOTO_VISITANTE = " + v.getId();
+                + " CODIGO_VISITANTE = " + v.getId();
 
         return Conn.getInstance().manipBDDefault(sql);
 

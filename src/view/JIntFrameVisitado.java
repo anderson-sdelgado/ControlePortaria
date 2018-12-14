@@ -74,6 +74,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         jLabelCodigo = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Cadastro de Visitado");
         setPreferredSize(new java.awt.Dimension(600, 550));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

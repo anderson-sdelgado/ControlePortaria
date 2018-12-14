@@ -38,12 +38,12 @@
             <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="cutMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="jSubMenuEntrada">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Entrada de Visitante"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cutMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSubMenuEntradaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

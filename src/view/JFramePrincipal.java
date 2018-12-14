@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author anderson
@@ -37,7 +39,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jSubMenuVisitante = new javax.swing.JMenuItem();
         jSubMenuVisitado = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
+        jSubMenuEntrada = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -73,13 +75,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         editMenu.setText("Movimentação");
 
-        cutMenuItem.setText("Entrada de Visitante");
-        cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        jSubMenuEntrada.setText("Entrada de Visitante");
+        jSubMenuEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cutMenuItemActionPerformed(evt);
+                jSubMenuEntradaActionPerformed(evt);
             }
         });
-        editMenu.add(cutMenuItem);
+        editMenu.add(jSubMenuEntrada);
 
         menuBar.add(editMenu);
 
@@ -115,7 +117,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jSubMenuVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuVisitanteActionPerformed
         // TODO add your handling code here:
 
-        JIntFrameVisitante jIntFrameVisitante = new JIntFrameVisitante();
+        JIntFrameVisitante jIntFrameVisitante = new JIntFrameVisitante(1);
         this.desktopPane.add(jIntFrameVisitante);
         jIntFrameVisitante.setVisible(true);
 
@@ -129,16 +131,21 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jSubMenuVisitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuVisitadoActionPerformed
         // TODO add your handling code here:
-        
+
         JIntFrameVisitado jIntFrameVisitado = new JIntFrameVisitado();
         this.desktopPane.add(jIntFrameVisitado);
         jIntFrameVisitado.setVisible(true);
 
     }//GEN-LAST:event_jSubMenuVisitadoActionPerformed
 
-    private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
+    private void jSubMenuEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuEntradaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cutMenuItemActionPerformed
+
+        JIntFrameVisita jIntFrameVisita = new JIntFrameVisita(this);
+        this.desktopPane.add(jIntFrameVisita);
+        jIntFrameVisita.setVisible(true);
+
+    }//GEN-LAST:event_jSubMenuEntradaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,14 +186,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenuCadastro;
+    private javax.swing.JMenuItem jSubMenuEntrada;
     private javax.swing.JMenuItem jSubMenuVisitado;
     private javax.swing.JMenuItem jSubMenuVisitante;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
+
+    public JDesktopPane getDesktopPane() {
+        return desktopPane;
+    }
 
 }
