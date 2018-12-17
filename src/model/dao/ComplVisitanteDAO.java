@@ -17,10 +17,12 @@ import model.domain.ComplVisitante;
  */
 public class ComplVisitanteDAO {
 
+    ComplVisitante complVisitante;
+
     public ComplVisitanteDAO() {
     }
 
-    public ComplVisitante getComplVisitanteBD(int idVisitante) {
+    private ComplVisitante getComplVisitanteBD(int idVisitante) {
 
         ComplVisitante complVisitante = new ComplVisitante();
 
@@ -58,6 +60,88 @@ public class ComplVisitanteDAO {
                 complVisitante.setModeloVeic("");
                 complVisitante.setPlacaVeic("");
             }
+
+        } catch (Exception e) {
+            System.out.println("Falha = " + e);
+        }
+
+        return complVisitante;
+    }
+
+    public ComplVisitante getComplVisitante(int idVisitante) {
+        complVisitante = getComplVisitanteBD(idVisitante);
+        return complVisitante;
+    }
+
+    public int tratarComplVisitante(ComplVisitante complVisitante) {
+
+        this.complVisitante.setEmpresa(this.complVisitante.getEmpresa() == null ? "" : this.complVisitante.getEmpresa());
+        this.complVisitante.setTelFixo(this.complVisitante.getTelFixo() == null ? "" : this.complVisitante.getTelFixo());
+        this.complVisitante.setCelular(this.complVisitante.getCelular() == null ? "" : this.complVisitante.getCelular());
+        this.complVisitante.setModeloVeic(this.complVisitante.getModeloVeic() == null ? "" : this.complVisitante.getModeloVeic());
+        this.complVisitante.setPlacaVeic(this.complVisitante.getPlacaVeic() == null ? "" : this.complVisitante.getPlacaVeic());
+
+        if (this.complVisitante.getEmpresa().equals(complVisitante.getEmpresa())
+                && this.complVisitante.getTelFixo().equals(complVisitante.getTelFixo())
+                && this.complVisitante.getCelular().equals(complVisitante.getCelular())
+                && this.complVisitante.getModeloVeic().equals(complVisitante.getModeloVeic())
+                && this.complVisitante.getPlacaVeic().equals(complVisitante.getPlacaVeic())) {
+            
+            return this.complVisitante.getId();
+            
+        } else {
+            if (inserirComplVisitanteBD(complVisitante) != 0) {
+                return getUltComplVisitanteBD(this.complVisitante.getIdVisitante()).getId();
+            }
+            else{
+                return 0;
+            }
+        }
+
+    }
+
+    public int inserirComplVisitanteBD(ComplVisitante cv) {
+
+        String sql = "INSERT INTO "
+                + " PORT_COMPL_VISITANTE "
+                + " ( "
+                + " CODIGO_VISITANTE "
+                + " , EMPRESA_VISITANTE "
+                + " , TELEFONE_VISITANTE "
+                + " , CELULAR_VISITANTE "
+                + " , MODELO_VISITANTE "
+                + " , PLACA_VISITANTE "
+                + " , DATA_COMPL_VISIT "
+                + " ) "
+                + " VALUES "
+                + " ( " + cv.getIdVisitante() + " "
+                + " , '" + cv.getEmpresa() + "' "
+                + " , '" + cv.getTelFixo() + "' "
+                + " , '" + cv.getCelular() + "' "
+                + " , '" + cv.getModeloVeic() + "' "
+                + " , '" + cv.getPlacaVeic() + "' "
+                + " , SYSDATE)";
+
+        return Conn.getInstance().manipBDDefault(sql);
+
+    }
+
+    private ComplVisitante getUltComplVisitanteBD(int idVisitante) {
+
+        ComplVisitante complVisitante = new ComplVisitante();
+
+        try {
+
+            Statement stmt = Conn.getInstance().getConnection().createStatement();
+            ResultSet rSet = stmt.executeQuery("SELECT"
+                    + " MAX(CODIGO_COMPL_VISIT) "
+                    + " FROM "
+                    + " PORT_COMPL_VISITANTE "
+                    + " WHERE "
+                    + " CODIGO_VISITANTE = " + idVisitante);
+
+            rSet.next();
+            complVisitante.setId(Integer.parseInt(rSet.getString(1)));
 
         } catch (Exception e) {
             System.out.println("Falha = " + e);

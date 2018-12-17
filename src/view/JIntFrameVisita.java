@@ -42,7 +42,8 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private WebcamPanel panel = null;
     private Visita visita;
     private VisitaCTR visitaCRT;
-    
+    private ComplVisitante complVisitante;
+
     /**
      * Creates new form NewJIntFrameVisita
      */
@@ -52,7 +53,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         visita = new Visita();
         visitaCRT = new VisitaCTR();
-        
+
 //        webcam = Webcam.getDefault();
 //        webcam.setViewSize(WebcamResolution.VGA.getSize());
 //        panel = new WebcamPanel(webcam, false);
@@ -69,7 +70,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 //                }
 //            });
 //        }
-
     }
 
     /**
@@ -111,12 +111,18 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
 
         setClosable(true);
+        setTitle("ENTRADA DE VISITANTE");
         setPreferredSize(new java.awt.Dimension(800, 700));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jButtonSalvarVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonSalvarVisita.setText("SALVAR VISITA");
         jButtonSalvarVisita.setEnabled(false);
+        jButtonSalvarVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarVisitaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 19;
@@ -128,29 +134,15 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
         jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
+        jPanelCamera.setLayout(new java.awt.GridBagLayout());
 
         jLabelFoto.setText("jLabel1");
-
-        javax.swing.GroupLayout jPanelCameraLayout = new javax.swing.GroupLayout(jPanelCamera);
-        jPanelCamera.setLayout(jPanelCameraLayout);
-        jPanelCameraLayout.setHorizontalGroup(
-            jPanelCameraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
-            .addGroup(jPanelCameraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelCameraLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelFoto)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanelCameraLayout.setVerticalGroup(
-            jPanelCameraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 314, Short.MAX_VALUE)
-            .addGroup(jPanelCameraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelCameraLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelFoto)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(150, 160, 150, 126);
+        jPanelCamera.add(jLabelFoto, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -158,8 +150,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 13;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 320;
-        gridBagConstraints.ipady = 240;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         getContentPane().add(jPanelCamera, gridBagConstraints);
 
@@ -316,6 +306,11 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jButtonPesqVisitado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonPesqVisitado.setText("PESQUISAR VISITADO");
         jButtonPesqVisitado.setEnabled(false);
+        jButtonPesqVisitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesqVisitadoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 13;
@@ -409,13 +404,30 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     private void jButtonPesqVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqVisitanteActionPerformed
         // TODO add your handling code here:
-        
+
         JIntFrameVisitante jIntFrameVisitante = new JIntFrameVisitante(2);
         jIntFrameVisitante.setjIntFrameVisita(this);
         this.jFramePrincipal.getDesktopPane().add(jIntFrameVisitante);
         jIntFrameVisitante.setVisible(true);
-        
+
     }//GEN-LAST:event_jButtonPesqVisitanteActionPerformed
+
+    private void jButtonPesqVisitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqVisitadoActionPerformed
+        // TODO add your handling code here:
+
+        JIntFrameVisitado jIntFrameVisitado = new JIntFrameVisitado(2);
+        jIntFrameVisitado.setjIntFrameVisita(this);
+        this.jFramePrincipal.getDesktopPane().add(jIntFrameVisitado);
+        jIntFrameVisitado.setVisible(true);
+
+    }//GEN-LAST:event_jButtonPesqVisitadoActionPerformed
+
+    private void jButtonSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarVisitaActionPerformed
+        // TODO add your handling code here:
+        
+        salvarVisita();
+
+    }//GEN-LAST:event_jButtonSalvarVisitaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -460,11 +472,19 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         return jTextFieldRG;
     }
 
+    public JTextField getjTextFieldLocal() {
+        return jTextFieldLocal;
+    }
+
+    public JTextField getjTextFieldVisitado() {
+        return jTextFieldVisitado;
+    }
+
     public Visita getVisita() {
         return visita;
     }
 
-    public void buscaComplVisitante(){
+    public void buscaComplVisitante() {
         try {
             ComplVisitante complVisitante = visitaCRT.getComplVisitante(visita.getIdVisitante());
             jTextFieldEmpresa.setText(complVisitante.getEmpresa());
@@ -478,7 +498,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
             jTextFieldVeiculo.setEnabled(true);
             jTextFieldPlaca.setEnabled(true);
             jButtonPesqVisitado.setEnabled(true);
-            File file =  new File("Q:\\Portaria\\Fotos\\" + visita.getIdVisitante() + ".bmp");
+            File file = new File("Q:\\Portaria\\Fotos\\" + visita.getIdVisitante() + ".bmp");
             Image image = ImageIO.read(file);
             Icon icon = new ImageIcon(image);
             jLabelFoto.setIcon(icon);
@@ -486,5 +506,19 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
             Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void liberarCadVisita() {
+        jButtonSalvarVisita.setEnabled(true);
+    }
+
+    public void salvarVisita() {
+        ComplVisitante complVisitante = new ComplVisitante();
+        complVisitante.setEmpresa(jTextFieldEmpresa.getText());
+        complVisitante.setTelFixo(jTextFieldTelefone.getText());
+        complVisitante.setCelular(jTextFieldCelular.getText());
+        complVisitante.setModeloVeic(jTextFieldVeiculo.getText());
+        complVisitante.setPlacaVeic(jTextFieldPlaca.getText());
+        visitaCRT.salvarVisita(visita, complVisitante);
+    }
+
 }

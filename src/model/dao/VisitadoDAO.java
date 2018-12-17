@@ -25,7 +25,7 @@ public class VisitadoDAO {
         visitadoList = visitadoList();
     }
 
-    public List<Visitado> visitadoList() {
+    private List<Visitado> visitadoList() {
 
         List<Visitado> list = new ArrayList();
 

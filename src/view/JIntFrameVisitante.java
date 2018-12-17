@@ -83,7 +83,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTextFieldNome = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle("Cadastro de Visitante");
+        setTitle("CADASTRO DE VISITANTE");
         setPreferredSize(new java.awt.Dimension(600, 550));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

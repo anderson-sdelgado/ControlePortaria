@@ -30,13 +30,16 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
     private VisitadoCTR visitadoCTR;
     private Boolean status; //true = inserir; false = salvar;
     private DefaultTableModel modelTable;
+    private int pontoAcessoTela; //1 - Acesso pelo SubMenu Visitado; 2 - Acesso pela Tela de Cadastro de Visita;
+    private JIntFrameVisita jIntFrameVisita;
 
     /**
      * Creates new form JIntFrameVisitado
      */
-    public JIntFrameVisitado() {
-        
+    public JIntFrameVisitado(int pontoAcessoTela) {
+
         initComponents();
+        this.pontoAcessoTela = pontoAcessoTela;
         modelTable = (DefaultTableModel) jTableVisitado.getModel();
         status = false;
         visitadoCTR = new VisitadoCTR();
@@ -45,7 +48,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         ((AbstractDocument) jTextFieldPesq.getDocument()).setDocumentFilter(filter);
         ((AbstractDocument) jTextFieldNome.getDocument()).setDocumentFilter(filter);
         ((AbstractDocument) jTextFieldLocal.getDocument()).setDocumentFilter(filter);
-        
+
     }
 
     /**
@@ -74,7 +77,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         jLabelCodigo = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Cadastro de Visitado");
+        setTitle("CADASTRO DE VISITADO");
         setPreferredSize(new java.awt.Dimension(600, 550));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -256,6 +259,17 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         preencheCampo(visitadoCTR.getPesqVisitado((Integer) jTableVisitado.getValueAt(jTableVisitado.getSelectedRow(), jTableVisitado.convertColumnIndexToView(0))));
+
+                if (this.pontoAcessoTela == 2) {
+            if (evt.getClickCount() == 2) {
+                Visitado v = visitadoCTR.getPesqVisitado((Integer) jTableVisitado.getValueAt(jTableVisitado.getSelectedRow(), jTableVisitado.convertColumnIndexToView(0)));
+                jIntFrameVisita.getVisita().setIdVisitado(v.getId());
+                jIntFrameVisita.getjTextFieldVisitado().setText(v.getNome());
+                jIntFrameVisita.getjTextFieldLocal().setText(v.getLocal());
+                jIntFrameVisita.liberarCadVisita();
+                dispose();
+            }
+        }
         
     }//GEN-LAST:event_jTableVisitadoMouseClicked
 
@@ -263,7 +277,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         novoReg();
-        
+
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -298,7 +312,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
             exibirPesquisa("");
             jTextFieldPesq.setText("");
         }
-        
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -315,7 +329,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
 
         exibirPesquisa("");
         jTextFieldPesq.setText("");
-        
+
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
@@ -350,7 +364,6 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldPesq;
     // End of variables declaration//GEN-END:variables
 
-    
     public void exibirInicialTela() {
 
         jTableVisitado.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -422,6 +435,10 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
 
     public void removeTabela(int i) {
         modelTable.removeRow(i);
+    }
+
+    public void setjIntFrameVisita(JIntFrameVisita jIntFrameVisita) {
+        this.jIntFrameVisita = jIntFrameVisita;
     }
 
 }

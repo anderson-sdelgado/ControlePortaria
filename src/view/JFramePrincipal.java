@@ -126,13 +126,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
         // TODO add your handling code here:
 
-
     }//GEN-LAST:event_jMenuCadastroActionPerformed
 
     private void jSubMenuVisitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuVisitadoActionPerformed
         // TODO add your handling code here:
 
-        JIntFrameVisitado jIntFrameVisitado = new JIntFrameVisitado();
+        JIntFrameVisitado jIntFrameVisitado = new JIntFrameVisitado(1);
         this.desktopPane.add(jIntFrameVisitado);
         jIntFrameVisitado.setVisible(true);
 

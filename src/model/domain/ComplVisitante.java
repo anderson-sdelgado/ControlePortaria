@@ -12,6 +12,7 @@ package model.domain;
 public class ComplVisitante {
     
     private int id;
+    private int idVisitante;
     private String empresa;
     private String telFixo;
     private String celular;
@@ -68,7 +69,13 @@ public class ComplVisitante {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-    
-    
+
+    public int getIdVisitante() {
+        return idVisitante;
+    }
+
+    public void setIdVisitante(int idVisitante) {
+        this.idVisitante = idVisitante;
+    }
     
 }
