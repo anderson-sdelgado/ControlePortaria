@@ -42,7 +42,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private WebcamPanel panel = null;
     private Visita visita;
     private VisitaCTR visitaCRT;
-    private javax.swing.JLabel jLabelFoto = new javax.swing.JLabel();
 
     /**
      * Creates new form NewJIntFrameVisita
@@ -53,16 +52,23 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         visita = new Visita();
         visitaCRT = new VisitaCTR();
-        foto();
+        jPanelCamera.remove(jLabelFoto);
 
+//        jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
+//        jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
+//        jPanelCamera.setLayout(new java.awt.GridBagLayout());
+//        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+//        gridBagConstraints.ipadx = 320;
+//        gridBagConstraints.ipady = 240;
+//
 //        webcam = Webcam.getDefault();
 //        webcam.setViewSize(WebcamResolution.VGA.getSize());
 //        panel = new WebcamPanel(webcam, false);
 //        panel.setPreferredSize(webcam.getViewSize());
 //        panel.setOpaque(true);
 //        panel.setBackground(Color.BLACK);
-//        panel.setBounds(0, 0, 640, 480);
-//        jPanelCamera.add(panel);
+//        panel.setBounds(0, 0, 320, 240);
+//        jPanelCamera.add(panel, gridBagConstraints);
 //        if (initialized.compareAndSet(false, true)) {
 //            executor.execute(new Runnable() {
 //                @Override
@@ -85,6 +91,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         jButtonSalvarVisita = new javax.swing.JButton();
         jPanelCamera = new javax.swing.JPanel();
+        jLabelFoto = new javax.swing.JLabel();
         jButtonPesqVisitante = new javax.swing.JButton();
         jLabelCPF = new javax.swing.JLabel();
         jLabelRG = new javax.swing.JLabel();
@@ -136,11 +143,15 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
         jPanelCamera.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanelCamera.add(jLabelFoto, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 13;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         getContentPane().add(jPanelCamera, gridBagConstraints);
 
@@ -431,6 +442,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCelular;
     private javax.swing.JLabel jLabelEmpresa;
+    private javax.swing.JLabel jLabelFoto;
     private javax.swing.JLabel jLabelLocal;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelPlaca;
@@ -509,16 +521,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         complVisitante.setModeloVeic(jTextFieldVeiculo.getText());
         complVisitante.setPlacaVeic(jTextFieldPlaca.getText());
         visitaCRT.salvarVisita(visita, complVisitante);
-    }
-
-    public void foto() {
-        jLabelFoto.setText("jLabel1");
-        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(150, 160, 150, 126);
-        jPanelCamera.add(jLabelFoto, gridBagConstraints);
     }
 
 }
