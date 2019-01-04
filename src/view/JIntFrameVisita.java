@@ -42,7 +42,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private WebcamPanel panel = null;
     private Visita visita;
     private VisitaCTR visitaCRT;
-    private ComplVisitante complVisitante;
+    private javax.swing.JLabel jLabelFoto = new javax.swing.JLabel();
 
     /**
      * Creates new form NewJIntFrameVisita
@@ -53,6 +53,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         visita = new Visita();
         visitaCRT = new VisitaCTR();
+        foto();
 
 //        webcam = Webcam.getDefault();
 //        webcam.setViewSize(WebcamResolution.VGA.getSize());
@@ -84,7 +85,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         jButtonSalvarVisita = new javax.swing.JButton();
         jPanelCamera = new javax.swing.JPanel();
-        jLabelFoto = new javax.swing.JLabel();
         jButtonPesqVisitante = new javax.swing.JButton();
         jLabelCPF = new javax.swing.JLabel();
         jLabelRG = new javax.swing.JLabel();
@@ -135,15 +135,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
         jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
         jPanelCamera.setLayout(new java.awt.GridBagLayout());
-
-        jLabelFoto.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(150, 160, 150, 126);
-        jPanelCamera.add(jLabelFoto, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -424,7 +415,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     private void jButtonSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarVisitaActionPerformed
         // TODO add your handling code here:
-        
+
         salvarVisita();
 
     }//GEN-LAST:event_jButtonSalvarVisitaActionPerformed
@@ -440,7 +431,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCelular;
     private javax.swing.JLabel jLabelEmpresa;
-    private javax.swing.JLabel jLabelFoto;
     private javax.swing.JLabel jLabelLocal;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelPlaca;
@@ -519,6 +509,16 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         complVisitante.setModeloVeic(jTextFieldVeiculo.getText());
         complVisitante.setPlacaVeic(jTextFieldPlaca.getText());
         visitaCRT.salvarVisita(visita, complVisitante);
+    }
+
+    public void foto() {
+        jLabelFoto.setText("jLabel1");
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(150, 160, 150, 126);
+        jPanelCamera.add(jLabelFoto, gridBagConstraints);
     }
 
 }
