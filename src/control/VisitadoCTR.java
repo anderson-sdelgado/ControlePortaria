@@ -6,6 +6,7 @@
 package control;
 
 import java.util.List;
+import model.dao.VisitaDAO;
 import model.dao.VisitadoDAO;
 import model.domain.Visitado;
 
@@ -14,11 +15,13 @@ import model.domain.Visitado;
  * @author anderson
  */
 public class VisitadoCTR {
-    
+
     private final VisitadoDAO visitadoDAO;
+    private final VisitaDAO visitaDAO;
 
     public VisitadoCTR() {
         visitadoDAO = new VisitadoDAO();
+        visitaDAO = new VisitaDAO();
     }
 
     public List<Visitado> getVisitadoList() {
@@ -34,7 +37,7 @@ public class VisitadoCTR {
     }
 
     public Boolean inserirReg(Visitado v) {
-        if (visitadoDAO.inserirRegBD(v) != 0) {
+        if (visitadoDAO.inserirRegBD(v) > 0) {
             visitadoDAO.inserirRegList(v);
             return true;
         } else {
@@ -43,7 +46,7 @@ public class VisitadoCTR {
     }
 
     public Boolean atualizarReg(Visitado v) {
-        if (visitadoDAO.atualizarRegBD(v) != 0) {
+        if (visitadoDAO.atualizarRegBD(v) > 0) {
             visitadoDAO.atualizarRegList(v);
             return true;
         } else {
@@ -52,12 +55,16 @@ public class VisitadoCTR {
     }
 
     public Boolean excluirReg(Visitado v) {
-        if (visitadoDAO.excluirRegBD(v) != 0) {
-            visitadoDAO.excluirRegList(v);
-            return true;
+        if (visitaDAO.verVisVisitado(v) > 0) {
+            if (visitadoDAO.excluirRegBD(v) > 0) {
+                visitadoDAO.excluirRegList(v);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
     }
-    
+
 }

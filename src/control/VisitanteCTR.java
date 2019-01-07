@@ -6,6 +6,7 @@
 package control;
 
 import java.util.List;
+import model.dao.VisitaDAO;
 import model.dao.VisitanteDAO;
 import model.domain.Visitante;
 
@@ -16,9 +17,11 @@ import model.domain.Visitante;
 public class VisitanteCTR {
 
     private final VisitanteDAO visitanteDAO;
+    private final VisitaDAO visitaDAO;
 
     public VisitanteCTR() {
         visitanteDAO = new VisitanteDAO();
+        visitaDAO = new VisitaDAO();
     }
 
     public List<Visitante> getVisitanteList() {
@@ -34,7 +37,7 @@ public class VisitanteCTR {
     }
 
     public Boolean inserirReg(Visitante v) {
-        if (visitanteDAO.inserirRegBD(v) != 0) {
+        if (visitanteDAO.inserirRegBD(v) > 0) {
             visitanteDAO.inserirRegList(v);
             return true;
         } else {
@@ -43,7 +46,7 @@ public class VisitanteCTR {
     }
 
     public Boolean atualizarReg(Visitante v) {
-        if (visitanteDAO.atualizarRegBD(v) != 0) {
+        if (visitanteDAO.atualizarRegBD(v) > 0) {
             visitanteDAO.atualizarRegList(v);
             return true;
         } else {
@@ -52,10 +55,16 @@ public class VisitanteCTR {
     }
 
     public Boolean excluirReg(Visitante v) {
-        if (visitanteDAO.excluirRegBD(v) != 0) {
-            visitanteDAO.excluirRegList(v);
-            return true;
-        } else {
+        if (visitaDAO.verVisVisitante(v) == 0) {
+            if (visitanteDAO.excluirRegBD(v) > 0) {
+                FotoCTR fotoCTR = new FotoCTR();
+                fotoCTR.excluirFotoJPG(v.getId());
+                visitanteDAO.excluirRegList(v);
+                return true;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
     }

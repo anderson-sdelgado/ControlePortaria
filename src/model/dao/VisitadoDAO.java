@@ -137,6 +137,5 @@ public class VisitadoDAO {
     public void excluirRegList(Visitado v) {
         visitadoList.removeIf(visitado -> visitado.getId() == v.getId());
     }
-
     
 }

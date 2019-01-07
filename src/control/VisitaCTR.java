@@ -32,7 +32,7 @@ public class VisitaCTR {
         visita.setIdCompVisitante(complVisitanteDAO.tratarComplVisitante(complVisitante));
         if(visita.getIdCompVisitante() > 0){
             visitaDAO.inserirRegBD(visita);
-        };
+        }
     }
 
 }

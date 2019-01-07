@@ -19,7 +19,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     public JFramePrincipal() {
         initComponents();
 
-        setTitle("Controle de Portaria");
+        setTitle("CONTROLE DE PORTARIA");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 
     }
@@ -48,14 +48,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         menuBar.setName(""); // NOI18N
 
-        jMenuCadastro.setText("Cadastro");
+        jMenuCadastro.setText("CADASTRO");
         jMenuCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuCadastroActionPerformed(evt);
             }
         });
 
-        jSubMenuVisitante.setText("Visitante");
+        jSubMenuVisitante.setText("VISITANTE");
         jSubMenuVisitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSubMenuVisitanteActionPerformed(evt);
@@ -63,7 +63,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         jMenuCadastro.add(jSubMenuVisitante);
 
-        jSubMenuVisitado.setText("Visitado");
+        jSubMenuVisitado.setText("VISITADO");
         jSubMenuVisitado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSubMenuVisitadoActionPerformed(evt);
@@ -73,9 +73,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         menuBar.add(jMenuCadastro);
 
-        editMenu.setText("Movimentação");
+        editMenu.setText("MOVIMENTAÇÃO");
 
-        jSubMenuEntrada.setText("Entrada de Visitante");
+        jSubMenuEntrada.setText("ENTRADA DE VISITANTE");
         jSubMenuEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSubMenuEntradaActionPerformed(evt);

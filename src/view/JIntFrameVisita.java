@@ -8,10 +8,13 @@ package view;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
+import control.CameraCTR;
+import control.FotoCTR;
 import control.VisitaCTR;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,12 +39,12 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     private JFramePrincipal jFramePrincipal;
 
-    private Executor executor = Executors.newSingleThreadExecutor();
-    private AtomicBoolean initialized = new AtomicBoolean(false);
-    private Webcam webcam = null;
-    private WebcamPanel panel = null;
     private Visita visita;
     private VisitaCTR visitaCRT;
+    private CameraCTR cameraCTR;
+    private FotoCTR fotoCTR;
+    
+    private int captFoto;
 
     /**
      * Creates new form NewJIntFrameVisita
@@ -52,31 +55,9 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         visita = new Visita();
         visitaCRT = new VisitaCTR();
-        jPanelCamera.remove(jLabelFoto);
-
-//        jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
-//        jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
-//        jPanelCamera.setLayout(new java.awt.GridBagLayout());
-//        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-//        gridBagConstraints.ipadx = 320;
-//        gridBagConstraints.ipady = 240;
-//
-//        webcam = Webcam.getDefault();
-//        webcam.setViewSize(WebcamResolution.VGA.getSize());
-//        panel = new WebcamPanel(webcam, false);
-//        panel.setPreferredSize(webcam.getViewSize());
-//        panel.setOpaque(true);
-//        panel.setBackground(Color.BLACK);
-//        panel.setBounds(0, 0, 320, 240);
-//        jPanelCamera.add(panel, gridBagConstraints);
-//        if (initialized.compareAndSet(false, true)) {
-//            executor.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    panel.start();
-//                }
-//            });
-//        }
+        cameraCTR = new CameraCTR();
+        fotoCTR = new FotoCTR();
+        
     }
 
     /**
@@ -120,6 +101,23 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("ENTRADA DE VISITANTE");
         setPreferredSize(new java.awt.Dimension(800, 700));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jButtonSalvarVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -364,6 +362,11 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jButtonCapturar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonCapturar.setText("CAPTURAR");
         jButtonCapturar.setEnabled(false);
+        jButtonCapturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCapturarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 13;
@@ -431,6 +434,27 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonSalvarVisitaActionPerformed
 
+    private void jButtonCapturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCapturarActionPerformed
+        // TODO add your handling code here:
+
+        if (captFoto == 1) {
+            jButtonPesqVisitado.setEnabled(false);
+            abrirCamera();
+        } else if (captFoto == 2) {
+            salvaFoto();
+        }
+
+    }//GEN-LAST:event_jButtonCapturarActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+
+        if (captFoto == 2) {
+            cameraCTR.stopCamera();
+        }
+
+    }//GEN-LAST:event_formInternalFrameClosing
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCapturar;
@@ -487,26 +511,18 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     }
 
     public void buscaComplVisitante() {
-        try {
-            ComplVisitante complVisitante = visitaCRT.getComplVisitante(visita.getIdVisitante());
-            jTextFieldEmpresa.setText(complVisitante.getEmpresa());
-            jTextFieldTelefone.setText(complVisitante.getTelFixo());
-            jTextFieldCelular.setText(complVisitante.getCelular());
-            jTextFieldVeiculo.setText(complVisitante.getModeloVeic());
-            jTextFieldPlaca.setText(complVisitante.getPlacaVeic());
-            jTextFieldEmpresa.setEnabled(true);
-            jTextFieldTelefone.setEnabled(true);
-            jTextFieldCelular.setEnabled(true);
-            jTextFieldVeiculo.setEnabled(true);
-            jTextFieldPlaca.setEnabled(true);
-            jButtonPesqVisitado.setEnabled(true);
-            File file = new File("Q:\\Portaria\\Fotos\\" + visita.getIdVisitante() + ".bmp");
-            Image image = ImageIO.read(file);
-            Icon icon = new ImageIcon(image);
-            jLabelFoto.setIcon(icon);
-        } catch (IOException ex) {
-            Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ComplVisitante complVisitante = visitaCRT.getComplVisitante(visita.getIdVisitante());
+        jTextFieldEmpresa.setText(complVisitante.getEmpresa());
+        jTextFieldTelefone.setText(complVisitante.getTelFixo());
+        jTextFieldCelular.setText(complVisitante.getCelular());
+        jTextFieldVeiculo.setText(complVisitante.getModeloVeic());
+        jTextFieldPlaca.setText(complVisitante.getPlacaVeic());
+        jTextFieldEmpresa.setEnabled(true);
+        jTextFieldTelefone.setEnabled(true);
+        jTextFieldCelular.setEnabled(true);
+        jTextFieldVeiculo.setEnabled(true);
+        jTextFieldPlaca.setEnabled(true);
+        abrirFoto();
     }
 
     public void liberarCadVisita() {
@@ -521,6 +537,68 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         complVisitante.setModeloVeic(jTextFieldVeiculo.getText());
         complVisitante.setPlacaVeic(jTextFieldPlaca.getText());
         visitaCRT.salvarVisita(visita, complVisitante);
+    }
+
+    public void abrirCamera() {
+
+        jPanelCamera.remove(jLabelFoto);
+
+        jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
+        jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
+        jPanelCamera.setLayout(new java.awt.GridBagLayout());
+        cameraCTR.abrirCamera();
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 320;
+        gridBagConstraints.ipady = 240;
+        jPanelCamera.add(cameraCTR.getPanel(), gridBagConstraints);
+        cameraCTR.startCamera();
+
+        if (captFoto == 1) {
+            captFoto = 2;
+            jButtonCapturar.setText("CAPTURAR");
+        } else if (captFoto == 2) {
+            jButtonCapturar.setEnabled(true);
+        }
+
+    }
+
+    public void addFoto() {
+        jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
+        jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
+        jPanelCamera.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanelCamera.add(jLabelFoto, gridBagConstraints);
+    }
+
+    public void salvaFoto() {
+        try {
+            fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getIdVisitante());
+            cameraCTR.stopCamera();
+            jPanelCamera.remove(cameraCTR.getPanel());
+            abrirFoto();
+        } catch (Exception ex) {
+            Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void abrirFoto() {
+        try {
+
+            if (fotoCTR.abrirFotoJPG(visita.getIdVisitante())) {
+                jLabelFoto.setIcon(fotoCTR.getImageIcon());
+                jButtonCapturar.setText("ALTERAR FOTO");
+                jButtonCapturar.setEnabled(true);
+                captFoto = 1;
+                jButtonPesqVisitado.setEnabled(true);
+            } else {
+                captFoto = 2;
+                abrirCamera();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
