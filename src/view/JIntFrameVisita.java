@@ -27,6 +27,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.domain.ComplVisitante;
 import model.domain.Visita;
@@ -431,7 +432,9 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         salvarVisita();
-
+        clear();
+        JOptionPane.showMessageDialog(null, "ENTRADA DE VISITANTE SALVO COM SUCESSO!");
+        
     }//GEN-LAST:event_jButtonSalvarVisitaActionPerformed
 
     private void jButtonCapturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCapturarActionPerformed
@@ -536,6 +539,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         complVisitante.setCelular(jTextFieldCelular.getText());
         complVisitante.setModeloVeic(jTextFieldVeiculo.getText());
         complVisitante.setPlacaVeic(jTextFieldPlaca.getText());
+        visita.setMatricRecep(jFramePrincipal.getFunc().getMatricFunc());
         visitaCRT.salvarVisita(visita, complVisitante);
     }
 
@@ -560,16 +564,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
             jButtonCapturar.setEnabled(true);
         }
 
-    }
-
-    public void addFoto() {
-        jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
-        jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
-        jPanelCamera.setLayout(new java.awt.GridBagLayout());
-        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanelCamera.add(jLabelFoto, gridBagConstraints);
     }
 
     public void salvaFoto() {
@@ -601,4 +595,19 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         }
     }
 
+    public void clear(){
+        jFormattedTextFieldCPF.setText("");
+        jTextFieldCelular.setText("");
+        jTextFieldEmpresa.setText("");
+        jTextFieldLocal.setText("");
+        jTextFieldNome.setText("");
+        jTextFieldPlaca.setText("");
+        jTextFieldRG.setText("");
+        jTextFieldTelefone.setText("");
+        jTextFieldVeiculo.setText("");
+        jTextFieldVisitado.setText("");
+        jButtonCapturar.setEnabled(false);
+        jButtonPesqVisitado.setEnabled(false);
+    }
+    
 }

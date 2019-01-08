@@ -1,22 +1,38 @@
 package view;
 
+import control.RecepCTR;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
+import model.domain.Func;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author anderson
  */
 public class JIntFrameCrachaRecep extends javax.swing.JInternalFrame {
 
+    private RecepCTR recepCTR;
+    private JFramePrincipal jFramePrincipal;
+
     /**
      * Creates new form JIntFrameCrachaRecep
      */
-    public JIntFrameCrachaRecep() {
+    public JIntFrameCrachaRecep(JFramePrincipal jFramePrincipal) {
         initComponents();
+
+        recepCTR = new RecepCTR();
+        this.jFramePrincipal = jFramePrincipal;
+
+        DocumentFilter filter = new UppercaseDocumentFilter();
+        ((AbstractDocument) jTextFieldMatric.getDocument()).setDocumentFilter(filter);
+
     }
 
     /**
@@ -27,22 +43,154 @@ public class JIntFrameCrachaRecep extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
+        jLabelMatricula = new javax.swing.JLabel();
+        jLabelNome = new javax.swing.JLabel();
+        jTextFieldMatric = new javax.swing.JTextField();
+        jTextFieldNome = new javax.swing.JTextField();
+        jButtonEntrar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+
+        setMinimumSize(new java.awt.Dimension(30, 20));
+        setPreferredSize(new java.awt.Dimension(520, 170));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jLabelMatricula.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelMatricula.setText("MATRICULA");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(jLabelMatricula, gridBagConstraints);
+
+        jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelNome.setText("NOME");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        getContentPane().add(jLabelNome, gridBagConstraints);
+
+        jTextFieldMatric.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldMatricKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldMatricKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, 0);
+        getContentPane().add(jTextFieldMatric, gridBagConstraints);
+
+        jTextFieldNome.setEditable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 300;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 15, 0);
+        getContentPane().add(jTextFieldNome, gridBagConstraints);
+
+        jButtonEntrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonEntrar.setText("ENTRAR");
+        jButtonEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntrarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipady = 20;
+        getContentPane().add(jButtonEntrar, gridBagConstraints);
+
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonCancelar.setText("CANCELAR");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipady = 20;
+        getContentPane().add(jButtonCancelar, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldMatricKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatricKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTextFieldMatricKeyPressed
+
+    private void jTextFieldMatricKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatricKeyReleased
+        // TODO add your handling code here:
+
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            jButtonEntrar.requestFocus();
+            Func func = new Func();
+            if (jTextFieldMatric.getText().matches("^[0-9]*$")) {
+                func.setMatricFunc(Integer.valueOf(jTextFieldMatric.getText().trim()));
+                func = recepCTR.getVerRecep(func);
+            } else {
+                func.setNomeFunc("FUNCIONARIO INEXISTENTE");
+            }
+            jTextFieldNome.setText(func.getNomeFunc());
+        }
+
+    }//GEN-LAST:event_jTextFieldMatricKeyReleased
+
+    private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
+        // TODO add your handling code here:
+
+        if (jTextFieldMatric.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "POR FAVOR, DIGITE A MATRICULA DO USUÁRIO PARA ACESSO AO SISTEMA.");
+        } else {
+            Func func = new Func();
+            if (jTextFieldMatric.getText().matches("^[0-9]*$")) {
+                func.setMatricFunc(Integer.valueOf(jTextFieldMatric.getText().trim()));
+                func = recepCTR.getVerRecep(func);
+            } else {
+                func.setNomeFunc("FUNCIONARIO INEXISTENTE");
+            }
+            jTextFieldNome.setText(func.getNomeFunc());
+
+            if (!func.getNomeFunc().equals("FUNCIONARIO INEXISTENTE")) {
+                this.jFramePrincipal.getjMenuCadastro().setEnabled(true);
+                this.jFramePrincipal.getjMenuMovimentacao().setEnabled(true);
+                this.jFramePrincipal.setFunc(func);
+                dispose();
+            }
+
+        }
+
+    }//GEN-LAST:event_jButtonEntrarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+
+        System.exit(0);
+
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonEntrar;
+    private javax.swing.JLabel jLabelMatricula;
+    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JTextField jTextFieldMatric;
+    private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -52,8 +52,10 @@ public class ComplVisitanteDAO {
                 complVisitante.setCelular(rSet.getString(4));
                 complVisitante.setModeloVeic(rSet.getString(5));
                 complVisitante.setPlacaVeic(rSet.getString(6));
+                complVisitante.setIdVisitante(idVisitante);
             } else {
                 complVisitante.setId(0);
+                complVisitante.setIdVisitante(idVisitante);
                 complVisitante.setEmpresa("");
                 complVisitante.setTelFixo("");
                 complVisitante.setCelular("");
@@ -90,7 +92,8 @@ public class ComplVisitanteDAO {
             return this.complVisitante.getId();
             
         } else {
-            if (inserirComplVisitanteBD(complVisitante) != 0) {
+            complVisitante.setIdVisitante(this.complVisitante.getIdVisitante());
+            if (inserirComplVisitanteBD(complVisitante) > 0) {
                 return getUltComplVisitanteBD(this.complVisitante.getIdVisitante()).getId();
             }
             else{
@@ -122,6 +125,26 @@ public class ComplVisitanteDAO {
                 + " , '" + cv.getPlacaVeic() + "' "
                 + " , SYSDATE)";
 
+        System.out.println("INSERT INTO "
+                + " PORT_COMPL_VISITANTE "
+                + " ( "
+                + " CODIGO_VISITANTE "
+                + " , EMPRESA_VISITANTE "
+                + " , TELEFONE_VISITANTE "
+                + " , CELULAR_VISITANTE "
+                + " , MODELO_VISITANTE "
+                + " , PLACA_VISITANTE "
+                + " , DATA_COMPL_VISIT "
+                + " ) "
+                + " VALUES "
+                + " ( " + cv.getIdVisitante() + " "
+                + " , '" + cv.getEmpresa() + "' "
+                + " , '" + cv.getTelFixo() + "' "
+                + " , '" + cv.getCelular() + "' "
+                + " , '" + cv.getModeloVeic() + "' "
+                + " , '" + cv.getPlacaVeic() + "' "
+                + " , SYSDATE)");
+        
         return Conn.getInstance().manipBDDefault(sql);
 
     }

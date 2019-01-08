@@ -6,6 +6,8 @@
 package view;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JMenu;
+import model.domain.Func;
 
 /**
  *
@@ -13,6 +15,8 @@ import javax.swing.JDesktopPane;
  */
 public class JFramePrincipal extends javax.swing.JFrame {
 
+    private Func func;
+    
     /**
      * Creates new form TelaPrincipal
      */
@@ -21,6 +25,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         setTitle("CONTROLE DE PORTARIA");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        
+        JIntFrameCrachaRecep jIntFrameCrachaRecep = new JIntFrameCrachaRecep(this);
+        this.desktopPane.add(jIntFrameCrachaRecep);
+        jIntFrameCrachaRecep.setVisible(true);
 
     }
 
@@ -38,17 +46,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuCadastro = new javax.swing.JMenu();
         jSubMenuVisitante = new javax.swing.JMenuItem();
         jSubMenuVisitado = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
+        jMenuMovimentacao = new javax.swing.JMenu();
         jSubMenuEntrada = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         menuBar.setName(""); // NOI18N
 
         jMenuCadastro.setText("CADASTRO");
+        jMenuCadastro.setEnabled(false);
         jMenuCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuCadastroActionPerformed(evt);
@@ -73,7 +79,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         menuBar.add(jMenuCadastro);
 
-        editMenu.setText("MOVIMENTAÇÃO");
+        jMenuMovimentacao.setText("MOVIMENTAÇÃO");
+        jMenuMovimentacao.setEnabled(false);
 
         jSubMenuEntrada.setText("ENTRADA DE VISITANTE");
         jSubMenuEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -81,22 +88,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 jSubMenuEntradaActionPerformed(evt);
             }
         });
-        editMenu.add(jSubMenuEntrada);
+        jMenuMovimentacao.add(jSubMenuEntrada);
 
-        menuBar.add(editMenu);
-
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
-
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
+        menuBar.add(jMenuMovimentacao);
 
         setJMenuBar(menuBar);
 
@@ -183,12 +177,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu editMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenuCadastro;
+    private javax.swing.JMenu jMenuMovimentacao;
     private javax.swing.JMenuItem jSubMenuEntrada;
     private javax.swing.JMenuItem jSubMenuVisitado;
     private javax.swing.JMenuItem jSubMenuVisitante;
@@ -199,4 +190,20 @@ public class JFramePrincipal extends javax.swing.JFrame {
         return desktopPane;
     }
 
+    public JMenu getjMenuCadastro() {
+        return jMenuCadastro;
+    }
+
+    public JMenu getjMenuMovimentacao() {
+        return jMenuMovimentacao;
+    }
+
+    public Func getFunc() {
+        return func;
+    }
+
+    public void setFunc(Func func) {
+        this.func = func;
+    }
+    
 }

@@ -35,7 +35,7 @@ public class VisitaDAO {
                 + " ( " + v.getIdVisitante() + " "
                 + " , " + v.getIdVisitado() + " "
                 + " , " + v.getIdCompVisitante() + " "
-                + " , 0 "
+                + " , " + v.getMatricRecep() + " "
                 + " , SYSDATE)";
 
         return Conn.getInstance().manipBDDefault(sql);
