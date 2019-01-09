@@ -31,6 +31,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.domain.ComplVisitante;
 import model.domain.Visita;
+import model.domain.Visitado;
+import model.domain.Visitante;
 
 /**
  *
@@ -44,7 +46,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private VisitaCTR visitaCRT;
     private CameraCTR cameraCTR;
     private FotoCTR fotoCTR;
-    
+
     private int captFoto;
 
     /**
@@ -54,11 +56,10 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         initComponents();
         this.jFramePrincipal = jFramePrincipal;
 
-        visita = new Visita();
         visitaCRT = new VisitaCTR();
         cameraCTR = new CameraCTR();
         fotoCTR = new FotoCTR();
-        
+
     }
 
     /**
@@ -370,7 +371,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 13;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -380,9 +381,14 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         jButtonListVis.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonListVis.setText("VISITANTE NA EMPRESA");
+        jButtonListVis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListVisActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 15;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -432,9 +438,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         salvarVisita();
-        clear();
-        JOptionPane.showMessageDialog(null, "ENTRADA DE VISITANTE SALVO COM SUCESSO!");
-        
+
     }//GEN-LAST:event_jButtonSalvarVisitaActionPerformed
 
     private void jButtonCapturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCapturarActionPerformed
@@ -457,6 +461,15 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_formInternalFrameClosing
+
+    private void jButtonListVisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListVisActionPerformed
+        // TODO add your handling code here:
+
+        JIntFramePainelVisitante jIntFramePainelVisitante = new JIntFramePainelVisitante();
+        this.jFramePrincipal.getDesktopPane().add(jIntFramePainelVisitante);
+        jIntFramePainelVisitante.setVisible(true);
+
+    }//GEN-LAST:event_jButtonListVisActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -509,17 +522,29 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         return jTextFieldVisitado;
     }
 
-    public Visita getVisita() {
-        return visita;
+    public void preencheCamposVisitante(Visitante visitante) {
+        visita = new Visita();
+        visita.setVisitante(visitante);
+        jTextFieldRG.setText(visita.getVisitante().getRg());
+        jFormattedTextFieldCPF.setText(visita.getVisitante().getCpf());
+        jTextFieldNome.setText(visita.getVisitante().getNome());
+        buscaComplVisitante();
+    }
+
+    public void preencheCamposVisitado(Visitado visitado) {
+        visita.setVisitado(visitado);
+        jTextFieldVisitado.setText(visita.getVisitado().getNome());
+        jTextFieldLocal.setText(visita.getVisitado().getLocal());
+        liberarCadVisita();
     }
 
     public void buscaComplVisitante() {
-        ComplVisitante complVisitante = visitaCRT.getComplVisitante(visita.getIdVisitante());
-        jTextFieldEmpresa.setText(complVisitante.getEmpresa());
-        jTextFieldTelefone.setText(complVisitante.getTelFixo());
-        jTextFieldCelular.setText(complVisitante.getCelular());
-        jTextFieldVeiculo.setText(complVisitante.getModeloVeic());
-        jTextFieldPlaca.setText(complVisitante.getPlacaVeic());
+        visita.getVisitante().setComplVisitante(visitaCRT.getComplVisitante(visita.getVisitante().getId()));
+        jTextFieldEmpresa.setText(visita.getVisitante().getComplVisitante().getEmpresa());
+        jTextFieldTelefone.setText(visita.getVisitante().getComplVisitante().getTelFixo());
+        jTextFieldCelular.setText(visita.getVisitante().getComplVisitante().getCelular());
+        jTextFieldVeiculo.setText(visita.getVisitante().getComplVisitante().getModeloVeic());
+        jTextFieldPlaca.setText(visita.getVisitante().getComplVisitante().getPlacaVeic());
         jTextFieldEmpresa.setEnabled(true);
         jTextFieldTelefone.setEnabled(true);
         jTextFieldCelular.setEnabled(true);
@@ -533,14 +558,18 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     }
 
     public void salvarVisita() {
-        ComplVisitante complVisitante = new ComplVisitante();
-        complVisitante.setEmpresa(jTextFieldEmpresa.getText());
-        complVisitante.setTelFixo(jTextFieldTelefone.getText());
-        complVisitante.setCelular(jTextFieldCelular.getText());
-        complVisitante.setModeloVeic(jTextFieldVeiculo.getText());
-        complVisitante.setPlacaVeic(jTextFieldPlaca.getText());
+        visita.getVisitante().getComplVisitante().setEmpresa(jTextFieldEmpresa.getText());
+        visita.getVisitante().getComplVisitante().setTelFixo(jTextFieldTelefone.getText());
+        visita.getVisitante().getComplVisitante().setCelular(jTextFieldCelular.getText());
+        visita.getVisitante().getComplVisitante().setModeloVeic(jTextFieldVeiculo.getText());
+        visita.getVisitante().getComplVisitante().setPlacaVeic(jTextFieldPlaca.getText());
         visita.setMatricRecep(jFramePrincipal.getFunc().getMatricFunc());
-        visitaCRT.salvarVisita(visita, complVisitante);
+        if (visitaCRT.salvarVisita(visita)) {
+            clear();
+            JOptionPane.showMessageDialog(null, "O REGISTRO FOI ATUALIZADO COM SUCESSO!");
+        } else {
+            JOptionPane.showMessageDialog(null, "FALHA NA ATUALIZAÇÃO DO REGISTRO! POR FAVOR, TENTE NOVAMENTE.");
+        }
     }
 
     public void abrirCamera() {
@@ -568,7 +597,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     public void salvaFoto() {
         try {
-            fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getIdVisitante());
+            fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getVisitante().getId());
             cameraCTR.stopCamera();
             jPanelCamera.remove(cameraCTR.getPanel());
             abrirFoto();
@@ -580,7 +609,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     public void abrirFoto() {
         try {
 
-            if (fotoCTR.abrirFotoJPG(visita.getIdVisitante())) {
+            if (fotoCTR.abrirFotoJPG(visita.getVisitante().getId())) {
                 jLabelFoto.setIcon(fotoCTR.getImageIcon());
                 jButtonCapturar.setText("ALTERAR FOTO");
                 jButtonCapturar.setEnabled(true);
@@ -595,7 +624,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         }
     }
 
-    public void clear(){
+    public void clear() {
         jFormattedTextFieldCPF.setText("");
         jTextFieldCelular.setText("");
         jTextFieldEmpresa.setText("");
@@ -609,5 +638,5 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jButtonCapturar.setEnabled(false);
         jButtonPesqVisitado.setEnabled(false);
     }
-    
+
 }

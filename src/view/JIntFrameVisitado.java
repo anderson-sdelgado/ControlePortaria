@@ -260,17 +260,14 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
 
         preencheCampo(visitadoCTR.getPesqVisitado((Integer) jTableVisitado.getValueAt(jTableVisitado.getSelectedRow(), jTableVisitado.convertColumnIndexToView(0))));
 
-                if (this.pontoAcessoTela == 2) {
+        if (this.pontoAcessoTela == 2) {
             if (evt.getClickCount() == 2) {
                 Visitado v = visitadoCTR.getPesqVisitado((Integer) jTableVisitado.getValueAt(jTableVisitado.getSelectedRow(), jTableVisitado.convertColumnIndexToView(0)));
-                jIntFrameVisita.getVisita().setIdVisitado(v.getId());
-                jIntFrameVisita.getjTextFieldVisitado().setText(v.getNome());
-                jIntFrameVisita.getjTextFieldLocal().setText(v.getLocal());
-                jIntFrameVisita.liberarCadVisita();
+                jIntFrameVisita.preencheCamposVisitado(v);
                 dispose();
             }
         }
-        
+
     }//GEN-LAST:event_jTableVisitadoMouseClicked
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed

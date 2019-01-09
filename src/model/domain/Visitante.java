@@ -20,6 +20,7 @@ public class Visitante {
     private String cpf;
     private String rg;
     private String nome;
+    private ComplVisitante complVisitante;
 
     public Visitante() {
     }
@@ -54,6 +55,14 @@ public class Visitante {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public ComplVisitante getComplVisitante() {
+        return complVisitante;
+    }
+
+    public void setComplVisitante(ComplVisitante complVisitante) {
+        this.complVisitante = complVisitante;
     }
     
 }

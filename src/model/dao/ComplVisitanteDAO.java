@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.domain.ComplVisitante;
+import model.domain.Visita;
 
 /**
  *
@@ -22,9 +23,9 @@ public class ComplVisitanteDAO {
     public ComplVisitanteDAO() {
     }
 
-    private ComplVisitante getComplVisitanteBD(int idVisitante) {
+    public ComplVisitante getComplVisitante(int idVisitante) {
 
-        ComplVisitante complVisitante = new ComplVisitante();
+        complVisitante = new ComplVisitante();
 
         try {
 
@@ -52,10 +53,15 @@ public class ComplVisitanteDAO {
                 complVisitante.setCelular(rSet.getString(4));
                 complVisitante.setModeloVeic(rSet.getString(5));
                 complVisitante.setPlacaVeic(rSet.getString(6));
-                complVisitante.setIdVisitante(idVisitante);
+
+                complVisitante.setEmpresa(this.complVisitante.getEmpresa() == null ? "" : this.complVisitante.getEmpresa());
+                complVisitante.setTelFixo(this.complVisitante.getTelFixo() == null ? "" : this.complVisitante.getTelFixo());
+                complVisitante.setCelular(this.complVisitante.getCelular() == null ? "" : this.complVisitante.getCelular());
+                complVisitante.setModeloVeic(this.complVisitante.getModeloVeic() == null ? "" : this.complVisitante.getModeloVeic());
+                complVisitante.setPlacaVeic(this.complVisitante.getPlacaVeic() == null ? "" : this.complVisitante.getPlacaVeic());
+
             } else {
                 complVisitante.setId(0);
-                complVisitante.setIdVisitante(idVisitante);
                 complVisitante.setEmpresa("");
                 complVisitante.setTelFixo("");
                 complVisitante.setCelular("");
@@ -68,42 +74,29 @@ public class ComplVisitanteDAO {
         }
 
         return complVisitante;
+
     }
 
-    public ComplVisitante getComplVisitante(int idVisitante) {
-        complVisitante = getComplVisitanteBD(idVisitante);
-        return complVisitante;
-    }
+    public ComplVisitante tratarComplVisitante(Visita visita) {
 
-    public int tratarComplVisitante(ComplVisitante complVisitante) {
+        if (!(this.complVisitante.getEmpresa().equals(visita.getVisitante().getComplVisitante().getEmpresa())
+                && this.complVisitante.getTelFixo().equals(visita.getVisitante().getComplVisitante().getTelFixo())
+                && this.complVisitante.getCelular().equals(visita.getVisitante().getComplVisitante().getCelular())
+                && this.complVisitante.getModeloVeic().equals(visita.getVisitante().getComplVisitante().getModeloVeic())
+                && this.complVisitante.getPlacaVeic().equals(visita.getVisitante().getComplVisitante().getPlacaVeic()))) {
 
-        this.complVisitante.setEmpresa(this.complVisitante.getEmpresa() == null ? "" : this.complVisitante.getEmpresa());
-        this.complVisitante.setTelFixo(this.complVisitante.getTelFixo() == null ? "" : this.complVisitante.getTelFixo());
-        this.complVisitante.setCelular(this.complVisitante.getCelular() == null ? "" : this.complVisitante.getCelular());
-        this.complVisitante.setModeloVeic(this.complVisitante.getModeloVeic() == null ? "" : this.complVisitante.getModeloVeic());
-        this.complVisitante.setPlacaVeic(this.complVisitante.getPlacaVeic() == null ? "" : this.complVisitante.getPlacaVeic());
-
-        if (this.complVisitante.getEmpresa().equals(complVisitante.getEmpresa())
-                && this.complVisitante.getTelFixo().equals(complVisitante.getTelFixo())
-                && this.complVisitante.getCelular().equals(complVisitante.getCelular())
-                && this.complVisitante.getModeloVeic().equals(complVisitante.getModeloVeic())
-                && this.complVisitante.getPlacaVeic().equals(complVisitante.getPlacaVeic())) {
-            
-            return this.complVisitante.getId();
-            
-        } else {
-            complVisitante.setIdVisitante(this.complVisitante.getIdVisitante());
-            if (inserirComplVisitanteBD(complVisitante) > 0) {
-                return getUltComplVisitanteBD(this.complVisitante.getIdVisitante()).getId();
-            }
-            else{
-                return 0;
+            if (inserirComplVisitanteBD(visita) > 0) {
+                getUltComplVisitanteBD(visita.getVisitante().getId());
+                this.complVisitante = visita.getVisitante().getComplVisitante();
+                return this.complVisitante;
             }
         }
 
+        return this.complVisitante;
+
     }
 
-    public int inserirComplVisitanteBD(ComplVisitante cv) {
+    public int inserirComplVisitanteBD(Visita visita) {
 
         String sql = "INSERT INTO "
                 + " PORT_COMPL_VISITANTE "
@@ -117,41 +110,19 @@ public class ComplVisitanteDAO {
                 + " , DATA_COMPL_VISIT "
                 + " ) "
                 + " VALUES "
-                + " ( " + cv.getIdVisitante() + " "
-                + " , '" + cv.getEmpresa() + "' "
-                + " , '" + cv.getTelFixo() + "' "
-                + " , '" + cv.getCelular() + "' "
-                + " , '" + cv.getModeloVeic() + "' "
-                + " , '" + cv.getPlacaVeic() + "' "
+                + " ( " + visita.getVisitante().getId() + " "
+                + " , '" + visita.getVisitante().getComplVisitante().getEmpresa() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getTelFixo() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getCelular() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getModeloVeic() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getPlacaVeic() + "' "
                 + " , SYSDATE)";
 
-        System.out.println("INSERT INTO "
-                + " PORT_COMPL_VISITANTE "
-                + " ( "
-                + " CODIGO_VISITANTE "
-                + " , EMPRESA_VISITANTE "
-                + " , TELEFONE_VISITANTE "
-                + " , CELULAR_VISITANTE "
-                + " , MODELO_VISITANTE "
-                + " , PLACA_VISITANTE "
-                + " , DATA_COMPL_VISIT "
-                + " ) "
-                + " VALUES "
-                + " ( " + cv.getIdVisitante() + " "
-                + " , '" + cv.getEmpresa() + "' "
-                + " , '" + cv.getTelFixo() + "' "
-                + " , '" + cv.getCelular() + "' "
-                + " , '" + cv.getModeloVeic() + "' "
-                + " , '" + cv.getPlacaVeic() + "' "
-                + " , SYSDATE)");
-        
         return Conn.getInstance().manipBDDefault(sql);
 
     }
 
-    private ComplVisitante getUltComplVisitanteBD(int idVisitante) {
-
-        ComplVisitante complVisitante = new ComplVisitante();
+    private void getUltComplVisitanteBD(int idVisitante) {
 
         try {
 
@@ -170,7 +141,6 @@ public class ComplVisitanteDAO {
             System.out.println("Falha = " + e);
         }
 
-        return complVisitante;
     }
 
 }

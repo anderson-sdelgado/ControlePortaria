@@ -48,6 +48,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jSubMenuVisitado = new javax.swing.JMenuItem();
         jMenuMovimentacao = new javax.swing.JMenu();
         jSubMenuEntrada = new javax.swing.JMenuItem();
+        jMenuRelatorio = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +92,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuMovimentacao.add(jSubMenuEntrada);
 
         menuBar.add(jMenuMovimentacao);
+
+        jMenuRelatorio.setText("RELATÓRIO");
+        menuBar.add(jMenuRelatorio);
 
         setJMenuBar(menuBar);
 
@@ -180,6 +184,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JMenu jMenuMovimentacao;
+    private javax.swing.JMenu jMenuRelatorio;
     private javax.swing.JMenuItem jSubMenuEntrada;
     private javax.swing.JMenuItem jSubMenuVisitado;
     private javax.swing.JMenuItem jSubMenuVisitante;

@@ -47,7 +47,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         modelTable = (DefaultTableModel) jTableVisitante.getModel();
         status = false;
         visitanteCTR = new VisitanteCTR();
-        exibirInicialTela();
+        exibicaoInicial();
         DocumentFilter filter = new UppercaseDocumentFilter();
         ((AbstractDocument) jTextFieldPesq.getDocument()).setDocumentFilter(filter);
         ((AbstractDocument) jTextFieldRG.getDocument()).setDocumentFilter(filter);
@@ -291,11 +291,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         if (this.pontoAcessoTela == 2) {
             if (evt.getClickCount() == 2) {
                 Visitante v = visitanteCTR.getPesqVisitante((Integer) jTableVisitante.getValueAt(jTableVisitante.getSelectedRow(), jTableVisitante.convertColumnIndexToView(0)));
-                jIntFrameVisita.getVisita().setIdVisitante(v.getId());
-                jIntFrameVisita.getjTextFieldRG().setText(v.getRg());
-                jIntFrameVisita.getjFormattedTextFieldCPF().setText(v.getCpf());
-                jIntFrameVisita.getjTextFieldNome().setText(v.getNome());
-                jIntFrameVisita.buscaComplVisitante();
+                jIntFrameVisita.preencheCamposVisitante(v);
                 dispose();
             }
         }
@@ -402,7 +398,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldRG;
     // End of variables declaration//GEN-END:variables
 
-    public void exibirInicialTela() {
+    public void exibicaoInicial() {
 
         jTableVisitante.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTableVisitante.getColumnModel().getColumn(1).setPreferredWidth(120);

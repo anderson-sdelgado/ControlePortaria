@@ -30,7 +30,7 @@ public class FotoCTR {
         if (file.exists()) {
             Image image = ImageIO.read(file);
             imageIcon = new ImageIcon(image);
-            imageIcon.getImage().getScaledInstance(80, 60, 100);
+            imageIcon.setImage(imageIcon.getImage().getScaledInstance(320, 240, 1));
             return true;
         } else {
             return false;

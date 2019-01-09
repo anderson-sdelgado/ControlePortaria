@@ -12,10 +12,11 @@ package model.domain;
 public class Visita {
     
     private int id;
-    private int idVisitante;
-    private int idCompVisitante;
-    private int idVisitado;
+    private Visitante visitante;
+    private Visitado visitado;
     private int matricRecep;
+    private String dataHoraEntrada;
+    private String dataHoraSaida;
 
     public Visita() {
     }
@@ -28,36 +29,44 @@ public class Visita {
         this.id = id;
     }
 
-    public int getIdVisitante() {
-        return idVisitante;
-    }
-
-    public void setIdVisitante(int idVisitante) {
-        this.idVisitante = idVisitante;
-    }
-
-    public int getIdCompVisitante() {
-        return idCompVisitante;
-    }
-
-    public void setIdCompVisitante(int idCompVisitante) {
-        this.idCompVisitante = idCompVisitante;
-    }
-
-    public int getIdVisitado() {
-        return idVisitado;
-    }
-
-    public void setIdVisitado(int idVisitado) {
-        this.idVisitado = idVisitado;
-    }
-
     public int getMatricRecep() {
         return matricRecep;
     }
 
     public void setMatricRecep(int matricRecep) {
         this.matricRecep = matricRecep;
+    }
+
+    public Visitante getVisitante() {
+        return visitante;
+    }
+
+    public void setVisitante(Visitante visitante) {
+        this.visitante = visitante;
+    }
+
+    public Visitado getVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(Visitado visitado) {
+        this.visitado = visitado;
+    }
+
+    public String getDataHoraEntrada() {
+        return dataHoraEntrada;
+    }
+
+    public void setDataHoraEntrada(String dataHoraEntrada) {
+        this.dataHoraEntrada = dataHoraEntrada;
+    }
+
+    public String getDataHoraSaida() {
+        return dataHoraSaida;
+    }
+
+    public void setDataHoraSaida(String dataHoraSaida) {
+        this.dataHoraSaida = dataHoraSaida;
     }
     
 }

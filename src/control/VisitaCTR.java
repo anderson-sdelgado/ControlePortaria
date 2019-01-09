@@ -5,6 +5,7 @@
  */
 package control;
 
+import java.util.List;
 import model.dao.ComplVisitanteDAO;
 import model.dao.VisitaDAO;
 import model.domain.ComplVisitante;
@@ -16,8 +17,8 @@ import model.domain.Visita;
  */
 public class VisitaCTR {
 
-    private ComplVisitanteDAO complVisitanteDAO;
-    private VisitaDAO visitaDAO;
+    private final ComplVisitanteDAO complVisitanteDAO;
+    private final VisitaDAO visitaDAO;
 
     public VisitaCTR() {
         complVisitanteDAO = new ComplVisitanteDAO();
@@ -28,11 +29,17 @@ public class VisitaCTR {
         return complVisitanteDAO.getComplVisitante(idVisitante);
     }
 
-    public void salvarVisita(Visita visita, ComplVisitante complVisitante) {
-        visita.setIdCompVisitante(complVisitanteDAO.tratarComplVisitante(complVisitante));
-        if(visita.getIdCompVisitante() > 0){
-            visitaDAO.inserirRegBD(visita);
-        }
+    public Boolean salvarVisita(Visita visita) {
+        visita.getVisitante().setComplVisitante(complVisitanteDAO.tratarComplVisitante(visita));
+        return visitaDAO.inserirRegBD(visita) > 0;
+    }
+
+    public void carregListaVisitaNaEmpresa() {
+        visitaDAO.carregVisitaNaEmpresa();
+    }
+
+    public List<Visita> getVisitaList() {
+        return visitaDAO.getVisitaList();
     }
 
 }

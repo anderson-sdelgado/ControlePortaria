@@ -5,17 +5,44 @@
  */
 package view;
 
+import control.FotoCTR;
+import control.VisitaCTR;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.MaskFormatter;
+import model.domain.Visita;
+import model.domain.Visitante;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author anderson
  */
 public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
 
+    private final VisitaCTR visitaCTR;
+    private final FotoCTR fotoCTR;
+    private DefaultTableModel modelTable;
+
     /**
      * Creates new form JIntFramePainelVisitante
      */
     public JIntFramePainelVisitante() {
         initComponents();
+
+        visitaCTR = new VisitaCTR();
+        fotoCTR = new FotoCTR();
+        visitaCTR.carregListaVisitaNaEmpresa();
+        modelTable = (DefaultTableModel) jTableVisita.getModel();
+        exibicaoInicial();
+
     }
 
     /**
@@ -26,22 +53,193 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
+        jLabelPesquisa = new javax.swing.JLabel();
+        jTextFieldPesq = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableVisita = new javax.swing.JTable();
+        jLabelDescrFoto1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelFoto = new javax.swing.JLabel();
+        jLabelDescrFoto2 = new javax.swing.JLabel();
+        jLabelDuracao = new javax.swing.JLabel();
+        jButtonImprCracha = new javax.swing.JButton();
+
+        setClosable(true);
+        setTitle("VISITANTE DENTRO DA EMPRESA");
+        setPreferredSize(new java.awt.Dimension(600, 600));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jLabelPesquisa.setText("PESQUISA:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
+        getContentPane().add(jLabelPesquisa, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 100;
+        getContentPane().add(jTextFieldPesq, gridBagConstraints);
+
+        jTableVisita.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CODIGO", "CPF", "RG", "NOME", "ENTRADA"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableVisita);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.ipadx = 500;
+        gridBagConstraints.ipady = 200;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        jLabelDescrFoto1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDescrFoto1.setText("FOTO DO");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(70, 0, 0, 0);
+        getContentPane().add(jLabelDescrFoto1, gridBagConstraints);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(320, 240));
+        jPanel1.setPreferredSize(new java.awt.Dimension(320, 240));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel1.add(jLabelFoto, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        getContentPane().add(jPanel1, gridBagConstraints);
+
+        jLabelDescrFoto2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDescrFoto2.setText("VISITANTE");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        getContentPane().add(jLabelDescrFoto2, gridBagConstraints);
+
+        jLabelDuracao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelDuracao.setText("Duração 01:00");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 3;
+        getContentPane().add(jLabelDuracao, gridBagConstraints);
+
+        jButtonImprCracha.setText("GERAR CRACHÁ");
+        jButtonImprCracha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprCrachaActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 5;
+        getContentPane().add(jButtonImprCracha, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonImprCrachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprCrachaActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(getClass().getResourceAsStream("/ireport/crachaReport.jasper"), null);
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(JIntFramePainelVisitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonImprCrachaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonImprCracha;
+    private javax.swing.JLabel jLabelDescrFoto1;
+    private javax.swing.JLabel jLabelDescrFoto2;
+    private javax.swing.JLabel jLabelDuracao;
+    private javax.swing.JLabel jLabelFoto;
+    private javax.swing.JLabel jLabelPesquisa;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableVisita;
+    private javax.swing.JTextField jTextFieldPesq;
     // End of variables declaration//GEN-END:variables
+
+    public void exibicaoInicial() {
+
+        jTableVisita.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTableVisita.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jTableVisita.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableVisita.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTableVisita.getColumnModel().getColumn(4).setPreferredWidth(80);
+
+        modelTable.setNumRows(0);
+
+        visitaCTR.getVisitaList().forEach((v) -> {
+            modelTable.addRow(new Object[]{
+                v.getId(),
+                formatarCpf(v.getVisitante().getCpf()),
+                v.getVisitante().getRg(),
+                v.getVisitante().getNome(),
+                v.getDataHoraEntrada()});
+        });
+
+        jTableVisita.addRowSelectionInterval(0, 0);
+        preencheCampo(visitaCTR.getVisitaList().get(0));
+
+    }
+    
+    public String formatarCpf(String cpf) {
+        String cpfForm = "";
+        try {
+            MaskFormatter formatter = new MaskFormatter("###.###.###-##");
+            formatter.setValueContainsLiteralCharacters(false);
+            cpfForm = formatter.valueToString(cpf.equals("NULL") ? "" : cpf);
+        } catch (ParseException ex) {
+            Logger.getLogger(Visitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cpfForm;
+    }
+    
+    public void preencheCampo(Visita visita){
+        abrirFoto(visita.getVisitante().getId());
+    }
+    
+    
+    public void abrirFoto(int idVisitante) {
+        try {
+            if (fotoCTR.abrirFotoJPG(idVisitante)) {
+                jLabelFoto.setIcon(fotoCTR.getImageIcon());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
