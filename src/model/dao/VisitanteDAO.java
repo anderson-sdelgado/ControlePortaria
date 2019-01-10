@@ -46,10 +46,10 @@ public class VisitanteDAO {
 
             while (rSet.next()) {
                 Visitante visitante = new Visitante();
-                visitante.setId(Integer.parseInt(rSet.getString(1)));
-                visitante.setCpf(rSet.getString(2));
-                visitante.setRg(rSet.getString(3));
-                visitante.setNome(rSet.getString(4));
+                visitante.setIdVisitante(Integer.parseInt(rSet.getString(1)));
+                visitante.setCpfVisitante(rSet.getString(2));
+                visitante.setRgVisitante(rSet.getString(3));
+                visitante.setNomeVisitante(rSet.getString(4));
                 list.add(visitante);
             }
 
@@ -62,7 +62,7 @@ public class VisitanteDAO {
 
     public Visitante pesqVisitante(Integer valor) {
         Visitante v = visitanteList.stream()
-                .filter(visitante -> visitante.getId() == valor)
+                .filter(visitante -> visitante.getIdVisitante() == valor)
                 .findAny()
                 .orElse(null);
         return v;
@@ -73,7 +73,7 @@ public class VisitanteDAO {
     }
 
     public Visitante ultimoReg() {
-        Comparator<Visitante> comparator = Comparator.comparing(Visitante::getId);
+        Comparator<Visitante> comparator = Comparator.comparing(Visitante::getIdVisitante);
         return visitanteList.stream().max(comparator).get();
     }
 
@@ -89,10 +89,10 @@ public class VisitanteDAO {
                 + " , DATA_VISITANTE "
                 + " ) "
                 + " VALUES "
-                + " ( " + v.getId() + " "
-                + " , " + v.getCpf() + " "
-                + " , '" + v.getRg() + "' "
-                + " , '" + v.getNome() + "' "
+                + " ( " + v.getIdVisitante() + " "
+                + " , " + v.getCpfVisitante() + " "
+                + " , '" + v.getRgVisitante() + "' "
+                + " , '" + v.getNomeVisitante() + "' "
                 + " , SYSDATE)";
 
         return Conn.getInstance().manipBDDefault(sql);
@@ -108,11 +108,11 @@ public class VisitanteDAO {
         String sql = " UPDATE "
                 + " PORT_VISITANTE "
                 + " SET "
-                + " CPF_VISITANTE = " + v.getCpf()
-                + " , RG_VISITANTE = '" + v.getRg() + "'"
-                + " , NOME_VISITANTE = '" + v.getNome() + "'"
+                + " CPF_VISITANTE = " + v.getCpfVisitante()
+                + " , RG_VISITANTE = '" + v.getRgVisitante() + "'"
+                + " , NOME_VISITANTE = '" + v.getNomeVisitante() + "'"
                 + " WHERE "
-                + " CODIGO_VISITANTE = " + v.getId();
+                + " CODIGO_VISITANTE = " + v.getIdVisitante();
 
         return Conn.getInstance().manipBDDefault(sql);
 
@@ -120,13 +120,13 @@ public class VisitanteDAO {
 
     public void atualizarRegList(Visitante v) {
         Visitante vis = visitanteList.stream()
-                .filter(visitante -> visitante.getId() == v.getId())
+                .filter(visitante -> visitante.getIdVisitante() == v.getIdVisitante())
                 .findAny()
                 .orElse(null);
 
-        vis.setCpf(v.getCpf());
-        vis.setRg(v.getRg());
-        vis.setNome(v.getNome());
+        vis.setCpfVisitante(v.getCpfVisitante());
+        vis.setRgVisitante(v.getRgVisitante());
+        vis.setNomeVisitante(v.getNomeVisitante());
     }
 
     public int excluirRegBD(Visitante v) {
@@ -134,14 +134,14 @@ public class VisitanteDAO {
         String sql = " DELETE "
                 + " PORT_VISITANTE "
                 + " WHERE "
-                + " CODIGO_VISITANTE = " + v.getId();
+                + " CODIGO_VISITANTE = " + v.getIdVisitante();
 
         return Conn.getInstance().manipBDDefault(sql);
 
     }
 
     public void excluirRegList(Visitante v) {
-        visitanteList.removeIf(visitante -> visitante.getId() == v.getId());
+        visitanteList.removeIf(visitante -> visitante.getIdVisitante() == v.getIdVisitante());
     }
 
 }

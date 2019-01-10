@@ -525,26 +525,26 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     public void preencheCamposVisitante(Visitante visitante) {
         visita = new Visita();
         visita.setVisitante(visitante);
-        jTextFieldRG.setText(visita.getVisitante().getRg());
-        jFormattedTextFieldCPF.setText(visita.getVisitante().getCpf());
-        jTextFieldNome.setText(visita.getVisitante().getNome());
+        jTextFieldRG.setText(visita.getVisitante().getRgVisitante());
+        jFormattedTextFieldCPF.setText(visita.getVisitante().getCpfVisitante());
+        jTextFieldNome.setText(visita.getVisitante().getNomeVisitante());
         buscaComplVisitante();
     }
 
     public void preencheCamposVisitado(Visitado visitado) {
         visita.setVisitado(visitado);
-        jTextFieldVisitado.setText(visita.getVisitado().getNome());
-        jTextFieldLocal.setText(visita.getVisitado().getLocal());
+        jTextFieldVisitado.setText(visita.getVisitado().getNomeVisitado());
+        jTextFieldLocal.setText(visita.getVisitado().getLocalVisitado());
         liberarCadVisita();
     }
 
     public void buscaComplVisitante() {
-        visita.getVisitante().setComplVisitante(visitaCRT.getComplVisitante(visita.getVisitante().getId()));
-        jTextFieldEmpresa.setText(visita.getVisitante().getComplVisitante().getEmpresa());
-        jTextFieldTelefone.setText(visita.getVisitante().getComplVisitante().getTelFixo());
-        jTextFieldCelular.setText(visita.getVisitante().getComplVisitante().getCelular());
-        jTextFieldVeiculo.setText(visita.getVisitante().getComplVisitante().getModeloVeic());
-        jTextFieldPlaca.setText(visita.getVisitante().getComplVisitante().getPlacaVeic());
+        visita.getVisitante().setComplVisitante(visitaCRT.getComplVisitante(visita.getVisitante().getIdVisitante()));
+        jTextFieldEmpresa.setText(visita.getVisitante().getComplVisitante().getEmpresaVisitante());
+        jTextFieldTelefone.setText(visita.getVisitante().getComplVisitante().getTelFixoVisitante());
+        jTextFieldCelular.setText(visita.getVisitante().getComplVisitante().getCelularVisitante());
+        jTextFieldVeiculo.setText(visita.getVisitante().getComplVisitante().getModeloVeicVisitante());
+        jTextFieldPlaca.setText(visita.getVisitante().getComplVisitante().getPlacaVeicVisitante());
         jTextFieldEmpresa.setEnabled(true);
         jTextFieldTelefone.setEnabled(true);
         jTextFieldCelular.setEnabled(true);
@@ -558,12 +558,12 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     }
 
     public void salvarVisita() {
-        visita.getVisitante().getComplVisitante().setEmpresa(jTextFieldEmpresa.getText());
-        visita.getVisitante().getComplVisitante().setTelFixo(jTextFieldTelefone.getText());
-        visita.getVisitante().getComplVisitante().setCelular(jTextFieldCelular.getText());
-        visita.getVisitante().getComplVisitante().setModeloVeic(jTextFieldVeiculo.getText());
-        visita.getVisitante().getComplVisitante().setPlacaVeic(jTextFieldPlaca.getText());
-        visita.setMatricRecep(jFramePrincipal.getFunc().getMatricFunc());
+        visita.getVisitante().getComplVisitante().setEmpresaVisitante(jTextFieldEmpresa.getText());
+        visita.getVisitante().getComplVisitante().setTelFixoVisitante(jTextFieldTelefone.getText());
+        visita.getVisitante().getComplVisitante().setCelularVisitante(jTextFieldCelular.getText());
+        visita.getVisitante().getComplVisitante().setModeloVeicVisitante(jTextFieldVeiculo.getText());
+        visita.getVisitante().getComplVisitante().setPlacaVeicVisitante(jTextFieldPlaca.getText());
+//        visita.setMatricRecep(jFramePrincipal.getFunc().getMatricFunc()); alterado teste
         if (visitaCRT.salvarVisita(visita)) {
             clear();
             JOptionPane.showMessageDialog(null, "O REGISTRO FOI ATUALIZADO COM SUCESSO!");
@@ -597,7 +597,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     public void salvaFoto() {
         try {
-            fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getVisitante().getId());
+            fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getVisitante().getIdVisitante());
             cameraCTR.stopCamera();
             jPanelCamera.remove(cameraCTR.getPanel());
             abrirFoto();
@@ -609,7 +609,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     public void abrirFoto() {
         try {
 
-            if (fotoCTR.abrirFotoJPG(visita.getVisitante().getId())) {
+            if (fotoCTR.abrirFotoJPG(visita.getVisitante().getIdVisitante())) {
                 jLabelFoto.setIcon(fotoCTR.getImageIcon());
                 jButtonCapturar.setText("ALTERAR FOTO");
                 jButtonCapturar.setEnabled(true);

@@ -44,9 +44,9 @@ public class VisitadoDAO {
 
             while (rSet.next()) {
                 Visitado visitado = new Visitado();
-                visitado.setId(Integer.parseInt(rSet.getString(1)));
-                visitado.setNome(rSet.getString(2));
-                visitado.setLocal(rSet.getString(3));
+                visitado.setIdVisitado(Integer.parseInt(rSet.getString(1)));
+                visitado.setNomeVisitado(rSet.getString(2));
+                visitado.setLocalVisitado(rSet.getString(3));
                 list.add(visitado);
             }
 
@@ -60,7 +60,7 @@ public class VisitadoDAO {
 
     public Visitado pesqVisitado(Integer valor) {
         Visitado v = visitadoList.stream()
-                .filter(visitado -> visitado.getId() == valor)
+                .filter(visitado -> visitado.getIdVisitado() == valor)
                 .findAny()
                 .orElse(null);
         return v;
@@ -71,7 +71,7 @@ public class VisitadoDAO {
     }
 
     public Visitado ultimoReg() {
-        Comparator<Visitado> comparator = Comparator.comparing(Visitado::getId);
+        Comparator<Visitado> comparator = Comparator.comparing(Visitado::getIdVisitado);
         return visitadoList.stream().max(comparator).get();
     }
 
@@ -86,9 +86,9 @@ public class VisitadoDAO {
                 + " , DATA_VISITADO "
                 + " ) "
                 + " VALUES "
-                + " ( " + v.getId() + " "
-                + " , '" + v.getNome() + "' "
-                + " , '" + v.getLocal() + "' "
+                + " ( " + v.getIdVisitado() + " "
+                + " , '" + v.getNomeVisitado() + "' "
+                + " , '" + v.getLocalVisitado() + "' "
                 + " , SYSDATE)";
 
         return Conn.getInstance().manipBDDefault(sql);
@@ -104,10 +104,10 @@ public class VisitadoDAO {
         String sql = " UPDATE "
                 + " PORT_VISITADO "
                 + " SET "
-                + " NOME_VISITADO = '" + v.getNome() + "'"
-                + " , LOCAL_VISITADO = '" + v.getLocal() + "'"
+                + " NOME_VISITADO = '" + v.getNomeVisitado() + "'"
+                + " , LOCAL_VISITADO = '" + v.getLocalVisitado() + "'"
                 + " WHERE "
-                + " CODIGO_VISITADO = " + v.getId();
+                + " CODIGO_VISITADO = " + v.getIdVisitado();
 
         return Conn.getInstance().manipBDDefault(sql);
 
@@ -115,12 +115,12 @@ public class VisitadoDAO {
 
     public void atualizarRegList(Visitado v) {
         Visitado vis = visitadoList.stream()
-                .filter(visitado -> visitado.getId() == v.getId())
+                .filter(visitado -> visitado.getIdVisitado() == v.getIdVisitado())
                 .findAny()
                 .orElse(null);
 
-        vis.setNome(v.getNome());
-        vis.setLocal(v.getLocal());
+        vis.setNomeVisitado(v.getNomeVisitado());
+        vis.setLocalVisitado(v.getLocalVisitado());
     }
 
     public int excluirRegBD(Visitado v) {
@@ -128,14 +128,14 @@ public class VisitadoDAO {
         String sql = " DELETE "
                 + " PORT_VISITADO "
                 + " WHERE "
-                + " CODIGO_VISITADO = " + v.getId();
+                + " CODIGO_VISITADO = " + v.getIdVisitado();
 
         return Conn.getInstance().manipBDDefault(sql);
 
     }
 
     public void excluirRegList(Visitado v) {
-        visitadoList.removeIf(visitado -> visitado.getId() == v.getId());
+        visitadoList.removeIf(visitado -> visitado.getIdVisitado() == v.getIdVisitado());
     }
     
 }

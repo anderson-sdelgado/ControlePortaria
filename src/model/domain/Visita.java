@@ -11,22 +11,22 @@ package model.domain;
  */
 public class Visita {
     
-    private int id;
+    private int idVisita;
     private Visitante visitante;
     private Visitado visitado;
     private int matricRecep;
-    private String dataHoraEntrada;
-    private String dataHoraSaida;
+    private String dataHoraEntradaVisita;
+    private String dataHoraSaidaVisita;
 
     public Visita() {
     }
 
-    public int getId() {
-        return id;
+    public int getIdVisita() {
+        return idVisita;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVisita(int idVisita) {
+        this.idVisita = idVisita;
     }
 
     public int getMatricRecep() {
@@ -53,20 +53,20 @@ public class Visita {
         this.visitado = visitado;
     }
 
-    public String getDataHoraEntrada() {
-        return dataHoraEntrada;
+    public String getDataHoraEntradaVisita() {
+        return dataHoraEntradaVisita;
     }
 
-    public void setDataHoraEntrada(String dataHoraEntrada) {
-        this.dataHoraEntrada = dataHoraEntrada;
+    public void setDataHoraEntradaVisita(String dataHoraEntradaVisita) {
+        this.dataHoraEntradaVisita = dataHoraEntradaVisita;
     }
 
-    public String getDataHoraSaida() {
-        return dataHoraSaida;
+    public String getDataHoraSaidaVisita() {
+        return dataHoraSaidaVisita;
     }
 
-    public void setDataHoraSaida(String dataHoraSaida) {
-        this.dataHoraSaida = dataHoraSaida;
+    public void setDataHoraSaidaVisita(String dataHoraSaidaVisita) {
+        this.dataHoraSaidaVisita = dataHoraSaidaVisita;
     }
     
 }

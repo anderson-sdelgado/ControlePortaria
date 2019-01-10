@@ -26,9 +26,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         setTitle("CONTROLE DE PORTARIA");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
-        JIntFrameCrachaRecep jIntFrameCrachaRecep = new JIntFrameCrachaRecep(this);
-        this.desktopPane.add(jIntFrameCrachaRecep);
-        jIntFrameCrachaRecep.setVisible(true);
+//        JIntFrameCrachaRecep jIntFrameCrachaRecep = new JIntFrameCrachaRecep(this);
+//        this.desktopPane.add(jIntFrameCrachaRecep);
+//        jIntFrameCrachaRecep.setVisible(true);
 
     }
 
@@ -81,7 +81,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         menuBar.add(jMenuCadastro);
 
         jMenuMovimentacao.setText("MOVIMENTAÇÃO");
-        jMenuMovimentacao.setEnabled(false);
 
         jSubMenuEntrada.setText("ENTRADA DE VISITANTE");
         jSubMenuEntrada.addActionListener(new java.awt.event.ActionListener() {

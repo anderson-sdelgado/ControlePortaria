@@ -11,63 +11,62 @@ package model.domain;
  */
 public class ComplVisitante {
     
-    private int id;
-//    private int idVisitante;
-    private String empresa;
-    private String telFixo;
-    private String celular;
-    private String modeloVeic;
-    private String placaVeic;
+    private int idVisitante;
+    private String empresaVisitante;
+    private String telFixoVisitante;
+    private String celularVisitante;
+    private String modeloVeicVisitante;
+    private String placaVeicVisitante;
 
     public ComplVisitante() {
     }
 
-    public int getId() {
-        return id;
+    public int getIdVisitante() {
+        return idVisitante;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVisitante(int idVisitante) {
+        this.idVisitante = idVisitante;
     }
 
-    public String getEmpresa() {
-        return empresa;
+    public String getEmpresaVisitante() {
+        return empresaVisitante;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public void setEmpresaVisitante(String empresaVisitante) {
+        this.empresaVisitante = empresaVisitante;
     }
 
-    public String getTelFixo() {
-        return telFixo;
+    public String getTelFixoVisitante() {
+        return telFixoVisitante;
     }
 
-    public void setTelFixo(String telFixo) {
-        this.telFixo = telFixo;
+    public void setTelFixoVisitante(String telFixoVisitante) {
+        this.telFixoVisitante = telFixoVisitante;
     }
 
-    public String getModeloVeic() {
-        return modeloVeic;
+    public String getModeloVeicVisitante() {
+        return modeloVeicVisitante;
     }
 
-    public void setModeloVeic(String modeloVeic) {
-        this.modeloVeic = modeloVeic;
+    public void setModeloVeicVisitante(String modeloVeicVisitante) {
+        this.modeloVeicVisitante = modeloVeicVisitante;
     }
 
-    public String getPlacaVeic() {
-        return placaVeic;
+    public String getPlacaVeicVisitante() {
+        return placaVeicVisitante;
     }
 
-    public void setPlacaVeic(String placaVeic) {
-        this.placaVeic = placaVeic;
+    public void setPlacaVeicVisitante(String placaVeicVisitante) {
+        this.placaVeicVisitante = placaVeicVisitante;
     }
 
-    public String getCelular() {
-        return celular;
+    public String getCelularVisitante() {
+        return celularVisitante;
     }
 
-    public void setCelular(String celular) {
-        this.celular = celular;
+    public void setCelularVisitante(String celularVisitante) {
+        this.celularVisitante = celularVisitante;
     }
 //
 //    public int getIdVisitante() {

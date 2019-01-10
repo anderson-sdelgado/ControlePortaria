@@ -8,17 +8,24 @@ package view;
 import control.FotoCTR;
 import control.VisitaCTR;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
+import model.domain.Func;
 import model.domain.Visita;
 import model.domain.Visitante;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -167,10 +174,16 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
     private void jButtonImprCrachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprCrachaActionPerformed
         try {
             // TODO add your handling code here:
-
-            JasperPrint jasperPrint = JasperFillManager.fillReport(getClass().getResourceAsStream("/ireport/crachaReport.jasper"), null);
+            
+            JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
+                visitaCTR.getVisitaList((Integer) jTableVisita.getValueAt(jTableVisita.getSelectedRow(), jTableVisita.convertColumnIndexToView(0))));
+            
+            Map parametros = new HashMap();
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(getClass().getResourceAsStream("./ireport/crachaReport.jasper"), parametros, ds);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
+            
         } catch (JRException ex) {
             Logger.getLogger(JIntFramePainelVisitante.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -203,11 +216,11 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
 
         visitaCTR.getVisitaList().forEach((v) -> {
             modelTable.addRow(new Object[]{
-                v.getId(),
-                formatarCpf(v.getVisitante().getCpf()),
-                v.getVisitante().getRg(),
-                v.getVisitante().getNome(),
-                v.getDataHoraEntrada()});
+                v.getIdVisita(),
+                formatarCpf(v.getVisitante().getCpfVisitante()),
+                v.getVisitante().getRgVisitante(),
+                v.getVisitante().getNomeVisitante(),
+                v.getDataHoraEntradaVisita()});
         });
 
         jTableVisita.addRowSelectionInterval(0, 0);
@@ -228,9 +241,8 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
     }
     
     public void preencheCampo(Visita visita){
-        abrirFoto(visita.getVisitante().getId());
+        abrirFoto(visita.getVisitante().getIdVisitante());
     }
-    
     
     public void abrirFoto(int idVisitante) {
         try {
@@ -241,5 +253,5 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
             Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }

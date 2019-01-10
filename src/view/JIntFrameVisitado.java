@@ -284,9 +284,9 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! POR FAVOR, PREENCHA O CAMPO NOME DO VISITANTE.");
         } else {
             Visitado visitado = new Visitado();
-            visitado.setId(Integer.parseInt(jLabelCodigo.getText()));
-            visitado.setNome(jTextFieldNome.getText());
-            visitado.setLocal(jTextFieldLocal.getText());
+            visitado.setIdVisitado(Integer.parseInt(jLabelCodigo.getText()));
+            visitado.setNomeVisitado(jTextFieldNome.getText());
+            visitado.setLocalVisitado(jTextFieldLocal.getText());
             if (status) {
                 if (visitadoCTR.inserirReg(visitado)) {
                     atualizarTabela(0);
@@ -316,7 +316,7 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         Visitado visitante = new Visitado();
-        visitante.setId(Integer.parseInt(jLabelCodigo.getText()));
+        visitante.setIdVisitado(Integer.parseInt(jLabelCodigo.getText()));
         if (visitadoCTR.excluirReg(visitante)) {
             removeTabela(jTableVisitado.convertRowIndexToModel(jTableVisitado.getSelectedRow()));
             JOptionPane.showMessageDialog(null, "O REGISTRO EXLUÍDO COM SUCESSO!");
@@ -371,9 +371,9 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
 
         visitadoCTR.getVisitadoList().forEach((v) -> {
             modelTable.addRow(new Object[]{
-                v.getId(),
-                v.getNome(),
-                v.getLocal()});
+                v.getIdVisitado(),
+                v.getNomeVisitado(),
+                v.getLocalVisitado()});
         });
 
         jTableVisitado.addRowSelectionInterval(0, 0);
@@ -382,9 +382,9 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
     }
 
     public void preencheCampo(Visitado v) {
-        jLabelCodigo.setText(String.valueOf(v.getId()));
-        jTextFieldNome.setText(v.getNome() == null ? "" : v.getNome());
-        jTextFieldLocal.setText(v.getLocal() == null ? "" : v.getLocal());
+        jLabelCodigo.setText(String.valueOf(v.getIdVisitado()));
+        jTextFieldNome.setText(v.getNomeVisitado() == null ? "" : v.getNomeVisitado());
+        jTextFieldLocal.setText(v.getLocalVisitado() == null ? "" : v.getLocalVisitado());
     }
 
     public void exibirPesquisa(String valor) {
@@ -412,14 +412,14 @@ public class JIntFrameVisitado extends javax.swing.JInternalFrame {
         jButtonExcluir.setEnabled(false);
 
         modelTable.insertRow(0, new Object[]{
-            visitadoCTR.ultimoReg().getId() + 1,
+            visitadoCTR.ultimoReg().getIdVisitado() + 1,
             "",
             "",
             ""});
         jTableVisitado.clearSelection();
         jTableVisitado.addRowSelectionInterval(0, 0);
 
-        jLabelCodigo.setText(String.valueOf(visitadoCTR.ultimoReg().getId() + 1));
+        jLabelCodigo.setText(String.valueOf(visitadoCTR.ultimoReg().getIdVisitado() + 1));
         jTextFieldNome.setText("");
         jTextFieldLocal.setText("");
 

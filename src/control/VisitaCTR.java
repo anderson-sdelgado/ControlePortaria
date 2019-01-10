@@ -42,4 +42,8 @@ public class VisitaCTR {
         return visitaDAO.getVisitaList();
     }
 
+    public List<Visita> getVisitaList(int pos) {
+        return visitaDAO.getVisitaList(pos);
+    }
+
 }

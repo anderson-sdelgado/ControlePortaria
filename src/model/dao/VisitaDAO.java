@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.domain.ComplVisitante;
 import model.domain.Visita;
 import model.domain.Visitado;
 import model.domain.Visitante;
@@ -20,6 +21,7 @@ import model.domain.Visitante;
 public class VisitaDAO {
 
     private List<Visita> visitaList;
+    private List<Visita> visitaCrachaList;
 
     public VisitaDAO() {
     }
@@ -36,9 +38,9 @@ public class VisitaDAO {
                 + " , DTHR_ENTRADA "
                 + " ) "
                 + " VALUES "
-                + " ( " + v.getVisitante().getId() + " "
-                + " , " + v.getVisitado().getId() + " "
-                + " , " + v.getVisitante().getComplVisitante().getId() + " "
+                + " ( " + v.getVisitante().getIdVisitante() + " "
+                + " , " + v.getVisitado().getIdVisitado() + " "
+                + " , " + v.getVisitante().getComplVisitante().getIdVisitante() + " "
                 + " , " + v.getMatricRecep() + " "
                 + " , SYSDATE)";
 
@@ -58,7 +60,7 @@ public class VisitaDAO {
                     + " FROM "
                     + " CPD.PORT_MOVIMENTO "
                     + " WHERE "
-                    + " COD_VISITANTE = " + v.getId());
+                    + " COD_VISITANTE = " + v.getIdVisitante());
 
             while (rSet.next()) {
                 qtde = Integer.parseInt(rSet.getString(1));
@@ -84,7 +86,7 @@ public class VisitaDAO {
                     + " FROM "
                     + " CPD.PORT_MOVIMENTO "
                     + " WHERE "
-                    + " COD_VISITADO = " + v.getId());
+                    + " COD_VISITADO = " + v.getIdVisitado());
 
             while (rSet.next()) {
                 qtde = Integer.parseInt(rSet.getString(1));
@@ -107,32 +109,48 @@ public class VisitaDAO {
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT "
                     + " M.COD_MOVIMENTO "
-                    + " , V.CODIGO_VISITANTE "
-                    + " , V.NOME_VISITANTE "
-                    + " , LPAD (V.CPF_VISITANTE, 11, 0) "
-                    + " , V.RG_VISITANTE "
+                    + " , VISITANTE.CODIGO_VISITANTE "
+                    + " , VISITANTE.NOME_VISITANTE "
+                    + " , LPAD (VISITANTE.CPF_VISITANTE, 11, 0) "
+                    + " , VISITANTE.RG_VISITANTE "
+                    + " , CV.EMPRESA_VISITANTE "
+                    + " , VISITADO.NOME_VISITADO "
+                    + " , VISITADO.LOCAL_VISITADO "
                     + " , TO_CHAR(M.DTHR_ENTRADA, 'HH24:MI:SS') "
                     + " FROM "
                     + " PORT_MOVIMENTO M "
-                    + " , PORT_VISITANTE V "
+                    + " , PORT_VISITANTE VISITANTE "
+                    + " , PORT_VISITADO VISITADO "
+                    + " , PORT_COMPL_VISITANTE CV "
                     + " WHERE "
                     + " M.DTHR_SAIDA IS NULL "
                     + " AND "
-                    + " V.CODIGO_VISITANTE = M.COD_VISITANTE "
+                    + " VISITANTE.CODIGO_VISITANTE = M.COD_VISITANTE "
+                    + " AND "
+                    + " VISITADO.CODIGO_VISITADO = M.COD_VISITADO "
+                    + " AND "
+                    + " CV.CODIGO_COMPL_VISIT = M.COD_COMPL_VISIT "
                     + " ORDER BY "
                     + " M.COD_MOVIMENTO "
                     + " DESC ");
 
             while (rSet.next()) {
                 Visita visita = new Visita();
-                visita.setId(Integer.parseInt(rSet.getString(1)));
+                visita.setIdVisita(Integer.parseInt(rSet.getString(1)));
                 Visitante visitante = new Visitante();
-                visitante.setId(Integer.parseInt(rSet.getString(2)));
-                visitante.setNome(rSet.getString(3));
-                visitante.setCpf(rSet.getString(4));
-                visitante.setRg(rSet.getString(5));
+                visitante.setIdVisitante(Integer.parseInt(rSet.getString(2)));
+                visitante.setNomeVisitante(rSet.getString(3));
+                visitante.setCpfVisitante(rSet.getString(4));
+                visitante.setRgVisitante(rSet.getString(5));
+                ComplVisitante complVisitante = new ComplVisitante();
+                complVisitante.setEmpresaVisitante(rSet.getString(6));
+                visitante.setComplVisitante(complVisitante);
                 visita.setVisitante(visitante);
-                visita.setDataHoraEntrada(rSet.getString(6));
+                Visitado visitado = new Visitado();
+                visitado.setNomeVisitado(rSet.getString(7));
+                visitado.setLocalVisitado(rSet.getString(8));
+                visita.setVisitado(visitado);
+                visita.setDataHoraEntradaVisita(rSet.getString(9));
                 visitaList.add(visita);
             }
 
@@ -146,4 +164,15 @@ public class VisitaDAO {
         return visitaList;
     }
 
+    public List<Visita> getVisitaList(int pos) {
+        Visita visit = visitaList.stream()
+                .filter(visita -> visita.getIdVisita() == pos)
+                .findAny()
+                .orElse(null);
+        visitaCrachaList = new ArrayList();
+        visitaCrachaList.add(visit);
+        return visitaCrachaList;
+    }
+    
+    
 }

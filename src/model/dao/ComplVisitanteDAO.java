@@ -47,26 +47,26 @@ public class ComplVisitanteDAO {
 
             if (rSet.isBeforeFirst()) {
                 rSet.next();
-                complVisitante.setId(Integer.parseInt(rSet.getString(1)));
-                complVisitante.setEmpresa(rSet.getString(2));
-                complVisitante.setTelFixo(rSet.getString(3));
-                complVisitante.setCelular(rSet.getString(4));
-                complVisitante.setModeloVeic(rSet.getString(5));
-                complVisitante.setPlacaVeic(rSet.getString(6));
+                complVisitante.setIdVisitante(Integer.parseInt(rSet.getString(1)));
+                complVisitante.setEmpresaVisitante(rSet.getString(2));
+                complVisitante.setTelFixoVisitante(rSet.getString(3));
+                complVisitante.setCelularVisitante(rSet.getString(4));
+                complVisitante.setModeloVeicVisitante(rSet.getString(5));
+                complVisitante.setPlacaVeicVisitante(rSet.getString(6));
 
-                complVisitante.setEmpresa(this.complVisitante.getEmpresa() == null ? "" : this.complVisitante.getEmpresa());
-                complVisitante.setTelFixo(this.complVisitante.getTelFixo() == null ? "" : this.complVisitante.getTelFixo());
-                complVisitante.setCelular(this.complVisitante.getCelular() == null ? "" : this.complVisitante.getCelular());
-                complVisitante.setModeloVeic(this.complVisitante.getModeloVeic() == null ? "" : this.complVisitante.getModeloVeic());
-                complVisitante.setPlacaVeic(this.complVisitante.getPlacaVeic() == null ? "" : this.complVisitante.getPlacaVeic());
+                complVisitante.setEmpresaVisitante(this.complVisitante.getEmpresaVisitante() == null ? "" : this.complVisitante.getEmpresaVisitante());
+                complVisitante.setTelFixoVisitante(this.complVisitante.getTelFixoVisitante() == null ? "" : this.complVisitante.getTelFixoVisitante());
+                complVisitante.setCelularVisitante(this.complVisitante.getCelularVisitante() == null ? "" : this.complVisitante.getCelularVisitante());
+                complVisitante.setModeloVeicVisitante(this.complVisitante.getModeloVeicVisitante() == null ? "" : this.complVisitante.getModeloVeicVisitante());
+                complVisitante.setPlacaVeicVisitante(this.complVisitante.getPlacaVeicVisitante() == null ? "" : this.complVisitante.getPlacaVeicVisitante());
 
             } else {
-                complVisitante.setId(0);
-                complVisitante.setEmpresa("");
-                complVisitante.setTelFixo("");
-                complVisitante.setCelular("");
-                complVisitante.setModeloVeic("");
-                complVisitante.setPlacaVeic("");
+                complVisitante.setIdVisitante(0);
+                complVisitante.setEmpresaVisitante("");
+                complVisitante.setTelFixoVisitante("");
+                complVisitante.setCelularVisitante("");
+                complVisitante.setModeloVeicVisitante("");
+                complVisitante.setPlacaVeicVisitante("");
             }
 
         } catch (Exception e) {
@@ -79,14 +79,14 @@ public class ComplVisitanteDAO {
 
     public ComplVisitante tratarComplVisitante(Visita visita) {
 
-        if (!(this.complVisitante.getEmpresa().equals(visita.getVisitante().getComplVisitante().getEmpresa())
-                && this.complVisitante.getTelFixo().equals(visita.getVisitante().getComplVisitante().getTelFixo())
-                && this.complVisitante.getCelular().equals(visita.getVisitante().getComplVisitante().getCelular())
-                && this.complVisitante.getModeloVeic().equals(visita.getVisitante().getComplVisitante().getModeloVeic())
-                && this.complVisitante.getPlacaVeic().equals(visita.getVisitante().getComplVisitante().getPlacaVeic()))) {
+        if (!(this.complVisitante.getEmpresaVisitante().equals(visita.getVisitante().getComplVisitante().getEmpresaVisitante())
+                && this.complVisitante.getTelFixoVisitante().equals(visita.getVisitante().getComplVisitante().getTelFixoVisitante())
+                && this.complVisitante.getCelularVisitante().equals(visita.getVisitante().getComplVisitante().getCelularVisitante())
+                && this.complVisitante.getModeloVeicVisitante().equals(visita.getVisitante().getComplVisitante().getModeloVeicVisitante())
+                && this.complVisitante.getPlacaVeicVisitante().equals(visita.getVisitante().getComplVisitante().getPlacaVeicVisitante()))) {
 
             if (inserirComplVisitanteBD(visita) > 0) {
-                getUltComplVisitanteBD(visita.getVisitante().getId());
+                getUltComplVisitanteBD(visita.getVisitante().getIdVisitante());
                 this.complVisitante = visita.getVisitante().getComplVisitante();
                 return this.complVisitante;
             }
@@ -110,12 +110,12 @@ public class ComplVisitanteDAO {
                 + " , DATA_COMPL_VISIT "
                 + " ) "
                 + " VALUES "
-                + " ( " + visita.getVisitante().getId() + " "
-                + " , '" + visita.getVisitante().getComplVisitante().getEmpresa() + "' "
-                + " , '" + visita.getVisitante().getComplVisitante().getTelFixo() + "' "
-                + " , '" + visita.getVisitante().getComplVisitante().getCelular() + "' "
-                + " , '" + visita.getVisitante().getComplVisitante().getModeloVeic() + "' "
-                + " , '" + visita.getVisitante().getComplVisitante().getPlacaVeic() + "' "
+                + " ( " + visita.getVisitante().getIdVisitante() + " "
+                + " , '" + visita.getVisitante().getComplVisitante().getEmpresaVisitante() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getTelFixoVisitante() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getCelularVisitante() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getModeloVeicVisitante() + "' "
+                + " , '" + visita.getVisitante().getComplVisitante().getPlacaVeicVisitante() + "' "
                 + " , SYSDATE)";
 
         return Conn.getInstance().manipBDDefault(sql);
@@ -135,7 +135,7 @@ public class ComplVisitanteDAO {
                     + " CODIGO_VISITANTE = " + idVisitante);
 
             rSet.next();
-            complVisitante.setId(Integer.parseInt(rSet.getString(1)));
+            complVisitante.setIdVisitante(Integer.parseInt(rSet.getString(1)));
 
         } catch (Exception e) {
             System.out.println("Falha = " + e);

@@ -58,7 +58,7 @@ public class VisitanteCTR {
         if (visitaDAO.verVisVisitante(v) == 0) {
             if (visitanteDAO.excluirRegBD(v) > 0) {
                 FotoCTR fotoCTR = new FotoCTR();
-                fotoCTR.excluirFotoJPG(v.getId());
+                fotoCTR.excluirFotoJPG(v.getIdVisitante());
                 visitanteDAO.excluirRegList(v);
                 return true;
             } else {

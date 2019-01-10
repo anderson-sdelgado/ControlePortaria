@@ -1,29 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cda47970-21cc-4186-a758-f4de5c515f5a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nomeVisitante" class="java.lang.String">
+		<fieldDescription><![CDATA[visitante.nomeVisitante]]></fieldDescription>
+	</field>
+	<field name="cpfVisitante" class="java.lang.String">
+		<fieldDescription><![CDATA[visitante.cpfVisitante]]></fieldDescription>
+	</field>
+	<field name="rgVisitante" class="java.lang.String">
+		<fieldDescription><![CDATA[visitante.rgVisitante]]></fieldDescription>
+	</field>
+	<field name="empresaVisitante" class="java.lang.String">
+		<fieldDescription><![CDATA[visitante.complVisitante.empresaVisitante]]></fieldDescription>
+	</field>
+	<field name="nomeVisitado" class="java.lang.String">
+		<fieldDescription><![CDATA[visitado.nomeVisitado]]></fieldDescription>
+	</field>
+	<field name="localVisitado" class="java.lang.String">
+		<fieldDescription><![CDATA[visitado.localVisitado]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="15" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="15" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="18" uuid="7cd93760-8bf1-4e07-994c-b7917ff39dfa"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VISITANTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="266" y="18" width="289" height="16" uuid="08359de0-ead9-4f71-b0bb-03391eb2bb6d"/>
+				<textFieldExpression><![CDATA[$F{nomeVisitante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="34" width="289" height="16" uuid="419c5f45-16e3-45ea-886f-3181d13dbd7d"/>
+				<textFieldExpression><![CDATA[$F{cpfVisitante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="50" width="289" height="16" uuid="64b47f3d-c1af-459b-8818-7fb1dfe92e9d"/>
+				<textFieldExpression><![CDATA[$F{rgVisitante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="66" width="289" height="16" uuid="ad03680c-7576-4652-ad2c-8043e1168024"/>
+				<textFieldExpression><![CDATA[$F{empresaVisitante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="82" width="289" height="16" uuid="56a053e5-881b-431c-b560-2a9c72c1b4d5"/>
+				<textFieldExpression><![CDATA[$F{nomeVisitado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="98" width="289" height="16" uuid="ab218062-6f93-4f56-bfe0-2e55e0f924e5"/>
+				<textFieldExpression><![CDATA[$F{localVisitado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="32" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
 </jasperReport>

@@ -16,45 +16,45 @@ import javax.swing.text.MaskFormatter;
  */
 public class Visitante {
 
-    private int id;
-    private String cpf;
-    private String rg;
-    private String nome;
+    private int idVisitante;
+    private String cpfVisitante;
+    private String rgVisitante;
+    private String nomeVisitante;
     private ComplVisitante complVisitante;
 
     public Visitante() {
     }
 
-    public int getId() {
-        return id;
+    public int getIdVisitante() {
+        return idVisitante;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVisitante(int idVisitante) {
+        this.idVisitante = idVisitante;
     }
 
-    public String getCpf() {
-        return (cpf == null) ? "NULL" : (cpf.trim().length() == 0) ? "NULL" : cpf;
+    public String getCpfVisitante() {
+        return (cpfVisitante == null) ? "NULL" : (cpfVisitante.trim().length() == 0) ? "NULL" : cpfVisitante;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpfVisitante(String cpfVisitante) {
+        this.cpfVisitante = cpfVisitante;
     }
 
-    public String getRg() {
-        return rg;
+    public String getRgVisitante() {
+        return rgVisitante;
     }
 
-    public void setRg(String rg) {
-        this.rg = rg;
+    public void setRgVisitante(String rgVisitante) {
+        this.rgVisitante = rgVisitante;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeVisitante() {
+        return nomeVisitante;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeVisitante(String nomeVisitante) {
+        this.nomeVisitante = nomeVisitante;
     }
 
     public ComplVisitante getComplVisitante() {

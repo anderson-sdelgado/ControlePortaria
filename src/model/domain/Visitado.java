@@ -11,35 +11,35 @@ package model.domain;
  */
 public class Visitado {
     
-    private int id;
-    private String nome;
-    private String local;
+    private int idVisitado;
+    private String nomeVisitado;
+    private String localVisitado;
 
     public Visitado() {
     }
 
-    public int getId() {
-        return id;
+    public int getIdVisitado() {
+        return idVisitado;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVisitado(int idVisitado) {
+        this.idVisitado = idVisitado;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeVisitado() {
+        return nomeVisitado;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeVisitado(String nomeVisitado) {
+        this.nomeVisitado = nomeVisitado;
     }
 
-    public String getLocal() {
-        return local;
+    public String getLocalVisitado() {
+        return localVisitado;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setLocalVisitado(String localVisitado) {
+        this.localVisitado = localVisitado;
     }
     
 }
