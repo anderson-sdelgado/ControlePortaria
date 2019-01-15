@@ -5,9 +5,7 @@
  */
 package model.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,7 +37,7 @@ public class VisitanteDAO {
                     + " , RG_VISITANTE "
                     + " , NOME_VISITANTE "
                     + " FROM "
-                    + " PORT_VISITANTE "
+                    + " CPD.PORTARIA_VISITANTE "
                     + " ORDER BY "
                     + " CODIGO_VISITANTE "
                     + " DESC ");
@@ -80,7 +78,7 @@ public class VisitanteDAO {
     public int inserirRegBD(Visitante v) {
 
         String sql = "INSERT INTO "
-                + " PORT_VISITANTE "
+                + " CPD.PORTARIA_VISITANTE "
                 + " ( "
                 + " CODIGO_VISITANTE "
                 + " , CPF_VISITANTE "
@@ -106,7 +104,7 @@ public class VisitanteDAO {
     public int atualizarRegBD(Visitante v) {
 
         String sql = " UPDATE "
-                + " PORT_VISITANTE "
+                + " CPD.PORTARIA_VISITANTE "
                 + " SET "
                 + " CPF_VISITANTE = " + v.getCpfVisitante()
                 + " , RG_VISITANTE = '" + v.getRgVisitante() + "'"
@@ -132,7 +130,7 @@ public class VisitanteDAO {
     public int excluirRegBD(Visitante v) {
 
         String sql = " DELETE "
-                + " PORT_VISITANTE "
+                + " CPD.PORTARIA_VISITANTE "
                 + " WHERE "
                 + " CODIGO_VISITANTE = " + v.getIdVisitante();
 
@@ -142,6 +140,10 @@ public class VisitanteDAO {
 
     public void excluirRegList(Visitante v) {
         visitanteList.removeIf(visitante -> visitante.getIdVisitante() == v.getIdVisitante());
+    }
+    
+    public Visitante getVisitante(int pos){
+        return visitanteList.get(pos);
     }
 
 }

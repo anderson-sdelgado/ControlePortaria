@@ -16,7 +16,7 @@ import model.domain.Func;
 public class JFramePrincipal extends javax.swing.JFrame {
 
     private Func func;
-    
+
     /**
      * Creates new form TelaPrincipal
      */
@@ -25,10 +25,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         setTitle("CONTROLE DE PORTARIA");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        
-//        JIntFrameCrachaRecep jIntFrameCrachaRecep = new JIntFrameCrachaRecep(this);
-//        this.desktopPane.add(jIntFrameCrachaRecep);
-//        jIntFrameCrachaRecep.setVisible(true);
+
+        JIntFrameCrachaRecep jIntFrameCrachaRecep = new JIntFrameCrachaRecep(this);
+        this.desktopPane.add(jIntFrameCrachaRecep);
+        jIntFrameCrachaRecep.setVisible(true);
 
     }
 
@@ -48,7 +48,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jSubMenuVisitado = new javax.swing.JMenuItem();
         jMenuMovimentacao = new javax.swing.JMenu();
         jSubMenuEntrada = new javax.swing.JMenuItem();
+        jSubMenuPainelVisit = new javax.swing.JMenuItem();
         jMenuRelatorio = new javax.swing.JMenu();
+        jMenuItemEntrVisitante = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +83,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         menuBar.add(jMenuCadastro);
 
         jMenuMovimentacao.setText("MOVIMENTAÇÃO");
+        jMenuMovimentacao.setEnabled(false);
 
         jSubMenuEntrada.setText("ENTRADA DE VISITANTE");
         jSubMenuEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -90,9 +93,27 @@ public class JFramePrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentacao.add(jSubMenuEntrada);
 
+        jSubMenuPainelVisit.setLabel("PAINEL DE VISITANTE");
+        jSubMenuPainelVisit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSubMenuPainelVisitActionPerformed(evt);
+            }
+        });
+        jMenuMovimentacao.add(jSubMenuPainelVisit);
+
         menuBar.add(jMenuMovimentacao);
 
         jMenuRelatorio.setText("RELATÓRIO");
+        jMenuRelatorio.setEnabled(false);
+
+        jMenuItemEntrVisitante.setText("RELATÓRIO DE ENTRADA DE VISITANTE");
+        jMenuItemEntrVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEntrVisitanteActionPerformed(evt);
+            }
+        });
+        jMenuRelatorio.add(jMenuItemEntrVisitante);
+
         menuBar.add(jMenuRelatorio);
 
         setJMenuBar(menuBar);
@@ -143,6 +164,24 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jSubMenuEntradaActionPerformed
 
+    private void jSubMenuPainelVisitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSubMenuPainelVisitActionPerformed
+        // TODO add your handling code here:
+
+        JIntFramePainelVisitante jIntFramePainelVisitante = new JIntFramePainelVisitante();
+        this.desktopPane.add(jIntFramePainelVisitante);
+        jIntFramePainelVisitante.setVisible(true);
+
+    }//GEN-LAST:event_jSubMenuPainelVisitActionPerformed
+
+    private void jMenuItemEntrVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntrVisitanteActionPerformed
+        // TODO add your handling code here:
+
+        JIntFrameRelVisita jIntFrameRelVisita = new JIntFrameRelVisita();
+        this.desktopPane.add(jIntFrameRelVisita);
+        jIntFrameRelVisita.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItemEntrVisitanteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -182,9 +221,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenuCadastro;
+    private javax.swing.JMenuItem jMenuItemEntrVisitante;
     private javax.swing.JMenu jMenuMovimentacao;
     private javax.swing.JMenu jMenuRelatorio;
     private javax.swing.JMenuItem jSubMenuEntrada;
+    private javax.swing.JMenuItem jSubMenuPainelVisit;
     private javax.swing.JMenuItem jSubMenuVisitado;
     private javax.swing.JMenuItem jSubMenuVisitante;
     private javax.swing.JMenuBar menuBar;
@@ -202,6 +243,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
         return jMenuMovimentacao;
     }
 
+    public JMenu getjMenuRelatorio() {
+        return jMenuRelatorio;
+    }
+    
     public Func getFunc() {
         return func;
     }
@@ -209,5 +254,5 @@ public class JFramePrincipal extends javax.swing.JFrame {
     public void setFunc(Func func) {
         this.func = func;
     }
-    
+
 }

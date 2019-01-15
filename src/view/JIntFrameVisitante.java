@@ -471,7 +471,6 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         modelTable.setValueAt(jFormattedTextFieldCPF.getText(), pos, 1);
         modelTable.setValueAt(jTextFieldRG.getText(), pos, 2);
         modelTable.setValueAt(jTextFieldNome.getText(), pos, 3);
-
     }
 
     public String formatarCpf(String cpf) {

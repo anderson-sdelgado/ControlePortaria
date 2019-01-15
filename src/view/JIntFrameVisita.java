@@ -29,10 +29,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 import model.domain.ComplVisitante;
 import model.domain.Visita;
 import model.domain.Visitado;
 import model.domain.Visitante;
+import model.domain.EmpresaVisitante;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -54,11 +58,19 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
      */
     public JIntFrameVisita(JFramePrincipal jFramePrincipal) {
         initComponents();
+
         this.jFramePrincipal = jFramePrincipal;
 
         visitaCRT = new VisitaCTR();
         cameraCTR = new CameraCTR();
         fotoCTR = new FotoCTR();
+        visitaCRT.carregListaEmpresa();
+        preencherEmpresa();
+
+        DocumentFilter filter = new UppercaseDocumentFilter();
+        ((AbstractDocument) ((JTextField) jComboBoxEmpresa.getEditor().getEditorComponent()).getDocument()).setDocumentFilter(filter);
+
+        AutoCompleteDecorator.decorate(jComboBoxEmpresa);
 
     }
 
@@ -82,7 +94,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jLabelNome = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
         jLabelEmpresa = new javax.swing.JLabel();
-        jTextFieldEmpresa = new javax.swing.JTextField();
         jLabelTelefone = new javax.swing.JLabel();
         jTextFieldTelefone = new javax.swing.JTextField();
         jLabelCelular = new javax.swing.JLabel();
@@ -99,10 +110,11 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jButtonCapturar = new javax.swing.JButton();
         jButtonListVis = new javax.swing.JButton();
         jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
+        jComboBoxEmpresa = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("ENTRADA DE VISITANTE");
-        setPreferredSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(800, 650));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -136,7 +148,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         gridBagConstraints.gridwidth = 11;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 10, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         getContentPane().add(jButtonSalvarVisita, gridBagConstraints);
 
         jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
@@ -226,14 +238,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 2, 0);
         getContentPane().add(jLabelEmpresa, gridBagConstraints);
 
-        jTextFieldEmpresa.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        getContentPane().add(jTextFieldEmpresa, gridBagConstraints);
-
         jLabelTelefone.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelTelefone.setText("TELEFONE FIXO");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -320,7 +324,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         getContentPane().add(jButtonPesqVisitado, gridBagConstraints);
 
         jLabelVisitado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -393,7 +397,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 15;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 20);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 20);
         getContentPane().add(jButtonListVis, gridBagConstraints);
 
         jFormattedTextFieldCPF.setEditable(false);
@@ -410,6 +414,15 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         getContentPane().add(jFormattedTextFieldCPF, gridBagConstraints);
+
+        jComboBoxEmpresa.setEditable(true);
+        jComboBoxEmpresa.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jComboBoxEmpresa, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -478,6 +491,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonPesqVisitado;
     private javax.swing.JButton jButtonPesqVisitante;
     private javax.swing.JButton jButtonSalvarVisita;
+    private javax.swing.JComboBox<String> jComboBoxEmpresa;
     private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCelular;
@@ -492,7 +506,6 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelVisitado;
     private javax.swing.JPanel jPanelCamera;
     private javax.swing.JTextField jTextFieldCelular;
-    private javax.swing.JTextField jTextFieldEmpresa;
     private javax.swing.JTextField jTextFieldLocal;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPlaca;
@@ -540,12 +553,12 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
     public void buscaComplVisitante() {
         visita.getVisitante().setComplVisitante(visitaCRT.getComplVisitante(visita.getVisitante().getIdVisitante()));
-        jTextFieldEmpresa.setText(visita.getVisitante().getComplVisitante().getEmpresaVisitante());
+        jComboBoxEmpresa.setSelectedIndex(visitaCRT.posEmpresaList(visita.getVisitante().getComplVisitante().getEmpresaVisitante().getIdEmpresa()) + 1);
         jTextFieldTelefone.setText(visita.getVisitante().getComplVisitante().getTelFixoVisitante());
         jTextFieldCelular.setText(visita.getVisitante().getComplVisitante().getCelularVisitante());
         jTextFieldVeiculo.setText(visita.getVisitante().getComplVisitante().getModeloVeicVisitante());
         jTextFieldPlaca.setText(visita.getVisitante().getComplVisitante().getPlacaVeicVisitante());
-        jTextFieldEmpresa.setEnabled(true);
+        jComboBoxEmpresa.setEnabled(true);
         jTextFieldTelefone.setEnabled(true);
         jTextFieldCelular.setEnabled(true);
         jTextFieldVeiculo.setEnabled(true);
@@ -558,18 +571,24 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     }
 
     public void salvarVisita() {
-        visita.getVisitante().getComplVisitante().setEmpresaVisitante(jTextFieldEmpresa.getText());
+
+        visita.getVisitante().getComplVisitante().setEmpresaVisitante(visitaCRT.getEmpresa(jComboBoxEmpresa.getSelectedIndex(), (jComboBoxEmpresa.getSelectedItem() == null) ? "null" : jComboBoxEmpresa.getSelectedItem().toString()));
         visita.getVisitante().getComplVisitante().setTelFixoVisitante(jTextFieldTelefone.getText());
         visita.getVisitante().getComplVisitante().setCelularVisitante(jTextFieldCelular.getText());
         visita.getVisitante().getComplVisitante().setModeloVeicVisitante(jTextFieldVeiculo.getText());
         visita.getVisitante().getComplVisitante().setPlacaVeicVisitante(jTextFieldPlaca.getText());
-//        visita.setMatricRecep(jFramePrincipal.getFunc().getMatricFunc()); alterado teste
-        if (visitaCRT.salvarVisita(visita)) {
-            clear();
-            JOptionPane.showMessageDialog(null, "O REGISTRO FOI ATUALIZADO COM SUCESSO!");
+        visita.setMatricRecep(jFramePrincipal.getFunc().getMatricFunc());
+        if (visita.getVisitante().getComplVisitante().getEmpresaVisitante().getIdEmpresa() > -1) {
+            if (visitaCRT.salvarVisita(visita)) {
+                clear();
+                JOptionPane.showMessageDialog(null, "O REGISTRO FOI ATUALIZADO COM SUCESSO!");
+            } else {
+                JOptionPane.showMessageDialog(null, "FALHA NA ATUALIZAÇÃO DO REGISTRO! POR FAVOR, TENTE NOVAMENTE.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "FALHA NA ATUALIZAÇÃO DO REGISTRO! POR FAVOR, TENTE NOVAMENTE.");
         }
+
     }
 
     public void abrirCamera() {
@@ -600,6 +619,15 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
             fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getVisitante().getIdVisitante());
             cameraCTR.stopCamera();
             jPanelCamera.remove(cameraCTR.getPanel());
+            
+            jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
+            jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
+            jPanelCamera.setLayout(new java.awt.GridBagLayout());
+            java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 0;
+            jPanelCamera.add(jLabelFoto, gridBagConstraints);
+            
             abrirFoto();
         } catch (Exception ex) {
             Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
@@ -627,7 +655,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
     public void clear() {
         jFormattedTextFieldCPF.setText("");
         jTextFieldCelular.setText("");
-        jTextFieldEmpresa.setText("");
+        jComboBoxEmpresa.setSelectedIndex(0);
         jTextFieldLocal.setText("");
         jTextFieldNome.setText("");
         jTextFieldPlaca.setText("");
@@ -637,6 +665,23 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jTextFieldVisitado.setText("");
         jButtonCapturar.setEnabled(false);
         jButtonPesqVisitado.setEnabled(false);
+        jComboBoxEmpresa.setEnabled(false);
+        jTextFieldLocal.setEnabled(false);
+        jTextFieldPlaca.setEnabled(false);
+        jTextFieldTelefone.setEnabled(false);
+        jTextFieldVeiculo.setEnabled(false);
+        jTextFieldVisitado.setEnabled(false);
+        jTextFieldCelular.setEnabled(false);
+        jLabelFoto.setIcon(null);
+    }
+
+    public void preencherEmpresa() {
+
+        jComboBoxEmpresa.addItem("");
+        visitaCRT.getEmpresaList().forEach((e) -> {
+            jComboBoxEmpresa.addItem(e.getNomeEmpresa());
+        });
+
     }
 
 }

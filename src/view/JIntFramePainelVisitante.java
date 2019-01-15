@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 import javax.swing.text.MaskFormatter;
 import model.domain.Func;
 import model.domain.Visita;
@@ -49,6 +51,9 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         visitaCTR.carregListaVisitaNaEmpresa();
         modelTable = (DefaultTableModel) jTableVisita.getModel();
         exibicaoInicial();
+
+        DocumentFilter filter = new UppercaseDocumentFilter();
+        ((AbstractDocument) jTextFieldPesq.getDocument()).setDocumentFilter(filter);
 
     }
 
@@ -84,6 +89,12 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
         getContentPane().add(jLabelPesquisa, gridBagConstraints);
+
+        jTextFieldPesq.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPesqKeyReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -172,23 +183,31 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprCrachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprCrachaActionPerformed
+        
         try {
             // TODO add your handling code here:
-            
+
             JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
-                visitaCTR.getVisitaList((Integer) jTableVisita.getValueAt(jTableVisita.getSelectedRow(), jTableVisita.convertColumnIndexToView(0))));
-            
+                    visitaCTR.getVisitaList((Integer) jTableVisita.getValueAt(jTableVisita.getSelectedRow(), jTableVisita.convertColumnIndexToView(0))));
+
             Map parametros = new HashMap();
-            
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(getClass().getResourceAsStream("./ireport/crachaReport.jasper"), parametros, ds);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
-            
+
         } catch (JRException ex) {
             Logger.getLogger(JIntFramePainelVisitante.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButtonImprCrachaActionPerformed
+
+    private void jTextFieldPesqKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesqKeyReleased
+        // TODO add your handling code here:
+
+        exibirPesquisa(jTextFieldPesq.getText());
+
+    }//GEN-LAST:event_jTextFieldPesqKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -227,7 +246,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         preencheCampo(visitaCTR.getVisitaList().get(0));
 
     }
-    
+
     public String formatarCpf(String cpf) {
         String cpfForm = "";
         try {
@@ -239,11 +258,11 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         }
         return cpfForm;
     }
-    
-    public void preencheCampo(Visita visita){
+
+    public void preencheCampo(Visita visita) {
         abrirFoto(visita.getVisitante().getIdVisitante());
     }
-    
+
     public void abrirFoto(int idVisitante) {
         try {
             if (fotoCTR.abrirFotoJPG(idVisitante)) {
@@ -253,5 +272,18 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
             Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void exibirPesquisa(String valor) {
+
+        TableRowSorter<DefaultTableModel> tr;
+        tr = new TableRowSorter<DefaultTableModel>(modelTable);
+        jTableVisita.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(valor));
+
+        if (tr.getViewRowCount() > 0) {
+            jTableVisita.addRowSelectionInterval(0, 0);
+        }
+
+    }
+
 }

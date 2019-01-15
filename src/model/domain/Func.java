@@ -11,17 +11,17 @@ package model.domain;
  */
 public class Func {
     
-    private String matricFunc;
+    private int matricFunc;
     private String nomeFunc;
 
     public Func() {
     }
 
-    public String getMatricFunc() {
+    public int getMatricFunc() {
         return matricFunc;
     }
 
-    public void setMatricFunc(String matricFunc) {
+    public void setMatricFunc(int matricFunc) {
         this.matricFunc = matricFunc;
     }
 

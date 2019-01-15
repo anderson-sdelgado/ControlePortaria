@@ -37,6 +37,7 @@
         <Menu class="javax.swing.JMenu" name="jMenuMovimentacao">
           <Properties>
             <Property name="text" type="java.lang.String" value="MOVIMENTA&#xc7;&#xc3;O"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jSubMenuEntrada">
@@ -47,12 +48,31 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSubMenuEntradaActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jSubMenuPainelVisit">
+              <Properties>
+                <Property name="label" type="java.lang.String" value="PAINEL DE VISITANTE"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSubMenuPainelVisitActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuRelatorio">
           <Properties>
             <Property name="text" type="java.lang.String" value="RELAT&#xd3;RIO"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEntrVisitante">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="RELAT&#xd3;RIO DE ENTRADA DE VISITANTE"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEntrVisitanteActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

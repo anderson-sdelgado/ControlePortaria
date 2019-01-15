@@ -141,7 +141,7 @@ public class JIntFrameCrachaRecep extends javax.swing.JInternalFrame {
             jButtonEntrar.requestFocus();
             Func func = new Func();
             if (jTextFieldMatric.getText().matches("^[0-9]*$")) {
-//                func.setMatricFunc(Integer.valueOf(jTextFieldMatric.getText().trim())); alterado teste
+                func.setMatricFunc(Integer.valueOf(jTextFieldMatric.getText().trim()));
                 func = recepCTR.getVerRecep(func);
             } else {
                 func.setNomeFunc("FUNCIONARIO INEXISTENTE");
@@ -159,7 +159,7 @@ public class JIntFrameCrachaRecep extends javax.swing.JInternalFrame {
         } else {
             Func func = new Func();
             if (jTextFieldMatric.getText().matches("^[0-9]*$")) {
-//                func.setMatricFunc(Integer.valueOf(jTextFieldMatric.getText().trim())); alterado teste
+                func.setMatricFunc(Integer.valueOf(jTextFieldMatric.getText().trim()));
                 func = recepCTR.getVerRecep(func);
             } else {
                 func.setNomeFunc("FUNCIONARIO INEXISTENTE");
@@ -169,6 +169,7 @@ public class JIntFrameCrachaRecep extends javax.swing.JInternalFrame {
             if (!func.getNomeFunc().equals("FUNCIONARIO INEXISTENTE")) {
                 this.jFramePrincipal.getjMenuCadastro().setEnabled(true);
                 this.jFramePrincipal.getjMenuMovimentacao().setEnabled(true);
+                this.jFramePrincipal.getjMenuRelatorio().setEnabled(true);
                 this.jFramePrincipal.setFunc(func);
                 dispose();
             }

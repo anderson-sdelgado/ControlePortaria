@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import model.domain.Visitado;
-import model.domain.Visitante;
 
 /**
  *
@@ -35,9 +34,9 @@ public class VisitadoDAO {
             ResultSet rSet = stmt.executeQuery("SELECT"
                     + " CODIGO_VISITADO "
                     + " , NOME_VISITADO "
-                    + " , LOCAL_VISITADO " 
+                    + " , LOCAL_VISITADO "
                     + " FROM "
-                    + " CPD.PORT_VISITADO "
+                    + " CPD.PORTARIA_VISITADO "
                     + " ORDER BY "
                     + " CODIGO_VISITADO "
                     + " DESC ");
@@ -56,7 +55,6 @@ public class VisitadoDAO {
 
         return list;
     }
-
 
     public Visitado pesqVisitado(Integer valor) {
         Visitado v = visitadoList.stream()
@@ -78,7 +76,7 @@ public class VisitadoDAO {
     public int inserirRegBD(Visitado v) {
 
         String sql = "INSERT INTO "
-                + " PORT_VISITADO "
+                + " CPD.PORTARIA_VISITADO "
                 + " ( "
                 + " CODIGO_VISITADO "
                 + " , NOME_VISITADO "
@@ -102,7 +100,7 @@ public class VisitadoDAO {
     public int atualizarRegBD(Visitado v) {
 
         String sql = " UPDATE "
-                + " PORT_VISITADO "
+                + " CPD.PORTARIA_VISITADO "
                 + " SET "
                 + " NOME_VISITADO = '" + v.getNomeVisitado() + "'"
                 + " , LOCAL_VISITADO = '" + v.getLocalVisitado() + "'"
@@ -126,7 +124,7 @@ public class VisitadoDAO {
     public int excluirRegBD(Visitado v) {
 
         String sql = " DELETE "
-                + " PORT_VISITADO "
+                + " CPD.PORTARIA_VISITADO "
                 + " WHERE "
                 + " CODIGO_VISITADO = " + v.getIdVisitado();
 
@@ -137,5 +135,9 @@ public class VisitadoDAO {
     public void excluirRegList(Visitado v) {
         visitadoList.removeIf(visitado -> visitado.getIdVisitado() == v.getIdVisitado());
     }
-    
+
+    public Visitado getVisitado(int pos) {
+        return visitadoList.get(pos);
+    }
+
 }

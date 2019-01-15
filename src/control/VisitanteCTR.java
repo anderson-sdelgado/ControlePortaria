@@ -69,4 +69,14 @@ public class VisitanteCTR {
         }
     }
 
+    public Visitante getVisitante(int pos) {
+        if(pos < 0){
+            Visitante visitante = new Visitante();
+            visitante.setIdVisitante(0);
+            return visitante;
+        }else{
+            return visitanteDAO.getVisitante(pos);
+        }
+    }
+    
 }

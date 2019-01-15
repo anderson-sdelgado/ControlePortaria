@@ -67,4 +67,14 @@ public class VisitadoCTR {
         }
     }
 
+    public Visitado getVisitado(int pos) {
+        if (pos < 0) {
+            Visitado visitado = new Visitado();
+            visitado.setIdVisitado(0);
+            return visitado;
+        } else {
+            return visitadoDAO.getVisitado(pos);
+        }
+    }
+
 }
