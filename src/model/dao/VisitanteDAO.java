@@ -36,6 +36,7 @@ public class VisitanteDAO {
                     + " , LPAD (CPF_VISITANTE, 11, 0) "
                     + " , RG_VISITANTE "
                     + " , NOME_VISITANTE "
+                    + " , TIPO_VISITANTE "
                     + " FROM "
                     + " CPD.PORTARIA_VISITANTE "
                     + " ORDER BY "
@@ -48,6 +49,7 @@ public class VisitanteDAO {
                 visitante.setCpfVisitante(rSet.getString(2));
                 visitante.setRgVisitante(rSet.getString(3));
                 visitante.setNomeVisitante(rSet.getString(4));
+                visitante.setTipoVisitante(Integer.parseInt(rSet.getString(5)));
                 list.add(visitante);
             }
 
@@ -84,6 +86,7 @@ public class VisitanteDAO {
                 + " , CPF_VISITANTE "
                 + " , RG_VISITANTE "
                 + " , NOME_VISITANTE "
+                + " , TIPO_VISITANTE "
                 + " , DATA_VISITANTE "
                 + " ) "
                 + " VALUES "
@@ -91,6 +94,7 @@ public class VisitanteDAO {
                 + " , " + v.getCpfVisitante() + " "
                 + " , '" + v.getRgVisitante() + "' "
                 + " , '" + v.getNomeVisitante() + "' "
+                + " , " + v.getTipoVisitante() + " "
                 + " , SYSDATE)";
 
         return Conn.getInstance().manipBDDefault(sql);
@@ -109,6 +113,7 @@ public class VisitanteDAO {
                 + " CPF_VISITANTE = " + v.getCpfVisitante()
                 + " , RG_VISITANTE = '" + v.getRgVisitante() + "'"
                 + " , NOME_VISITANTE = '" + v.getNomeVisitante() + "'"
+                + " , TIPO_VISITANTE = " + v.getTipoVisitante()
                 + " WHERE "
                 + " CODIGO_VISITANTE = " + v.getIdVisitante();
 
@@ -125,6 +130,7 @@ public class VisitanteDAO {
         vis.setCpfVisitante(v.getCpfVisitante());
         vis.setRgVisitante(v.getRgVisitante());
         vis.setNomeVisitante(v.getNomeVisitante());
+        vis.setTipoVisitante(v.getTipoVisitante());
     }
 
     public int excluirRegBD(Visitante v) {

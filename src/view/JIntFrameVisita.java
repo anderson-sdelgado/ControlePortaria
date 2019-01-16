@@ -69,6 +69,10 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
 
         DocumentFilter filter = new UppercaseDocumentFilter();
         ((AbstractDocument) ((JTextField) jComboBoxEmpresa.getEditor().getEditorComponent()).getDocument()).setDocumentFilter(filter);
+        ((AbstractDocument) jTextFieldPlaca.getDocument()).setDocumentFilter(filter);
+        ((AbstractDocument) jTextFieldTelefone.getDocument()).setDocumentFilter(filter);
+        ((AbstractDocument) jTextFieldVeiculo.getDocument()).setDocumentFilter(filter);
+        ((AbstractDocument) jTextFieldCelular.getDocument()).setDocumentFilter(filter);
 
         AutoCompleteDecorator.decorate(jComboBoxEmpresa);
 
@@ -619,7 +623,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
             fotoCTR.salvarFotoJPG(cameraCTR.getWebcam(), visita.getVisitante().getIdVisitante());
             cameraCTR.stopCamera();
             jPanelCamera.remove(cameraCTR.getPanel());
-            
+
             jPanelCamera.setForeground(new java.awt.Color(240, 240, 240));
             jPanelCamera.setPreferredSize(new java.awt.Dimension(320, 240));
             jPanelCamera.setLayout(new java.awt.GridBagLayout());
@@ -627,7 +631,7 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy = 0;
             jPanelCamera.add(jLabelFoto, gridBagConstraints);
-            
+
             abrirFoto();
         } catch (Exception ex) {
             Logger.getLogger(JIntFrameVisita.class.getName()).log(Level.SEVERE, null, ex);
@@ -666,17 +670,16 @@ public class JIntFrameVisita extends javax.swing.JInternalFrame {
         jButtonCapturar.setEnabled(false);
         jButtonPesqVisitado.setEnabled(false);
         jComboBoxEmpresa.setEnabled(false);
-        jTextFieldLocal.setEnabled(false);
         jTextFieldPlaca.setEnabled(false);
         jTextFieldTelefone.setEnabled(false);
         jTextFieldVeiculo.setEnabled(false);
-        jTextFieldVisitado.setEnabled(false);
         jTextFieldCelular.setEnabled(false);
         jLabelFoto.setIcon(null);
+        preencherEmpresa();
     }
 
     public void preencherEmpresa() {
-
+        jComboBoxEmpresa.removeAllItems();
         jComboBoxEmpresa.addItem("");
         visitaCRT.getEmpresaList().forEach((e) -> {
             jComboBoxEmpresa.addItem(e.getNomeEmpresa());

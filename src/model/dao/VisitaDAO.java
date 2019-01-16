@@ -49,6 +49,19 @@ public class VisitaDAO {
 
     }
 
+    public int updateRegBD(int id) {
+
+        String sql = " UPDATE "
+                + " CPD.PORTARIA_VISITA "
+                + " SET "
+                + " DTHR_SAIDA = SYSDATE "
+                + " WHERE "
+                + " COD_VISITA  = " + id;
+
+        return Conn.getInstance().manipBDDefault(sql);
+
+    }
+
     public int verVisVisitante(Visitante v) {
 
         int qtde = 0;
@@ -57,7 +70,7 @@ public class VisitaDAO {
 
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT"
-                    + " COUNT(COD_MOVIMENTO) "
+                    + " COUNT(COD_VISITA) "
                     + " FROM "
                     + " CPD.PORTARIA_VISITA "
                     + " WHERE "
@@ -83,7 +96,7 @@ public class VisitaDAO {
 
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT"
-                    + " COUNT(COD_MOVIMENTO) "
+                    + " COUNT(COD_VISITA) "
                     + " FROM "
                     + " CPD.PORTARIA_VISITA "
                     + " WHERE "
@@ -109,7 +122,7 @@ public class VisitaDAO {
 
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT "
-                    + " M.COD_MOVIMENTO "
+                    + " M.COD_VISITA "
                     + " , VISITANTE.CODIGO_VISITANTE "
                     + " , VISITANTE.NOME_VISITANTE "
                     + " , LPAD (VISITANTE.CPF_VISITANTE, 11, 0) "
@@ -135,7 +148,7 @@ public class VisitaDAO {
                     + " AND "
                     + " CV.COD_EMPRESA_VISITANTE = EV.CODIGO_EMPRESA(+) "
                     + " ORDER BY "
-                    + " M.COD_MOVIMENTO "
+                    + " M.COD_VISITA "
                     + " DESC ");
 
             while (rSet.next()) {
@@ -196,7 +209,7 @@ public class VisitaDAO {
 
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT "
-                    + " M.COD_MOVIMENTO "
+                    + " M.COD_VISITA "
                     + " , VISITANTE.CODIGO_VISITANTE "
                     + " , VISITANTE.NOME_VISITANTE "
                     + " , LPAD (VISITANTE.CPF_VISITANTE, 11, 0) "
@@ -229,7 +242,7 @@ public class VisitaDAO {
                     + " AND "
                     + " CV.COD_EMPRESA_VISITANTE = EV.CODIGO_EMPRESA(+) "
                     + " ORDER BY "
-                    + " M.COD_MOVIMENTO "
+                    + " M.COD_VISITA "
                     + " DESC ");
 
             while (rSet.next()) {
@@ -261,6 +274,10 @@ public class VisitaDAO {
 
         return relVisitaList;
 
+    }
+
+    public void excluirRegList(int id) {
+        visitaList.removeIf(visita -> visita.getIdVisita() == id);
     }
 
 }

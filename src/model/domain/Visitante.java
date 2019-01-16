@@ -21,6 +21,7 @@ public class Visitante {
     private String rgVisitante;
     private String nomeVisitante;
     private ComplVisitante complVisitante;
+    private int tipoVisitante;
 
     public Visitante() {
     }
@@ -63,6 +64,14 @@ public class Visitante {
 
     public void setComplVisitante(ComplVisitante complVisitante) {
         this.complVisitante = complVisitante;
+    }
+
+    public int getTipoVisitante() {
+        return tipoVisitante;
+    }
+
+    public void setTipoVisitante(int tipoVisitante) {
+        this.tipoVisitante = tipoVisitante;
     }
     
 }

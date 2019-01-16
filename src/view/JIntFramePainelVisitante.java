@@ -119,6 +119,11 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableVisita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVisitaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableVisita);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -168,6 +173,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 3;
         getContentPane().add(jLabelDuracao, gridBagConstraints);
 
+        jButtonImprCracha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonImprCracha.setText("GERAR CRACHÁ");
         jButtonImprCracha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,13 +183,14 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 5;
+        gridBagConstraints.ipady = 40;
         getContentPane().add(jButtonImprCracha, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonImprCrachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprCrachaActionPerformed
-        
+
         try {
             // TODO add your handling code here:
 
@@ -208,6 +215,17 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         exibirPesquisa(jTextFieldPesq.getText());
 
     }//GEN-LAST:event_jTextFieldPesqKeyReleased
+
+    private void jTableVisitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVisitaMouseClicked
+        // TODO add your handling code here:
+
+        if (evt.getClickCount() == 2) {
+            if (visitaCTR.fechaVisita((Integer) jTableVisita.getValueAt(jTableVisita.getSelectedRow(), jTableVisita.convertColumnIndexToView(0)))) {
+                removeTabela(jTableVisita.convertRowIndexToModel(jTableVisita.getSelectedRow()));
+            }
+        }
+
+    }//GEN-LAST:event_jTableVisitaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -284,6 +302,10 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
             jTableVisita.addRowSelectionInterval(0, 0);
         }
 
+    }
+
+    public void removeTabela(int i) {
+        modelTable.removeRow(i);
     }
 
 }

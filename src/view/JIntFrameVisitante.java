@@ -36,7 +36,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private DefaultTableModel modelTable;
     private int pontoAcessoTela; //1 - Acesso pelo SubMenu Visitante; 2 - Acesso pela Tela de Cadastro de Visita;
     private JIntFrameVisita jIntFrameVisita;
-    
+
     /**
      * Creates new form jIntFrameVisitante
      */
@@ -81,6 +81,9 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTextFieldRG = new javax.swing.JTextField();
         jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
         jTextFieldNome = new javax.swing.JTextField();
+        jRadioButtonVisitante = new javax.swing.JRadioButton();
+        jRadioButtonTerceiro = new javax.swing.JRadioButton();
+        jRadioButtonFornecedor = new javax.swing.JRadioButton();
 
         setClosable(true);
         setTitle("CADASTRO DE VISITANTE");
@@ -221,7 +224,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jLabelNome.setText("NOME:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
@@ -231,7 +234,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jLabelCPF.setText("CPF:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
@@ -241,7 +244,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jLabelRG.setText("RG:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
@@ -254,7 +257,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTextFieldRG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(jTextFieldRG, gridBagConstraints);
@@ -267,7 +270,7 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(jFormattedTextFieldCPF, gridBagConstraints);
@@ -275,10 +278,50 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(jTextFieldNome, gridBagConstraints);
+
+        jRadioButtonVisitante.setSelected(true);
+        jRadioButtonVisitante.setText("VISITANTE");
+        jRadioButtonVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonVisitanteMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        getContentPane().add(jRadioButtonVisitante, gridBagConstraints);
+
+        jRadioButtonTerceiro.setText("TERCEIRO");
+        jRadioButtonTerceiro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonTerceiroMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        getContentPane().add(jRadioButtonTerceiro, gridBagConstraints);
+
+        jRadioButtonFornecedor.setText("FORNECEDOR");
+        jRadioButtonFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonFornecedorMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        getContentPane().add(jRadioButtonFornecedor, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -321,14 +364,22 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
 
-        if ((jTextFieldNome.getText().trim().length() == 0)) {
-            JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! POR FAVOR, PREENCHA O CAMPO NOME DO VISITANTE.");
+        if (jTextFieldNome.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "O REGISTRO NÃO SALVO! POR FAVOR, VERIFIQUE SE O NOME FOI PREENCHIDOS E O TIPO SELECIONADO.");
         } else {
             Visitante visitante = new Visitante();
             visitante.setIdVisitante(Integer.parseInt(jLabelCodigo.getText()));
             visitante.setCpfVisitante(jFormattedTextFieldCPF.getText().replaceAll("\\.", "").replaceAll("-", ""));
             visitante.setRgVisitante(jTextFieldRG.getText());
             visitante.setNomeVisitante(jTextFieldNome.getText());
+            if(jRadioButtonVisitante.isSelected()){
+                visitante.setTipoVisitante(1);
+            }else if(jRadioButtonFornecedor.isSelected()){
+                visitante.setTipoVisitante(2);
+            }else{
+                visitante.setTipoVisitante(3);
+            }
+            
             if (status) {
                 if (visitanteCTR.inserirReg(visitante)) {
                     atualizarTabela(0);
@@ -378,6 +429,33 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
+    private void jRadioButtonVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonVisitanteMouseClicked
+        // TODO add your handling code here:
+
+        jRadioButtonVisitante.setSelected(true);
+        jRadioButtonFornecedor.setSelected(false);
+        jRadioButtonTerceiro.setSelected(false);
+
+    }//GEN-LAST:event_jRadioButtonVisitanteMouseClicked
+
+    private void jRadioButtonTerceiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonTerceiroMouseClicked
+        // TODO add your handling code here:
+
+        jRadioButtonTerceiro.setSelected(true);
+        jRadioButtonVisitante.setSelected(false);
+        jRadioButtonFornecedor.setSelected(false);
+
+    }//GEN-LAST:event_jRadioButtonTerceiroMouseClicked
+
+    private void jRadioButtonFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonFornecedorMouseClicked
+        // TODO add your handling code here:
+
+        jRadioButtonFornecedor.setSelected(true);
+        jRadioButtonVisitante.setSelected(false);
+        jRadioButtonTerceiro.setSelected(false);
+
+    }//GEN-LAST:event_jRadioButtonFornecedorMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonExcluir;
@@ -391,6 +469,9 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelPesq;
     private javax.swing.JLabel jLabelRG;
+    private javax.swing.JRadioButton jRadioButtonFornecedor;
+    private javax.swing.JRadioButton jRadioButtonTerceiro;
+    private javax.swing.JRadioButton jRadioButtonVisitante;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableVisitante;
     private javax.swing.JTextField jTextFieldNome;
@@ -425,6 +506,28 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF.setText(v.getCpfVisitante().equals("NULL") ? "" : v.getCpfVisitante());
         jTextFieldRG.setText(v.getRgVisitante() == null ? "" : v.getRgVisitante());
         jTextFieldNome.setText(v.getNomeVisitante() == null ? "" : v.getNomeVisitante());
+        switch (v.getTipoVisitante()) {
+            case 1:
+                jRadioButtonVisitante.setSelected(true);
+                jRadioButtonFornecedor.setSelected(false);
+                jRadioButtonTerceiro.setSelected(false);
+                break;
+            case 2:
+                jRadioButtonVisitante.setSelected(false);
+                jRadioButtonFornecedor.setSelected(true);
+                jRadioButtonTerceiro.setSelected(false);
+                break;
+            case 3:
+                jRadioButtonVisitante.setSelected(false);
+                jRadioButtonFornecedor.setSelected(false);
+                jRadioButtonTerceiro.setSelected(true);
+                break;
+            default:
+                jRadioButtonVisitante.setSelected(false);
+                jRadioButtonFornecedor.setSelected(false);
+                jRadioButtonTerceiro.setSelected(false);
+                break;
+        }
     }
 
     public void exibirPesquisa(String valor) {
@@ -464,6 +567,9 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF.setText("");
         jTextFieldRG.setText("");
         jTextFieldNome.setText("");
+        jRadioButtonVisitante.setSelected(true);
+        jRadioButtonFornecedor.setSelected(false);
+        jRadioButtonTerceiro.setSelected(false);
 
     }
 
@@ -492,5 +598,5 @@ public class JIntFrameVisitante extends javax.swing.JInternalFrame {
     public void setjIntFrameVisita(JIntFrameVisita jIntFrameVisita) {
         this.jIntFrameVisita = jIntFrameVisita;
     }
-    
+
 }

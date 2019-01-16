@@ -70,8 +70,7 @@ public class EmpresaDAO {
     }
 
     public int posEmpresa(Integer valor) {
-        int index = empresaList.indexOf(pesqEmpresa(valor));
-        return index;
+        return empresaList.indexOf(pesqEmpresa(valor));
     }
 
     public EmpresaVisitante getEmpresa(Integer pos) {

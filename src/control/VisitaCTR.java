@@ -62,7 +62,7 @@ public class VisitaCTR {
 
     public EmpresaVisitante getEmpresa(int pos, String nome) {
         if (pos > 0) {
-            return empresaVisitanteDAO.getEmpresa(pos);
+            return empresaVisitanteDAO.getEmpresa(pos - 1);
         } else if (pos == 0) {
             EmpresaVisitante empresa = new EmpresaVisitante();
             empresa.setIdEmpresa(0);
@@ -104,6 +104,15 @@ public class VisitaCTR {
             return empresaVisitante;
         } else {
             return empresaVisitanteDAO.getEmpresa(pos);
+        }
+    }
+
+    public boolean fechaVisita(Integer valor) {
+        if (visitaDAO.updateRegBD(valor) > 0) {
+            visitaDAO.excluirRegList(valor);
+            return true;
+        } else {
+            return false;
         }
     }
 
