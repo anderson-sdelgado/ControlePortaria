@@ -7,9 +7,13 @@ package view;
 
 import control.FotoCTR;
 import control.VisitaCTR;
+import java.io.InputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +31,9 @@ import model.domain.Visitante;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -77,6 +83,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         jLabelDescrFoto2 = new javax.swing.JLabel();
         jLabelDuracao = new javax.swing.JLabel();
         jButtonImprCracha = new javax.swing.JButton();
+        jLabelHoraDuracao = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("VISITANTE DENTRO DA EMPRESA");
@@ -167,10 +174,11 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         getContentPane().add(jLabelDescrFoto2, gridBagConstraints);
 
         jLabelDuracao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelDuracao.setText("Duração 01:00");
+        jLabelDuracao.setText("Duração");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(70, 0, 0, 0);
         getContentPane().add(jLabelDuracao, gridBagConstraints);
 
         jButtonImprCracha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -186,6 +194,14 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.ipady = 40;
         getContentPane().add(jButtonImprCracha, gridBagConstraints);
 
+        jLabelHoraDuracao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelHoraDuracao.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        getContentPane().add(jLabelHoraDuracao, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -199,7 +215,9 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
 
             Map parametros = new HashMap();
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(getClass().getResourceAsStream("./ireport/crachaReport.jasper"), parametros, ds);
+            InputStream jasperFile = Thread.currentThread().getClass().getResourceAsStream("/view/ireport/crachaReport.jasper");
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperFile);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ds);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
 
@@ -234,6 +252,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelDescrFoto2;
     private javax.swing.JLabel jLabelDuracao;
     private javax.swing.JLabel jLabelFoto;
+    private javax.swing.JLabel jLabelHoraDuracao;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -278,7 +297,21 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
     }
 
     public void preencheCampo(Visita visita) {
-        abrirFoto(visita.getVisitante().getIdVisitante());
+        try {
+            abrirFoto(visita.getVisitante().getIdVisitante());
+            Date dataHora = new Date();
+            SimpleDateFormat formatoDataHora = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+            String dataHoraEntrada = formatoData.format(dataHora) + " " + visita.getDataHoraEntradaVisita();
+            Date dataEntrada = formatoDataHora.parse(dataHoraEntrada);
+            System.out.println(formatoDataHora.format(dataHora));
+            System.out.println(formatoDataHora.format(dataEntrada));
+            dataHora.setTime((dataHora.getTime() - dataEntrada.getTime()) - (21 * 3600000));
+            jLabelHoraDuracao.setText(formatoHora.format(dataHora));
+        } catch (Exception ex) {
+            Logger.getLogger(JIntFramePainelVisitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void abrirFoto(int idVisitante) {

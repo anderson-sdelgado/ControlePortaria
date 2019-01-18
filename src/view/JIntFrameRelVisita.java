@@ -8,6 +8,7 @@ package view;
 import control.VisitaCTR;
 import control.VisitadoCTR;
 import control.VisitanteCTR;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,7 +24,9 @@ import model.domain.Visitante;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -229,10 +232,12 @@ public class JIntFrameRelVisita extends javax.swing.JInternalFrame {
 
             Map parametros = new HashMap();
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(getClass().getResourceAsStream("./ireport/visitaReport.jasper"), parametros, ds);
+            InputStream jasperFile = Thread.currentThread().getClass().getResourceAsStream("/view/ireport/visitaReport.jasper");
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject( jasperFile );
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, ds);
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(JIntFramePainelVisitante.class.getName()).log(Level.SEVERE, null, ex);
         }

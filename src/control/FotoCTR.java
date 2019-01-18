@@ -26,7 +26,7 @@ public class FotoCTR {
     }
 
     public boolean abrirFotoJPG(int id) throws IOException {
-        File file = new File("C:\\Users\\anderson\\Documents\\Fotos\\" + id + ".jpg");
+        File file = new File("Q:\\Portaria\\FotosJava\\" + id + ".jpg");
         if (file.exists()) {
             Image image = ImageIO.read(file);
             imageIcon = new ImageIcon(image);
@@ -38,7 +38,7 @@ public class FotoCTR {
     }
 
     public boolean abrirFotoBMP(int id) throws IOException {
-        File file = new File("Q:\\Portaria\\Fotos\\" + id + ".bmp");
+        File file = new File("Q:\\Portaria\\FotosJava\\" + id + ".bmp");
         if (file.exists()) {
             Image image = ImageIO.read(file);
             Icon icon = new ImageIcon(image);
@@ -50,11 +50,11 @@ public class FotoCTR {
 
     public void salvarFotoJPG(Webcam webcam, int id) throws IOException {
         BufferedImage image = webcam.getImage();
-        ImageIO.write(image, "JPG", new File("C:\\Users\\anderson\\Documents\\Fotos\\" + id + ".jpg"));
+        ImageIO.write(image, "JPG", new File("Q:\\Portaria\\FotosJava\\" + id + ".jpg"));
     }
 
     public void excluirFotoJPG(int id) {
-        File file = new File("C:\\Users\\anderson\\Documents\\Fotos\\" + id + ".jpg");
+        File file = new File("Q:\\Portaria\\FotosJava\\" + id + ".jpg");
         if (file.exists()) {
             file.delete();
         }
