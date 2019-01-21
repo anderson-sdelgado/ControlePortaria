@@ -305,8 +305,6 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
             SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
             String dataHoraEntrada = formatoData.format(dataHora) + " " + visita.getDataHoraEntradaVisita();
             Date dataEntrada = formatoDataHora.parse(dataHoraEntrada);
-            System.out.println(formatoDataHora.format(dataHora));
-            System.out.println(formatoDataHora.format(dataEntrada));
             dataHora.setTime((dataHora.getTime() - dataEntrada.getTime()) - (21 * 3600000));
             jLabelHoraDuracao.setText(formatoHora.format(dataHora));
         } catch (Exception ex) {

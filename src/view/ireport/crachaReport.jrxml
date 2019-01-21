@@ -37,100 +37,100 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="86" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="14" uuid="7cd93760-8bf1-4e07-994c-b7917ff39dfa"/>
+				<reportElement x="0" y="0" width="555" height="13" uuid="7cd93760-8bf1-4e07-994c-b7917ff39dfa"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VISITANTE]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="266" y="14" width="289" height="12" uuid="08359de0-ead9-4f71-b0bb-03391eb2bb6d"/>
+				<reportElement x="266" y="13" width="289" height="11" uuid="08359de0-ead9-4f71-b0bb-03391eb2bb6d"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="266" y="26" width="289" height="12" uuid="419c5f45-16e3-45ea-886f-3181d13dbd7d"/>
+				<reportElement x="266" y="24" width="289" height="11" uuid="419c5f45-16e3-45ea-886f-3181d13dbd7d"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cpfVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="266" y="38" width="289" height="12" uuid="64b47f3d-c1af-459b-8818-7fb1dfe92e9d"/>
+				<reportElement x="266" y="35" width="289" height="11" uuid="64b47f3d-c1af-459b-8818-7fb1dfe92e9d"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rgVisitante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="266" y="62" width="289" height="12" uuid="56a053e5-881b-431c-b560-2a9c72c1b4d5"/>
+				<reportElement x="266" y="57" width="289" height="11" uuid="56a053e5-881b-431c-b560-2a9c72c1b4d5"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeVisitado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="266" y="74" width="289" height="12" uuid="ab218062-6f93-4f56-bfe0-2e55e0f924e5"/>
+				<reportElement x="266" y="68" width="289" height="11" uuid="ab218062-6f93-4f56-bfe0-2e55e0f924e5"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{localVisitado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="266" y="50" width="289" height="12" uuid="3839d67f-4fb0-4c26-83e4-0082d6a557ee"/>
+				<reportElement x="266" y="46" width="289" height="11" uuid="3839d67f-4fb0-4c26-83e4-0082d6a557ee"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeEmpresa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="14" width="266" height="12" uuid="c0c6340c-7ac5-4f65-9df6-8bd656326483"/>
+				<reportElement x="0" y="13" width="266" height="11" uuid="c0c6340c-7ac5-4f65-9df6-8bd656326483"/>
 				<textElement textAlignment="Right">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[NOME:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="26" width="266" height="12" uuid="7b2de113-ac4a-44d2-b9b1-1baea8a739f6"/>
+				<reportElement x="0" y="24" width="266" height="11" uuid="7b2de113-ac4a-44d2-b9b1-1baea8a739f6"/>
 				<textElement textAlignment="Right">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[CPF:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="38" width="266" height="12" uuid="e0793ea2-d53c-45a5-a576-0349a2a631a4"/>
+				<reportElement x="0" y="35" width="266" height="11" uuid="e0793ea2-d53c-45a5-a576-0349a2a631a4"/>
 				<textElement textAlignment="Right">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[RG:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="50" width="266" height="12" uuid="1e460e56-4734-4e43-af09-cbe4f91d277a"/>
+				<reportElement x="0" y="46" width="266" height="11" uuid="1e460e56-4734-4e43-af09-cbe4f91d277a"/>
 				<textElement textAlignment="Right">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[EMPRESA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="62" width="266" height="12" uuid="11d8150b-7eaf-4947-8db7-15e9cd9edcca"/>
+				<reportElement x="0" y="57" width="266" height="11" uuid="11d8150b-7eaf-4947-8db7-15e9cd9edcca"/>
 				<textElement textAlignment="Right">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[FALAR C/:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="74" width="266" height="12" uuid="e1dba4ac-39bb-40fc-ba83-027e38a62e29"/>
+				<reportElement x="0" y="68" width="266" height="11" uuid="e1dba4ac-39bb-40fc-ba83-027e38a62e29"/>
 				<textElement textAlignment="Right">
-					<font size="9" isBold="true"/>
+					<font size="8" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[LOCAL:]]></text>
