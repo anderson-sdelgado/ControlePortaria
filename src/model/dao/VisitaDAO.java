@@ -280,4 +280,12 @@ public class VisitaDAO {
         visitaList.removeIf(visita -> visita.getIdVisita() == id);
     }
 
+    public Visita pesqVisita(Integer valor) {
+        Visita v = visitaList.stream()
+                .filter(visitado -> visitado.getIdVisita() == valor)
+                .findAny()
+                .orElse(null);
+        return v;
+    }
+
 }

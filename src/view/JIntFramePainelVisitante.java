@@ -242,6 +242,9 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
                 removeTabela(jTableVisita.convertRowIndexToModel(jTableVisita.getSelectedRow()));
             }
         }
+        else{
+            preencheCampo(visitaCTR.getPesqVisita((Integer) jTableVisita.getValueAt(jTableVisita.getSelectedRow(), jTableVisita.convertColumnIndexToView(0))));
+        }
 
     }//GEN-LAST:event_jTableVisitaMouseClicked
 

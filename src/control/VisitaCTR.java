@@ -115,5 +115,9 @@ public class VisitaCTR {
             return false;
         }
     }
+    
+    public Visita getPesqVisita(Integer valor) {
+        return visitaDAO.pesqVisita(valor);
+    }
 
 }
