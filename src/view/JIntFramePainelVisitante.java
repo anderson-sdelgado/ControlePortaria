@@ -87,7 +87,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("VISITANTE DENTRO DA EMPRESA");
-        setPreferredSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(700, 600));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabelPesquisa.setText("PESQUISA:");
@@ -115,11 +115,11 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CODIGO", "CPF", "RG", "NOME", "ENTRADA"
+                "CODIGO", "CPF", "RG", "NOME", "EMPRESA", "ENTRADA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -137,7 +137,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 9;
-        gridBagConstraints.ipadx = 500;
+        gridBagConstraints.ipadx = 600;
         gridBagConstraints.ipady = 200;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         getContentPane().add(jScrollPane1, gridBagConstraints);
@@ -269,7 +269,8 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
         jTableVisita.getColumnModel().getColumn(1).setPreferredWidth(120);
         jTableVisita.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTableVisita.getColumnModel().getColumn(3).setPreferredWidth(200);
-        jTableVisita.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTableVisita.getColumnModel().getColumn(4).setPreferredWidth(180);
+        jTableVisita.getColumnModel().getColumn(5).setPreferredWidth(80);
 
         modelTable.setNumRows(0);
 
@@ -279,6 +280,7 @@ public class JIntFramePainelVisitante extends javax.swing.JInternalFrame {
                 formatarCpf(v.getVisitante().getCpfVisitante()),
                 v.getVisitante().getRgVisitante(),
                 v.getVisitante().getNomeVisitante(),
+                v.getVisitante().getComplVisitante().getEmpresaVisitante().getNomeEmpresa(),
                 v.getDataHoraEntradaVisita()});
         });
 
