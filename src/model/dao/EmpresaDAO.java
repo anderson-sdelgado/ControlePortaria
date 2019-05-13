@@ -32,7 +32,7 @@ public class EmpresaDAO {
             Statement stmt = Conn.getInstance().getConnection().createStatement();
             ResultSet rSet = stmt.executeQuery("SELECT"
                     + " CODIGO_EMPRESA "
-                    + " , NOME_EMPRESA "
+                    + " , SUBSTR(NOME_EMPRESA, 0, 50) "
                     + " FROM "
                     + " CPD.PORTARIA_EMPRESA_VISIT "
                     + " ORDER BY "

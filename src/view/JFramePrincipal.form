@@ -37,7 +37,6 @@
         <Menu class="javax.swing.JMenu" name="jMenuMovimentacao">
           <Properties>
             <Property name="text" type="java.lang.String" value="MOVIMENTA&#xc7;&#xc3;O"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jSubMenuEntrada">

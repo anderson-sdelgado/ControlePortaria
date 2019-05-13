@@ -83,7 +83,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         menuBar.add(jMenuCadastro);
 
         jMenuMovimentacao.setText("MOVIMENTAÇÃO");
-        jMenuMovimentacao.setEnabled(false);
 
         jSubMenuEntrada.setText("ENTRADA DE VISITANTE");
         jSubMenuEntrada.addActionListener(new java.awt.event.ActionListener() {

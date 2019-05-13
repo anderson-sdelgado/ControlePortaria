@@ -30,7 +30,7 @@ public class CameraCTR {
         panel.setPreferredSize(webcam.getViewSize());
         panel.setOpaque(true);
         panel.setBackground(Color.BLACK);
-        panel.setBounds(0, 0, 320, 240);
+        panel.setBounds(0, 0, 480, 360);
 
     }
 
